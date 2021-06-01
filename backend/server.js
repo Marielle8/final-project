@@ -2,11 +2,11 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import crypto from 'crypto'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt-nodejs'
 import listEndpoints from 'express-list-endpoints'
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/authAPI"
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/travelGuide"
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 mongoose.Promise = Promise
 
 const Countries = mongoose.model('Countries', {
@@ -62,46 +62,46 @@ app.get('/', (req, res) => {
   res.send(listEndpoints(app))
 })
 
-app.get('/countries', authenticateUser )
-app.get('/countries', async (req,res) => {
+app.get('/countries', authenticateUser)
+app.get('/countries', async (req, res) => {
   const countries = await Countries.find()
-  res.json({ success: true, countries})
+  res.json({ success: true, countries })
 })
 
-app.post('/countries', authenticateUser )
+app.post('/countries', authenticateUser)
 app.post('/countries', async (req, res) => {
   const { touristSights, placesToStay, food } = req.body
   try {
-    const newTips = await new Countries({ touristSights, placesToStay, food }).save()
-    res.json({ success: true, newTips })    
+    const newTips = await new Countries({ touristSights: req.body.touristSights, placesToStay: req.body.placesToStay, food: req.body.food }).save()
+    res.json({ success: true, newTips })
   } catch (error) {
-    res.status(400).json({ success: false, message: "Invalid request", error})
+    res.status(400).json({ success: false, message: "Invalid request", error })
   }
 })
 
-app.post('/signup', async (req,res) => {
+app.post('/signup', async (req, res) => {
   const { username, password } = req.body
-  
+
   try {
     const salt = bcrypt.genSaltSync()
 
     const newUser = await new User({
-      username, 
+      username,
       password: bcrypt.hashSync(password, salt)
     }).save()
 
     res.json({
       success: true,
-      userID: newUser._id, 
+      userID: newUser._id,
       username: newUser.username,
       accessToken: newUser.accessToken
     })
-  } catch(error) {
+  } catch (error) {
     res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 })
 
-app.post('/signin', async (req,res) => {
+app.post('/signin', async (req, res) => {
   const { username, password } = req.body
 
   try {
@@ -110,7 +110,7 @@ app.post('/signin', async (req,res) => {
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
         success: true,
-        userID: user._id, 
+        userID: user._id,
         username: user.username,
         accessToken: user.accessToken
       })
@@ -118,7 +118,7 @@ app.post('/signin', async (req,res) => {
       res.status(404).json({ success: false, message: 'User not found' })
     }
   } catch (error) {
-    res.status(400).json({ success: false, message: 'Invalid request', error})
+    res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 })
 
