@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
+import WorldMap from './WorldMap'
+
 import { API_URL } from '../reusable/urls'
 
 import countries from '../reducers/countries'
@@ -66,6 +68,7 @@ const Main = () => {
       ))
       }
       <button onClick={onButtonClick}>Logout</button>
+      <WorldMap />
     </div >
   )
 }
