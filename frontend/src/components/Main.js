@@ -42,8 +42,8 @@ const Main = () => {
         } else {
           dispatch(countries.actions.setErrors('data'))
         }
-      })
-    // eslint-disable-next-line
+      })   
+      // eslint-disable-next-line 
   }, [accessToken])
 
   const onButtonClick = () => {
@@ -55,18 +55,19 @@ const Main = () => {
       localStorage.removeItem('user')
     })
   }
-
+console.log(countriesItems)
   return (
     <div className="main-container">
       <p>Collections of countries from api:</p>
-      {countriesItems.map(country => (
-        <div key={country._id}>
-          <p>{country.touristSights}</p>
-          <p>{country.placesToStay}</p>
-          <p>{country.food}</p>
+        <div>
+          <select>
+            <optgroup label='Countries'>
+              {countriesItems.map(country => (
+                <option key={country.Country} value={country.Country}>{country.Country}</option>
+              ))}
+            </optgroup> 
+          </select>         
         </div>
-      ))
-      }
       <button onClick={onButtonClick}>Logout</button>
       <WorldMap />
     </div >
