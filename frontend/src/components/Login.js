@@ -3,12 +3,14 @@ import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import user from '../reducers/user'
+import countries from '../reducers/countries'
 
 import { API_URL } from '../reusable/urls'
 
 const Login = () => {
   const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState('')  
+  const [visited, setVisited] = useState('')  
   const [mode, setMode] = useState(null)
 
   const accessToken = useSelector(store => store.user.accessToken)
@@ -53,7 +55,7 @@ const Login = () => {
       })
       .catch()
   }
-
+  
   return (
     <form
       className="form"
