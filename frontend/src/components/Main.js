@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
@@ -10,9 +10,11 @@ import countries from '../reducers/countries'
 import user from '../reducers/user'
 
 const Main = () => {
+  // const [countryList, setCountryList] = useState('')
+  // const [newCountry, setNewCountry] = useState('')
+
   const accessToken = useSelector(store => store.user.accessToken)
   const countriesItems = useSelector(store => store.countries.items)
-  console.log(countriesItems)
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -55,7 +57,9 @@ const Main = () => {
       localStorage.removeItem('user')
     })
   }
-console.log(countriesItems)
+
+  console.log(countriesItems)
+
   return (
     <div className="main-container">
       <p>Collections of countries from api:</p>
@@ -63,10 +67,10 @@ console.log(countriesItems)
           <select>
             <optgroup label='Countries'>
               {countriesItems.map(country => (
-                <option key={country.Country} value={country.Country}>{country.Country}</option>
+                <option key={country.Country} value={country.Country}>{country.Country} {country.AlphaCode}</option>
               ))}
             </optgroup> 
-          </select>         
+          </select>                 
         </div>
       <button onClick={onButtonClick}>Logout</button>
       <WorldMap />

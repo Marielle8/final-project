@@ -1,7 +1,13 @@
 import React from 'react'
 import { WorldMap } from 'react-svg-worldmap'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { countries } from '../reducers/countries'
 
 const Worldmap = () => {
+  const travelTips = useSelector(store => store.countries.items.AlphaCode)
+  
+  console.log('worldmap: ',{travelTips})
   
   const data =
     [ 
@@ -15,12 +21,20 @@ const Worldmap = () => {
       { country: "ng", value: 1 },  // nigeria
       { country: "bd", value: 1 },  // bangladesh
       { country: "ru", value: 1 },  // russia
-      { country: "mx", value: 1 }   // mexico
+      { country: "mx", value: 1 },   // mexico
+      { country: "kr", value: 1 }   // south korea
+
     ]
 
   return (
     <div>
-      <WorldMap color="blue" backgroundColor="transparent" title="test" value-prefix="visited" size="lg"  data={data}/>
+      <WorldMap 
+        color="blue"
+        backgroundColor="transparent"
+        title="test"
+        value-prefix="visited"
+        size="lg"
+        data={data}/>
     </div>
   )
 
