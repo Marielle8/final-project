@@ -13,14 +13,13 @@ const countries = createSlice({
       console.log(action)
     },
     setVisitedCountry: (store, action) => {
-      const existingCountry = store.visitedCountry.find((item) => item.id === action.payload.id)
+      const existingCountry = store.visitedCountry.find((item) => item === action.payload)
 
       if(!existingCountry){
         store.visitedCountry = [...store.visitedCountry, action.payload]         
       } else {
         console.log('Finns redan')
         console.log(existingCountry)
-
       }
   },
     setErrors: (store, action) => {
