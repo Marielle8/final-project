@@ -5,12 +5,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { countries } from '../reducers/countries'
 
 const Worldmap = () => {
-  const travelTips = useSelector(store => store.countries.items.AlphaCode)
+  const travelTips = useSelector(store => store.countries.items[1])
   
   console.log('worldmap: ',{travelTips})
   
   const data =
-    [ 
+
+    [     
       { country: "se", value: "visited"}, 
       { country: "cn", value: 1 },  // china
       { country: "in", value: 1 },  // india

@@ -9,12 +9,13 @@ import { API_URL } from '../reusable/urls'
 import countries from '../reducers/countries'
 import user from '../reducers/user'
 
-const Main = () => {
-  // const [countryList, setCountryList] = useState('')
-  // const [newCountry, setNewCountry] = useState('')
+const Main = () => {  
+  const [newCountry, setNewCountry] = useState("")
 
   const accessToken = useSelector(store => store.user.accessToken)
   const countriesItems = useSelector(store => store.countries.items)
+  // const selectedCountry = useSelector(store => store.countries.visitedCountry)
+  
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -39,7 +40,7 @@ const Main = () => {
         if (data.success) {
           batch(() => {
             dispatch(countries.actions.setCountries(data.countries))
-            dispatch(countries.actions.setErrors(null))
+            dispatch(countries.actions.setErrors(null))            
           })
         } else {
           dispatch(countries.actions.setErrors('data'))
@@ -51,29 +52,39 @@ const Main = () => {
   const onButtonClick = () => {
     batch(() => {
       dispatch(user.actions.setUsername(null))
-      dispatch(user.actions.setAccessToken(null))
-      dispatch(countries.actions.setCountries([]))
+      dispatch(user.actions.setAccessToken(null))      
 
       localStorage.removeItem('user')
     })
   }
 
-  console.log(countriesItems)
+  const onCountry = (event) => {
+    console.log({newCountry})   
+    event.preventDefault()
+      dispatch(countries.actions.setVisitedCountry(newCountry))    
+  }
+  
 
   return (
     <div className="main-container">
-      <p>Collections of countries from api:</p>
-        <div>
-          <select>
-            <optgroup label='Countries'>
-              {countriesItems.map(country => (
-                <option key={country.Country} value={country.Country}>{country.Country} {country.AlphaCode}</option>
-              ))}
-            </optgroup> 
-          </select>                 
-        </div>
-      <button onClick={onButtonClick}>Logout</button>
-      <WorldMap />
+      <form onSubmit={onCountry}>
+        <p>Collections of countries from api:</p>
+          <div>
+            <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
+              <optgroup label='Countries'>
+                {countriesItems.map(country => (
+                  <option                   
+                  key={country.Country}
+                  value={country.AlphaCode}                                  
+                  >{country.Country}</option>                
+                  ))}
+              </optgroup> 
+            </select> 
+          </div>
+          <button onClick={onCountry}>submit</button>
+      </form>                
+        <WorldMap />
+      <button onClick={onButtonClick}>Logout</button>      
     </div >
   )
 }

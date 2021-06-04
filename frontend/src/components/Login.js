@@ -9,8 +9,7 @@ import { API_URL } from '../reusable/urls'
 
 const Login = () => {
   const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')  
-  const [visited, setVisited] = useState('')  
+  const [password, setPassword] = useState('')     
   const [mode, setMode] = useState(null)
 
   const accessToken = useSelector(store => store.user.accessToken)

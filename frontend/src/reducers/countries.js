@@ -4,7 +4,7 @@ const countries = createSlice({
   name: 'countries',
   initialState: {
     items: [],
-    visitCountry: null,
+    visitedCountry: [],
     errors: null
   },
   reducers: {
@@ -12,9 +12,17 @@ const countries = createSlice({
       store.items = action.payload
       console.log(action)
     },
-    setVisitCountry: (store, action) => {
-      store.visitCountry = action.payload      
-    },
+    setVisitedCountry: (store, action) => {
+      const existingCountry = store.visitedCountry.find((item) => item.id === action.payload.id)
+
+      if(!existingCountry){
+        store.visitedCountry = [...store.visitedCountry, action.payload]         
+      } else {
+        console.log('Finns redan')
+        console.log(existingCountry)
+
+      }
+  },
     setErrors: (store, action) => {
       store.errors = action.payload
     }
