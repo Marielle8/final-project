@@ -14,7 +14,6 @@ const Main = () => {
 
   const accessToken = useSelector(store => store.user.accessToken)
   const countriesItems = useSelector(store => store.countries.items)
-  // const selectedCountry = useSelector(store => store.countries.visitedCountry)
   
 
   const dispatch = useDispatch()

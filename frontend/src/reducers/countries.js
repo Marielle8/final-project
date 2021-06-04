@@ -9,8 +9,7 @@ const countries = createSlice({
   },
   reducers: {
     setCountries: (store, action) => {
-      store.items = action.payload
-      console.log(action)
+      store.items = action.payload      
     },
     setVisitedCountry: (store, action) => {
       const existingCountry = store.visitedCountry.find((item) => item === action.payload)
