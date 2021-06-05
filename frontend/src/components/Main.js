@@ -14,8 +14,8 @@ const Main = () => {
 
   const accessToken = useSelector(store => store.user.accessToken)
   const countriesItems = useSelector(store => store.countries.items)
-  // const selectedCountry = useSelector(store => store.countries.visitedCountry)
-  
+  const storedCountries = useSelector(store => store.countries.visitedCountry) 
+  const errorMsgMain = useSelector(store => store.countries.errors)
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -61,8 +61,15 @@ const Main = () => {
   const onCountry = (event) => {
     console.log({newCountry})   
     event.preventDefault()
-      dispatch(countries.actions.setVisitedCountry(newCountry))    
+    const existingCountry = storedCountries.find((item) => item === newCountry)
+    if(!existingCountry){
+      dispatch(countries.actions.setVisitedCountry(newCountry)) 
+      dispatch(countries.actions.setErrors(null))   
+  } else {    
+    dispatch(countries.actions.setErrors({message:'Country already exist'}))
+    console.log(errorMsgMain)
   }
+}
   
 
   return (
@@ -81,6 +88,7 @@ const Main = () => {
               </optgroup> 
             </select> 
           </div>
+          {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
           <button onClick={onCountry}>submit</button>
       </form>                
         <WorldMap />
