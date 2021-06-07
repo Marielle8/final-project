@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 const Worldmap = () => {
 
-  const selectedCountry = useSelector(store => store.countries.visitedCountry)
+  const selectedCountry = useSelector(store => store.user.visitedCountry)
 
   const data = [
     { country: 'se', value: "visited" },
@@ -26,16 +26,11 @@ const Worldmap = () => {
       <WorldMap
         color="blue"
         backgroundColor="transparent"
-        tooltipBgColor= "#000"
+        tooltipBgColor="#000"
         title="Visited Countries"
         value-prefix="visited"
-<<<<<<< HEAD
         size="lg"
         data={data} />
-=======
-        size="lg"        
-        data={data}/>
->>>>>>> visitedList-j
     </div>
   )
 

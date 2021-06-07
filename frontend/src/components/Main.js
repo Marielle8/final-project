@@ -6,20 +6,15 @@ import WorldMap from './WorldMap'
 
 import { API_URL } from '../reusable/urls'
 
-import countries from '../reducers/countries'
 import user from '../reducers/user'
 
 const Main = () => {
   const [newCountry, setNewCountry] = useState("")
 
   const accessToken = useSelector(store => store.user.accessToken)
-  const countriesItems = useSelector(store => store.countries.items)
-<<<<<<< HEAD
-
-=======
-  const storedCountries = useSelector(store => store.countries.visitedCountry) 
-  const errorMsgMain = useSelector(store => store.countries.errors)
->>>>>>> visitedList-j
+  const countriesItems = useSelector(store => store.user.items)
+  const storedCountries = useSelector(store => store.user.visitedCountry)
+  const errorMsgMain = useSelector(store => store.user.errors)
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -43,17 +38,12 @@ const Main = () => {
       .then(data => {
         if (data.success) {
           batch(() => {
-            dispatch(countries.actions.setCountries(data.countries))
-            // dispatch(countries.actions.setVisitedCountry(data.countries))
-            dispatch(countries.actions.setErrors(null))
-
-            localStorage.setItem('countries', JSON.stringify({
-
-              visitedCountry: data.visitedCountry
-            }))
+            dispatch(user.actions.setCountries(data.countries))
+            dispatch(user.actions.setErrors(null))
+            console.log(data)
           })
         } else {
-          dispatch(countries.actions.setErrors('data'))
+          dispatch(user.actions.setErrors('data'))
         }
       })
     // eslint-disable-next-line 
@@ -72,15 +62,15 @@ const Main = () => {
     console.log({ newCountry })
     event.preventDefault()
     const existingCountry = storedCountries.find((item) => item === newCountry)
-    if(!existingCountry){
-      dispatch(countries.actions.setVisitedCountry(newCountry)) 
-      dispatch(countries.actions.setErrors(null))   
-  } else {    
-    dispatch(countries.actions.setErrors({message:'Country already exist'}))
-    console.log(errorMsgMain)
+    if (!existingCountry) {
+      dispatch(user.actions.setVisitedCountry(newCountry))
+      dispatch(user.actions.setErrors(null))
+    } else {
+      dispatch(user.actions.setErrors({ message: 'Country already exist' }))
+      console.log(errorMsgMain)
+    }
   }
-}
-  
+
 
   return (
     <div className="main-container">
@@ -89,21 +79,21 @@ const Main = () => {
         <div>
           <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
             <optgroup label='Countries'>
-
               {countriesItems && countriesItems.map(country => (
                 <option
                   key={country.Country}
-                  value={country.AlphaCode}                                  
-                  >{country.Country}</option>                
-                  ))}
-              </optgroup> 
-            </select> 
-          </div>
-          {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
-          <button onClick={onCountry}>submit</button>
-      </form>                
-        <WorldMap />
-      <button onClick={onButtonClick}>Logout</button>      
+                  value={country.AlphaCode}
+                >{country.Country}</option>
+              ))}
+              {console.log(countriesItems)}
+            </optgroup>
+          </select>
+        </div>
+        {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
+        <button onClick={onCountry}>submit</button>
+      </form>
+      <WorldMap />
+      <button onClick={onButtonClick}>Logout</button>
     </div >
   )
 }
