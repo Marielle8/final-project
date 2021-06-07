@@ -14,7 +14,12 @@ const Main = () => {
 
   const accessToken = useSelector(store => store.user.accessToken)
   const countriesItems = useSelector(store => store.countries.items)
+<<<<<<< HEAD
 
+=======
+  const storedCountries = useSelector(store => store.countries.visitedCountry) 
+  const errorMsgMain = useSelector(store => store.countries.errors)
+>>>>>>> visitedList-j
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -66,9 +71,16 @@ const Main = () => {
   const onCountry = (event) => {
     console.log({ newCountry })
     event.preventDefault()
-    dispatch(countries.actions.setVisitedCountry(newCountry))
+    const existingCountry = storedCountries.find((item) => item === newCountry)
+    if(!existingCountry){
+      dispatch(countries.actions.setVisitedCountry(newCountry)) 
+      dispatch(countries.actions.setErrors(null))   
+  } else {    
+    dispatch(countries.actions.setErrors({message:'Country already exist'}))
+    console.log(errorMsgMain)
   }
-
+}
+  
 
   return (
     <div className="main-container">
@@ -81,17 +93,17 @@ const Main = () => {
               {countriesItems && countriesItems.map(country => (
                 <option
                   key={country.Country}
-                  value={country.AlphaCode}
-                >{country.Country}</option>
-              ))}
-            </optgroup>
-          </select>
-        </div>
-
-        <button onClick={onCountry}>submit</button>
-      </form>
-      <WorldMap />
-      <button onClick={onButtonClick}>Logout</button>
+                  value={country.AlphaCode}                                  
+                  >{country.Country}</option>                
+                  ))}
+              </optgroup> 
+            </select> 
+          </div>
+          {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
+          <button onClick={onCountry}>submit</button>
+      </form>                
+        <WorldMap />
+      <button onClick={onButtonClick}>Logout</button>      
     </div >
   )
 }

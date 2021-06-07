@@ -26,10 +26,16 @@ const Worldmap = () => {
       <WorldMap
         color="blue"
         backgroundColor="transparent"
-        title="test"
+        tooltipBgColor= "#000"
+        title="Visited Countries"
         value-prefix="visited"
+<<<<<<< HEAD
         size="lg"
         data={data} />
+=======
+        size="lg"        
+        data={data}/>
+>>>>>>> visitedList-j
     </div>
   )
 

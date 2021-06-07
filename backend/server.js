@@ -103,22 +103,31 @@ app.get('/countries', async (req, res) => {
 
 app.post('/countries', authenticateUser)
 app.patch('/countries', async (req, res) => {
-  const { id, touristSights, food } = req.body
+  const { id, touristSights, placesToStay, food } = req.body
   try {
-    const updatedTips = await Countries.findByIdAndUpdate(id, {
+    const newTips = await Countries.findByIdAndUpdate(id, {
       $set: {
-        touristSights: touristSights,
+        touristSights: touristSights,         
         food: food
       }
-    }, { new: true })
-    res.json(updatedTips)
+    }, {new: true})
+    res.json({ success: true, newTips })
   } catch (error) {
     res.status(400).json({ success: false, message: "Invalid request", error })
   }
 })
 
 
-
+// app.post('/countries', authenticateUser)
+// app.post('/countries', async (req, res) => {
+//   const { touristSights, placesToStay, food } = req.body
+//   try {
+//     const newTips = await new Countries({ touristSights: req.body.touristSights, placesToStay: req.body.placesToStay, food: req.body.food }).save()
+//     res.json({ success: true, newTips })
+//   } catch (error) {
+//     res.status(400).json({ success: false, message: "Invalid request", error })
+//   }
+// })
 
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body
