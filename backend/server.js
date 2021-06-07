@@ -9,24 +9,13 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/travelGuide"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
 mongoose.Promise = Promise
 
-// const Countries = mongoose.model('Countries', {
-//   touristSights: {
-//     type: String
-//   },
-//   placesToStay: {
-//     type: String
-//   },
-//   food: {
-//     type: String
-//   }
-// })
-const Countries = mongoose.model('Countries', {
+const Country = mongoose.model('Country', {
   touristSights: {
     type: String
   },
-  // placesToStay: [{
-  //   type: String
-  // }],
+  placesToStay: {
+    type: String
+  },
   food: {
     type: String
   }
@@ -49,7 +38,7 @@ const User = mongoose.model('User', {
   visitedCountries: [{
     country: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Countries"
+      ref: "Country"
     },
     comments: String
   }]
@@ -82,52 +71,26 @@ app.get('/', (req, res) => {
 
 app.get('/countries', authenticateUser)
 app.get('/countries', async (req, res) => {
-  const countries = await Countries.find()
+  const countries = await Country.find()
   res.json({ success: true, countries })
 })
-
-// app.post('/countries', authenticateUser)
-// app.post('/countries', async (req, res) => {
-//   const { touristSights, placesToStay, food } = req.body
-//   try {
-//     const newTips = await new Countries({ 
-//  touristSights: [req.body.touristSights], 
-//  placesToStay: [req.body.placesToStay], 
-//  food: [req.body.food] 
-//   }).save()
-//     res.json({ success: true, newTips })
-//   } catch (error) {
-//     res.status(400).json({ success: false, message: "Invalid request", error })
-//   }
-// })
 
 app.post('/countries', authenticateUser)
 app.patch('/countries', async (req, res) => {
   const { id, touristSights, placesToStay, food } = req.body
   try {
-    const newTips = await Countries.findByIdAndUpdate(id, {
+    const newTips = await Country.findByIdAndUpdate(id, {
       $set: {
-        touristSights: touristSights,         
+        touristSights: touristSights,
+        placesToStay: placesToStay,
         food: food
       }
-    }, {new: true})
+    }, { new: true })
     res.json({ success: true, newTips })
   } catch (error) {
     res.status(400).json({ success: false, message: "Invalid request", error })
   }
 })
-
-
-// app.post('/countries', authenticateUser)
-// app.post('/countries', async (req, res) => {
-//   const { touristSights, placesToStay, food } = req.body
-//   try {
-//     const newTips = await new Countries({ touristSights: req.body.touristSights, placesToStay: req.body.placesToStay, food: req.body.food }).save()
-//     res.json({ success: true, newTips })
-//   } catch (error) {
-//     res.status(400).json({ success: false, message: "Invalid request", error })
-//   }
-// })
 
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body
