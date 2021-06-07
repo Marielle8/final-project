@@ -6,16 +6,27 @@ import bcrypt from 'bcrypt-nodejs'
 import listEndpoints from 'express-list-endpoints'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/travelGuide"
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
 mongoose.Promise = Promise
 
+// const Countries = mongoose.model('Countries', {
+//   touristSights: {
+//     type: String
+//   },
+//   placesToStay: {
+//     type: String
+//   },
+//   food: {
+//     type: String
+//   }
+// })
 const Countries = mongoose.model('Countries', {
   touristSights: {
     type: String
   },
-  placesToStay: {
-    type: String
-  },
+  // placesToStay: [{
+  //   type: String
+  // }],
   food: {
     type: String
   }
@@ -34,7 +45,14 @@ const User = mongoose.model('User', {
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')
-  }
+  },
+  visitedCountries: [{
+    country: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Countries"
+    },
+    comments: String
+  }]
 })
 
 const authenticateUser = async (req, res, next) => {
@@ -68,16 +86,39 @@ app.get('/countries', async (req, res) => {
   res.json({ success: true, countries })
 })
 
+// app.post('/countries', authenticateUser)
+// app.post('/countries', async (req, res) => {
+//   const { touristSights, placesToStay, food } = req.body
+//   try {
+//     const newTips = await new Countries({ 
+//  touristSights: [req.body.touristSights], 
+//  placesToStay: [req.body.placesToStay], 
+//  food: [req.body.food] 
+//   }).save()
+//     res.json({ success: true, newTips })
+//   } catch (error) {
+//     res.status(400).json({ success: false, message: "Invalid request", error })
+//   }
+// })
+
 app.post('/countries', authenticateUser)
-app.post('/countries', async (req, res) => {
-  const { touristSights, placesToStay, food } = req.body
+app.patch('/countries', async (req, res) => {
+  const { id, touristSights, food } = req.body
   try {
-    const newTips = await new Countries({ touristSights: req.body.touristSights, placesToStay: req.body.placesToStay, food: req.body.food }).save()
-    res.json({ success: true, newTips })
+    const updatedTips = await Countries.findByIdAndUpdate(id, {
+      $set: {
+        touristSights: touristSights,
+        food: food
+      }
+    }, { new: true })
+    res.json(updatedTips)
   } catch (error) {
     res.status(400).json({ success: false, message: "Invalid request", error })
   }
 })
+
+
+
 
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body
