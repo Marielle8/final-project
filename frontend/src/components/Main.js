@@ -10,6 +10,7 @@ import user from '../reducers/user'
 
 const Main = () => {
   const [newCountry, setNewCountry] = useState("")
+  // const [newComment, setNewComment] =useState("")
 
   const accessToken = useSelector(store => store.user.accessToken)
   const countriesItems = useSelector(store => store.user.items)
@@ -39,8 +40,7 @@ const Main = () => {
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setCountries(data.countries))
-            dispatch(user.actions.setErrors(null))
-            console.log(data)
+            dispatch(user.actions.setErrors(null))            
           })
         } else {
           dispatch(user.actions.setErrors('data'))
@@ -58,16 +58,15 @@ const Main = () => {
     })
   }
 
-  const onCountry = (event) => {
-    console.log({ newCountry })
+  const onCountry = (event) => {    
     event.preventDefault()
     const existingCountry = storedCountries.find((item) => item === newCountry)
     if (!existingCountry) {
       dispatch(user.actions.setVisitedCountry(newCountry))
       dispatch(user.actions.setErrors(null))
+      // dispatch(user.actions.setVisitedCountry(newComment))
     } else {
-      dispatch(user.actions.setErrors({ message: 'Country already exist' }))
-      console.log(errorMsgMain)
+      dispatch(user.actions.setErrors({ message: 'Country already exist' }))      
     }
   }
 
@@ -81,13 +80,19 @@ const Main = () => {
             <optgroup label='Countries'>
               {countriesItems && countriesItems.map(country => (
                 <option
-                  key={country.Country}
-                  value={country.AlphaCode}
-                >{country.Country}</option>
-              ))}
-              {console.log(countriesItems)}
+                  key={country.country}
+                  value={country.alphaCode}
+                >{country.country}</option>
+              ))}              
             </optgroup>
-          </select>
+          </select>          
+            {/* <input
+              type="text"
+              value={newComment}
+              onChange={(event) => setNewComment(event.target.value)}
+              className= "username-input"
+              placeholder="food"
+            />           */}
         </div>
         {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
         <button onClick={onCountry}>submit</button>

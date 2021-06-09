@@ -50,6 +50,7 @@ const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ accessToken })
     if (user) {
+      req.user = user
       next()
     } else {
       res.status(401).json({ message: 'Not authenticated' })
@@ -78,6 +79,7 @@ app.get('/countries', async (req, res) => {
 app.post('/countries', authenticateUser)
 app.patch('/countries', async (req, res) => {
   const { id, touristSights, placesToStay, food } = req.body
+  
   try {
     const newTips = await Country.findByIdAndUpdate(id, {
       $set: {
@@ -118,7 +120,7 @@ app.post('/signin', async (req, res) => {
   const { username, password } = req.body
 
   try {
-    const user = await User.findOne({ username })
+    const user = await User.findOne({ username }).populate('country')
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
