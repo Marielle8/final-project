@@ -10,7 +10,7 @@ import user from '../reducers/user'
 
 const Main = () => {
   const [newCountry, setNewCountry] = useState("")
-  // const [newComment, setNewComment] =useState("")
+  const [newComment, setNewComment] =useState("")
 
   const accessToken = useSelector(store => store.user.accessToken)
   const countriesItems = useSelector(store => store.user.items)
@@ -25,8 +25,14 @@ const Main = () => {
       history.push('/login')
     }
   }, [accessToken, history])
-
+  
   useEffect(() => {
+    fetchCountries()
+    // eslint-disable-next-line 
+  }, [accessToken])
+  
+    
+    const fetchCountries = () => {
     const options = {
       method: 'GET',
       headers: {
@@ -44,10 +50,10 @@ const Main = () => {
           })
         } else {
           dispatch(user.actions.setErrors('data'))
-        }
-      })
-    // eslint-disable-next-line 
-  }, [accessToken])
+        }    
+})}
+
+  
 
   const onButtonClick = () => {
     batch(() => {
@@ -60,19 +66,38 @@ const Main = () => {
 
   const onCountry = (event) => {    
     event.preventDefault()
-    const existingCountry = storedCountries.find((item) => item === newCountry)
-    if (!existingCountry) {
-      dispatch(user.actions.setVisitedCountry(newCountry))
-      dispatch(user.actions.setErrors(null))
-      // dispatch(user.actions.setVisitedCountry(newComment))
-    } else {
-      dispatch(user.actions.setErrors({ message: 'Country already exist' }))      
+
+    const options = {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "accessToken"
+      },
+      body: JSON.stringify({ visitedCountry: newComment})
     }
+    fetch(API_URL('countries'), options)
+      .then(res=> res.json())
+      .then(data => {
+        console.log(data)
+        if (data.success) {
+          const existingCountry = storedCountries.find((item) => item === newCountry)
+          if (!existingCountry) {
+            dispatch(user.actions.setVisitedCountry(newCountry))
+            dispatch(user.actions.setErrors(null))
+            dispatch(user.actions.setVisitedCountry(newComment)) 
+            fetchCountries()            
+          } else {
+            dispatch(user.actions.setErrors({ message: 'Country already exist' }))      
+          }
+
+        } else {console.log("error")}
+      })
+
   }
 
 
   return (
-    <div className="main-container">
+    <div className="main-container">      
       <form onSubmit={onCountry}>
         <p>Collections of countries from api:</p>
         <div>
@@ -82,17 +107,17 @@ const Main = () => {
                 <option
                   key={country.country}
                   value={country.alphaCode}
-                >{country.country}</option>
-              ))}              
+                  >{country.country}</option>
+                  ))}              
             </optgroup>
           </select>          
-            {/* <input
+            <input
               type="text"
               value={newComment}
               onChange={(event) => setNewComment(event.target.value)}
               className= "username-input"
               placeholder="food"
-            />           */}
+            />          
         </div>
         {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
         <button onClick={onCountry}>submit</button>

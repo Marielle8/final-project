@@ -35,7 +35,7 @@ const user = createSlice({
     setVisitedCountry: (store, action) => {
       const existingCountry = store.visitedCountry.find((item) => item === action.payload)
       if (!existingCountry) {
-        store.visitedCountry = [...store.visitedCountry, action.payload]
+        store.visitedCountry = [...store.visitedCountry, action.payload]        
       }     
     },
   }

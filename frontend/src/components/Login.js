@@ -62,15 +62,13 @@ const Login = () => {
         <input
           type="text"
           value={username}
-          onChange={(event) => setUsername(event.target.value)}
-          className="username-input"
+          onChange={(event) => setUsername(event.target.value)}          
           placeholder="Username"
         />
         <input
           type="password"
           value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          className="password-input"
+          onChange={(event) => setPassword(event.target.value)}          
           placeholder="Password"
         />
       </div>

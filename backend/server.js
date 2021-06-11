@@ -49,9 +49,8 @@ const authenticateUser = async (req, res, next) => {
 
   try {
     const user = await User.findOne({ accessToken })
-    if (user) {
-      req.user = user
-      next()
+    if (user) {          
+      next()      
     } else {
       res.status(401).json({ message: 'Not authenticated' })
     }
@@ -76,12 +75,37 @@ app.get('/countries', async (req, res) => {
   res.json({ success: true, countries })
 })
 
-app.post('/countries', authenticateUser)
-app.patch('/countries', async (req, res) => {
-  const { id, touristSights, placesToStay, food } = req.body
-  
+//add visit country to visitedCountry
+
+app.patch('/countries/visitedcountry/:countryid', authenticateUser)
+app.patch('/countries/visitedcountry/:countryid', async (req, res) => {
+  const { visitedCountries } = req.body 
+  const { countryid } = req.params  
   try {
-    const newTips = await Country.findByIdAndUpdate(id, {
+  const user = await User.findById(_id)
+  const isVisited = await User.findByIdAndUpdate(countryid, {
+    $set: {
+      visitedCountries: visitedCountries
+    }
+  }, { new: true })
+    res.json({ success: true, isVisited })
+} catch (error) {
+  res.status(400).json({ success: false, message: "Invalid request", error })
+}
+})
+
+
+app.patch('/countries/:countryid', authenticateUser)
+app.patch('/countries/:countryid', async (req, res) => {
+  const { touristSights,placesToStay, food } = req.body  
+  const { countryid } = req.params
+  try {
+    const user = await User.findById(_id)
+    const countryIsVisited = user.visitedCountries.some((country) => {
+      return country.equals(countryid)
+  })
+  if (countryIsVisited) {
+    const newTips = await Country.findByIdAndUpdate(countryid, {
       $set: {
         touristSights: touristSights,
         placesToStay: placesToStay,
@@ -89,10 +113,14 @@ app.patch('/countries', async (req, res) => {
       }
     }, { new: true })
     res.json({ success: true, newTips })
+  } else {
+    res.status(403).json({ success: false, message: "Country is not visited" })
+  }
   } catch (error) {
     res.status(400).json({ success: false, message: "Invalid request", error })
   }
 })
+
 
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body
@@ -120,7 +148,7 @@ app.post('/signin', async (req, res) => {
   const { username, password } = req.body
 
   try {
-    const user = await User.findOne({ username }).populate('country')
+    const user = await User.findOne({ username })
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.json({
