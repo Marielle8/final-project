@@ -1,0 +1,1002 @@
+[
+  {
+    "alphaCode": "AF",
+    "country": "Afghanistan"
+  },
+  {
+    "alphaCode": "AL",
+    "country": "Albania"
+  },
+  {
+    "alphaCode": "DZ",
+    "country": "Algeria"
+  },
+  {
+    "alphaCode": "AS",
+    "country": "AmericanSamoa"
+  },
+  {
+    "alphaCode": "AD",
+    "country": "Andorra"
+  },
+  {
+    "alphaCode": "AO",
+    "country": "Angola"
+  },
+  {
+    "alphaCode": "AI",
+    "country": "Anguilla"
+  },
+  {
+    "alphaCode": "AQ",
+    "country": "Antarctica"
+  },
+  {
+    "alphaCode": "AG",
+    "country": "AntiguaandBarbuda"
+  },
+  {
+    "alphaCode": "AR",
+    "country": "Argentina"
+  },
+  {
+    "alphaCode": "AM",
+    "country": "Armenia"
+  },
+  {
+    "alphaCode": "AW",
+    "country": "Aruba"
+  },
+  {
+    "alphaCode": "AU",
+    "country": "Australia"
+  },
+  {
+    "alphaCode": "AT",
+    "country": "Austria"
+  },
+  {
+    "alphaCode": "AZ",
+    "country": "Azerbaijan"
+  },
+  {
+    "alphaCode": "BS",
+    "country": "Bahamas"
+  },
+  {
+    "alphaCode": "BH",
+    "country": "Bahrain"
+  },
+  {
+    "alphaCode": "BD",
+    "country": "Bangladesh"
+  },
+  {
+    "alphaCode": "BB",
+    "country": "Barbados"
+  },
+  {
+    "alphaCode": "BY",
+    "country": "Belarus"
+  },
+  {
+    "alphaCode": "BE",
+    "country": "Belgium"
+  },
+  {
+    "alphaCode": "BZ",
+    "country": "Belize"
+  },
+  {
+    "alphaCode": "BJ",
+    "country": "Benin"
+  },
+  {
+    "alphaCode": "BM",
+    "country": "Bermuda"
+  },
+  {
+    "alphaCode": "BT",
+    "country": "Bhutan"
+  },
+  {
+    "alphaCode": "BO",
+    "country": "Bolivia"
+  },
+  {
+    "alphaCode": "BA",
+    "country": "BosniaandHerzegovina"
+  },
+  {
+    "alphaCode": "BW",
+    "country": "Botswana"
+  },
+  {
+    "alphaCode": "BV",
+    "country": "BouvetIsland"
+  },
+  {
+    "alphaCode": "BR",
+    "country": "Brazil"
+  },
+  {
+    "alphaCode": "IO",
+    "country": "BritishIndianOceanTerritory"
+  },
+  {
+    "alphaCode": "BN",
+    "country": "BruneiDarussalam"
+  },
+  {
+    "alphaCode": "BN",
+    "country": "Brunei"
+  },
+  {
+    "alphaCode": "BG",
+    "country": "Bulgaria"
+  },
+  {
+    "alphaCode": "BF",
+    "country": "BurkinaFaso"
+  },
+  {
+    "alphaCode": "BI",
+    "country": "Burundi"
+  },
+  {
+    "alphaCode": "KH",
+    "country": "Cambodia"
+  },
+  {
+    "alphaCode": "CM",
+    "country": "Cameroon"
+  },
+  {
+    "alphaCode": "CA",
+    "country": "Canada"
+  },
+  {
+    "alphaCode": "CV",
+    "country": "CapeVerde"
+  },
+  {
+    "alphaCode": "KY",
+    "country": "CaymanIslands"
+  },
+  {
+    "alphaCode": "CF",
+    "country": "CentralAfricanRepublic"
+  },
+  {
+    "alphaCode": "TD",
+    "country": "Chad"
+  },
+  {
+    "alphaCode": "CL",
+    "country": "Chile"
+  },
+  {
+    "alphaCode": "CN",
+    "country": "China"
+  },
+  {
+    "alphaCode": "CX",
+    "country": "ChristmasIsland"
+  },
+  {
+    "alphaCode": "CC",
+    "country": "Cocos(Keeling)Islands"
+  },
+  {
+    "alphaCode": "CO",
+    "country": "Colombia"
+  },
+  {
+    "alphaCode": "KM",
+    "country": "Comoros"
+  },
+  {
+    "alphaCode": "CG",
+    "country": "Congo"
+  },
+  {
+    "alphaCode": "CK",
+    "country": "CookIslands"
+  },
+  {
+    "alphaCode": "CR",
+    "country": "CostaRica"
+  },
+  {
+    "alphaCode": "CI",
+    "country": "Côted'Ivoire"
+  },
+  {
+    "alphaCode": "CI",
+    "country": "IvoryCoast"
+  },
+  {
+    "alphaCode": "HR",
+    "country": "Croatia"
+  },
+  {
+    "alphaCode": "CU",
+    "country": "Cuba"
+  },
+  {
+    "alphaCode": "CY",
+    "country": "Cyprus"
+  },
+  {
+    "alphaCode": "CZ",
+    "country": "CzechRepublic"
+  },
+  {
+    "alphaCode": "DK",
+    "country": "Denmark"
+  },
+  {
+    "alphaCode": "DJ",
+    "country": "Djibouti"
+  },
+  {
+    "alphaCode": "DM",
+    "country": "Dominica"
+  },
+  {
+    "alphaCode": "DO",
+    "country": "DominicanRepublic"
+  },
+  {
+    "alphaCode": "EC",
+    "country": "Ecuador"
+  },
+  {
+    "alphaCode": "EG",
+    "country": "Egypt"
+  },
+  {
+    "alphaCode": "SV",
+    "country": "ElSalvador"
+  },
+  {
+    "alphaCode": "GQ",
+    "country": "EquatorialGuinea"
+  },
+  {
+    "alphaCode": "ER",
+    "country": "Eritrea"
+  },
+  {
+    "alphaCode": "EE",
+    "country": "Estonia"
+  },
+  {
+    "alphaCode": "ET",
+    "country": "Ethiopia"
+  },
+  {
+    "alphaCode": "FK",
+    "country": "FalklandIslands(Malvinas)"
+  },
+  {
+    "alphaCode": "FO",
+    "country": "FaroeIslands"
+  },
+  {
+    "alphaCode": "FJ",
+    "country": "Fiji"
+  },
+  {
+    "alphaCode": "FI",
+    "country": "Finland"
+  },
+  {
+    "alphaCode": "FR",
+    "country": "France"
+  },
+  {
+    "alphaCode": "GF",
+    "country": "FrenchGuiana"
+  },
+  {
+    "alphaCode": "PF",
+    "country": "FrenchPolynesia"
+  },
+  {
+    "alphaCode": "TF",
+    "country": "FrenchSouthernTerritories"
+  },
+  {
+    "alphaCode": "GA",
+    "country": "Gabon"
+  },
+  {
+    "alphaCode": "GM",
+    "country": "Gambia"
+  },
+  {
+    "alphaCode": "GE",
+    "country": "Georgia"
+  },
+  {
+    "alphaCode": "DE",
+    "country": "Germany"
+  },
+  {
+    "alphaCode": "GH",
+    "country": "Ghana"
+  },
+  {
+    "alphaCode": "GI",
+    "country": "Gibraltar"
+  },
+  {
+    "alphaCode": "GR",
+    "country": "Greece"
+  },
+  {
+    "alphaCode": "GL",
+    "country": "Greenland"
+  },
+  {
+    "alphaCode": "GD",
+    "country": "Grenada"
+  },
+  {
+    "alphaCode": "GP",
+    "country": "Guadeloupe"
+  },
+  {
+    "alphaCode": "GU",
+    "country": "Guam"
+  },
+  {
+    "alphaCode": "GT",
+    "country": "Guatemala"
+  },
+  {
+    "alphaCode": "GG",
+    "country": "Guernsey"
+  },
+  {
+    "alphaCode": "GN",
+    "country": "Guinea"
+  },
+  {
+    "alphaCode": "GW",
+    "country": "Guinea-Bissau"
+  },
+  {
+    "alphaCode": "GY",
+    "country": "Guyana"
+  },
+  {
+    "alphaCode": "HT",
+    "country": "Haiti"
+  },
+  {
+    "alphaCode": "HM",
+    "country": "HeardIslandandMcDonaldIslands"
+  },
+  {
+    "alphaCode": "VA",
+    "country": "HolySee(VaticanCityState)"
+  },
+  {
+    "alphaCode": "HN",
+    "country": "Honduras"
+  },
+  {
+    "alphaCode": "HK",
+    "country": "HongKong"
+  },
+  {
+    "alphaCode": "HU",
+    "country": "Hungary"
+  },
+  {
+    "alphaCode": "IS",
+    "country": "Iceland"
+  },
+  {
+    "alphaCode": "IN",
+    "country": "India"
+  },
+  {
+    "alphaCode": "ID",
+    "country": "Indonesia"
+  },
+  {
+    "alphaCode": "IR",
+    "country": "Iran"
+  },
+  {
+    "alphaCode": "IQ",
+    "country": "Iraq"
+  },
+  {
+    "alphaCode": "IE",
+    "country": "Ireland"
+  },
+  {
+    "alphaCode": "IM",
+    "country": "IsleofMan"
+  },
+  {
+    "alphaCode": "IL",
+    "country": "Israel"
+  },
+  {
+    "alphaCode": "IT",
+    "country": "Italy"
+  },
+  {
+    "alphaCode": "JM",
+    "country": "Jamaica"
+  },
+  {
+    "alphaCode": "JP",
+    "country": "Japan"
+  },
+  {
+    "alphaCode": "JE",
+    "country": "Jersey"
+  },
+  {
+    "alphaCode": "JO",
+    "country": "Jordan"
+  },
+  {
+    "alphaCode": "KZ",
+    "country": "Kazakhstan"
+  },
+  {
+    "alphaCode": "KE",
+    "country": "Kenya"
+  },
+  {
+    "alphaCode": "KI",
+    "country": "Kiribati"
+  },
+  {
+    "alphaCode": "KP",
+    "country": "Korea"
+  },
+  {
+    "alphaCode": "KR",
+    "country": "SouthKorea"
+  },
+  {
+    "alphaCode": "KW",
+    "country": "Kuwait"
+  },
+  {
+    "alphaCode": "KG",
+    "country": "Kyrgyzstan"
+  },
+  {
+    "alphaCode": "LA",
+    "country": "LaoPeople'sDemocraticRepublic"
+  },
+  {
+    "alphaCode": "LV",
+    "country": "Latvia"
+  },
+  {
+    "alphaCode": "LB",
+    "country": "Lebanon"
+  },
+  {
+    "alphaCode": "LS",
+    "country": "Lesotho"
+  },
+  {
+    "alphaCode": "LR",
+    "country": "Liberia"
+  },
+  {
+    "alphaCode": "LY",
+    "country": "LibyanArabJamahiriya"
+  },
+  {
+    "alphaCode": "LY",
+    "country": "Libya"
+  },
+  {
+    "alphaCode": "LI",
+    "country": "Liechtenstein"
+  },
+  {
+    "alphaCode": "LT",
+    "country": "Lithuania"
+  },
+  {
+    "alphaCode": "LU",
+    "country": "Luxembourg"
+  },
+  {
+    "alphaCode": "MO",
+    "country": "Macao"
+  },
+  {
+    "alphaCode": "MK",
+    "country": "Macedonia"
+  },
+  {
+    "alphaCode": "MG",
+    "country": "Madagascar"
+  },
+  {
+    "alphaCode": "MW",
+    "country": "Malawi"
+  },
+  {
+    "alphaCode": "MY",
+    "country": "Malaysia"
+  },
+  {
+    "alphaCode": "MV",
+    "country": "Maldives"
+  },
+  {
+    "alphaCode": "ML",
+    "country": "Mali"
+  },
+  {
+    "alphaCode": "MT",
+    "country": "Malta"
+  },
+  {
+    "alphaCode": "MH",
+    "country": "MarshallIslands"
+  },
+  {
+    "alphaCode": "MQ",
+    "country": "Martinique"
+  },
+  {
+    "alphaCode": "MR",
+    "country": "Mauritania"
+  },
+  {
+    "alphaCode": "MU",
+    "country": "Mauritius"
+  },
+  {
+    "alphaCode": "YT",
+    "country": "Mayotte"
+  },
+  {
+    "alphaCode": "MX",
+    "country": "Mexico"
+  },
+  {
+    "alphaCode": "FM",
+    "country": "Micronesia"
+  },
+  {
+    "alphaCode": "MD",
+    "country": "Moldova"
+  },
+  {
+    "alphaCode": "MC",
+    "country": "Monaco"
+  },
+  {
+    "alphaCode": "MN",
+    "country": "Mongolia"
+  },
+  {
+    "alphaCode": "ME",
+    "country": "Montenegro"
+  },
+  {
+    "alphaCode": "MS",
+    "country": "Montserrat"
+  },
+  {
+    "alphaCode": "MA",
+    "country": "Morocco"
+  },
+  {
+    "alphaCode": "MZ",
+    "country": "Mozambique"
+  },
+  {
+    "alphaCode": "MM",
+    "country": "Myanmar"
+  },
+  {
+    "alphaCode": "MM",
+    "country": "Burma"
+  },
+  {
+    "alphaCode": "NA",
+    "country": "Namibia"
+  },
+  {
+    "alphaCode": "NR",
+    "country": "Nauru"
+  },
+  {
+    "alphaCode": "NP",
+    "country": "Nepal"
+  },
+  {
+    "alphaCode": "NL",
+    "country": "Netherlands"
+  },
+  {
+    "alphaCode": "AN",
+    "country": "NetherlandsAntilles"
+  },
+  {
+    "alphaCode": "NC",
+    "country": "NewCaledonia"
+  },
+  {
+    "alphaCode": "NZ",
+    "country": "NewZealand"
+  },
+  {
+    "alphaCode": "NI",
+    "country": "Nicaragua"
+  },
+  {
+    "alphaCode": "NE",
+    "country": "Niger"
+  },
+  {
+    "alphaCode": "NG",
+    "country": "Nigeria"
+  },
+  {
+    "alphaCode": "NU",
+    "country": "Niue"
+  },
+  {
+    "alphaCode": "NF",
+    "country": "NorfolkIsland"
+  },
+  {
+    "alphaCode": "MP",
+    "country": "NorthernMarianaIslands"
+  },
+  {
+    "alphaCode": "NO",
+    "country": "Norway"
+  },
+  {
+    "alphaCode": "OM",
+    "country": "Oman"
+  },
+  {
+    "alphaCode": "PK",
+    "country": "Pakistan"
+  },
+  {
+    "alphaCode": "PW",
+    "country": "Palau"
+  },
+  {
+    "alphaCode": "PS",
+    "country": "PalestinianTerritory"
+  },
+  {
+    "alphaCode": "PA",
+    "country": "Panama"
+  },
+  {
+    "alphaCode": "PG",
+    "country": "PapuaNewGuinea"
+  },
+  {
+    "alphaCode": "PY",
+    "country": "Paraguay"
+  },
+  {
+    "alphaCode": "PE",
+    "country": "Peru"
+  },
+  {
+    "alphaCode": "PH",
+    "country": "Philippines"
+  },
+  {
+    "alphaCode": "PN",
+    "country": "Pitcairn"
+  },
+  {
+    "alphaCode": "PL",
+    "country": "Poland"
+  },
+  {
+    "alphaCode": "PT",
+    "country": "Portugal"
+  },
+  {
+    "alphaCode": "PR",
+    "country": "PuertoRico"
+  },
+  {
+    "alphaCode": "QA",
+    "country": "Qatar"
+  },
+  {
+    "alphaCode": "RE",
+    "country": "Réunion"
+  },
+  {
+    "alphaCode": "RO",
+    "country": "Romania"
+  },
+  {
+    "alphaCode": "RU",
+    "country": "RussianFederation"
+  },
+  {
+    "alphaCode": "RU",
+    "country": "Russia"
+  },
+  {
+    "alphaCode": "RW",
+    "country": "Rwanda"
+  },
+  {
+    "alphaCode": "SH",
+    "country": "SaintHelena"
+  },
+  {
+    "alphaCode": "KN",
+    "country": "SaintKittsandNevis"
+  },
+  {
+    "alphaCode": "LC",
+    "country": "SaintLucia"
+  },
+  {
+    "alphaCode": "PM",
+    "country": "SaintPierreandMiquelon"
+  },
+  {
+    "alphaCode": "VC",
+    "country": "SaintVincentandtheGrenadines"
+  },
+  {
+    "alphaCode": "VC",
+    "country": "SaintVincent&theGrenadines"
+  },
+  {
+    "alphaCode": "VC",
+    "country": "St.VincentandtheGrenadines"
+  },
+  {
+    "alphaCode": "WS",
+    "country": "Samoa"
+  },
+  {
+    "alphaCode": "SM",
+    "country": "SanMarino"
+  },
+  {
+    "alphaCode": "ST",
+    "country": "SaoTomeandPrincipe"
+  },
+  {
+    "alphaCode": "SA",
+    "country": "SaudiArabia"
+  },
+  {
+    "alphaCode": "SN",
+    "country": "Senegal"
+  },
+  {
+    "alphaCode": "RS",
+    "country": "Serbia"
+  },
+  {
+    "alphaCode": "SC",
+    "country": "Seychelles"
+  },
+  {
+    "alphaCode": "SL",
+    "country": "SierraLeone"
+  },
+  {
+    "alphaCode": "SG",
+    "country": "Singapore"
+  },
+  {
+    "alphaCode": "SK",
+    "country": "Slovakia"
+  },
+  {
+    "alphaCode": "SI",
+    "country": "Slovenia"
+  },
+  {
+    "alphaCode": "SB",
+    "country": "SolomonIslands"
+  },
+  {
+    "alphaCode": "SO",
+    "country": "Somalia"
+  },
+  {
+    "alphaCode": "ZA",
+    "country": "SouthAfrica"
+  },
+  {
+    "alphaCode": "GS",
+    "country": "SouthGeorgiaandtheSouthSandwichIslands"
+  },
+  {
+    "alphaCode": "SS",
+    "country": "SouthSudan"
+  },
+  {
+    "alphaCode": "ES",
+    "country": "Spain"
+  },
+  {
+    "alphaCode": "LK",
+    "country": "SriLanka"
+  },
+  {
+    "alphaCode": "SD",
+    "country": "Sudan"
+  },
+  {
+    "alphaCode": "SR",
+    "country": "Suriname"
+  },
+  {
+    "alphaCode": "SJ",
+    "country": "SvalbardandJanMayen"
+  },
+  {
+    "alphaCode": "SZ",
+    "country": "Swaziland"
+  },
+  {
+    "alphaCode": "SE",
+    "country": "Sweden"
+  },
+  {
+    "alphaCode": "CH",
+    "country": "Switzerland"
+  },
+  {
+    "alphaCode": "SY",
+    "country": "SyrianArabRepublic"
+  },
+  {
+    "alphaCode": "TW",
+    "country": "Taiwan"
+  },
+  {
+    "alphaCode": "TJ",
+    "country": "Tajikistan"
+  },
+  {
+    "alphaCode": "TZ",
+    "country": "Tanzania"
+  },
+  {
+    "alphaCode": "TH",
+    "country": "Thailand"
+  },
+  {
+    "alphaCode": "TL",
+    "country": "Timor-Leste"
+  },
+  {
+    "alphaCode": "TG",
+    "country": "Togo"
+  },
+  {
+    "alphaCode": "TK",
+    "country": "Tokelau"
+  },
+  {
+    "alphaCode": "TO",
+    "country": "Tonga"
+  },
+  {
+    "alphaCode": "TT",
+    "country": "TrinidadandTobago"
+  },
+  {
+    "alphaCode": "TN",
+    "country": "Tunisia"
+  },
+  {
+    "alphaCode": "TR",
+    "country": "Turkey"
+  },
+  {
+    "alphaCode": "TM",
+    "country": "Turkmenistan"
+  },
+  {
+    "alphaCode": "TC",
+    "country": "TurksandCaicosIslands"
+  },
+  {
+    "alphaCode": "TV",
+    "country": "Tuvalu"
+  },
+  {
+    "alphaCode": "UG",
+    "country": "Uganda"
+  },
+  {
+    "alphaCode": "UA",
+    "country": "Ukraine"
+  },
+  {
+    "alphaCode": "AE",
+    "country": "UnitedArabEmirates"
+  },
+  {
+    "alphaCode": "GB",
+    "country": "UnitedKingdom"
+  },
+  {
+    "alphaCode": "US",
+    "country": "UnitedStates"
+  },
+  {
+    "alphaCode": "UM",
+    "country": "UnitedStatesMinorOutlyingIslands"
+  },
+  {
+    "alphaCode": "UY",
+    "country": "Uruguay"
+  },
+  {
+    "alphaCode": "UZ",
+    "country": "Uzbekistan"
+  },
+  {
+    "alphaCode": "VU",
+    "country": "Vanuatu"
+  },
+  {
+    "alphaCode": "VE",
+    "country": "Venezuela"
+  },
+  {
+    "alphaCode": "VN",
+    "country": "VietNam"
+  },
+  {
+    "alphaCode": "VN",
+    "country": "Vietnam"
+  },
+  {
+    "alphaCode": "VI",
+    "country": "VirginIslands"
+  },
+  {
+    "alphaCode": "WF",
+    "country": "WallisandFutuna"
+  },
+  {
+    "alphaCode": "EH",
+    "country": "WesternSahara"
+  },
+  {
+    "alphaCode": "YE",
+    "country": "Yemen"
+  },
+  {
+    "alphaCode": "ZM",
+    "country": "Zambia"
+  },
+  {
+    "alphaCode": "ZW",
+    "country": "Zimbabwe"
+  }
+]

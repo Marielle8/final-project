@@ -5,21 +5,16 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 import listEndpoints from 'express-list-endpoints'
 
+import countryDB from './data/countryDB.json'
+
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/travelGuide"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
 mongoose.Promise = Promise
 
 const Country = mongoose.model('Country', {
-  touristSights: {
-    type: String
-  },
-  placesToStay: {
-    type: String
-  },
-  food: {
-    type: String
-  }
-})
+  country: String,  
+  alphaCode: String
+  })
 
 const User = mongoose.model('User', {
   username: {
@@ -43,6 +38,18 @@ const User = mongoose.model('User', {
     comments: String
   }]
 })
+
+if (process.env.RESET_DB) {
+  const seedDatabase = async () => {
+    await Country.deleteMany();
+
+    await countryDB.forEach((item) => {
+      const newCountry = new Country(item);
+      newCountry.save();
+    });
+  }
+  seedDatabase();
+}
 
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
@@ -79,20 +86,21 @@ app.get('/countries', async (req, res) => {
 
 app.patch('/countries', authenticateUser)
 app.patch('/countries', async (req, res) => {
-  const { visitedCountries } = req.body 
-  const { countryid } = req.params  
+  const { username, visitedCountry } = req.body
   try {
-  // const user = await User.findById(_id)
-  const isVisited = await Country.findByIdAndUpdate(countryid, {
-    $set: {
-      visitedCountries: visitedCountries
-    }
-  }, { new: true })
-    res.json({ success: true, isVisited })
-} catch (error) {
-  res.status(400).json({ success: false, message: "Invalid request", error })
-}
+    const countryByAlphaCode = await Country.find({ alphaCode: visitedCountry })
+    const updatedUser = await User.findOneAndUpdate({ username: username }, {
+      $push: {
+        visitedCountries: { country: countryByAlphaCode._id, comments: "No comments yet" }
+      },
+      
+    }, { new: true })
+    res.json({ success: true, updatedUser })
+  } catch (error) {
+    res.status(400).json({ success: false, message: "Invalid request", error })
+  }  
 })
+
 
 
 app.patch('/countries/:countryid', authenticateUser)
