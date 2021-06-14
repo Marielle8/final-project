@@ -37,7 +37,23 @@ const user = createSlice({
       if (!existingCountry) {
         store.visitedCountry = [...store.visitedCountry, action.payload]        
       }     
+    }, setCountryVisited: (store, action) => {
+      const toggleVisit = store.items.map(isVisited => {
+        if (isVisited.id === action.payload) {
+        return { 
+          ...isVisited,
+          food: !isVisited.isVisited
+        }
+      } else {
+
+        return isVisited
+      }
+      })
+      store.items = action.payload
     },
+    setTravelTips: (store, action) => {
+      store.visitedCountry = [...store.visitedCountry, action.payload]
+    }
   }
 })
 

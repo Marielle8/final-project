@@ -10,6 +10,7 @@ import user from '../reducers/user'
 
 const Main = () => {
   const [newCountry, setNewCountry] = useState("")
+  const [newCountryTips, setNewCountryTips] = useState("")
   const [newComment, setNewComment] =useState("")
 
   const accessToken = useSelector(store => store.user.accessToken)
@@ -43,7 +44,7 @@ const Main = () => {
     fetch(API_URL('countries'), options)
       .then(res => res.json())
       .then(data => {
-        if (data.success) {
+        if (data.success) {          
           batch(() => {
             dispatch(user.actions.setCountries(data.countries))
             dispatch(user.actions.setErrors(null))            
@@ -69,36 +70,56 @@ const Main = () => {
 
     const options = {
       method: 'PATCH',
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "accessToken"
+      headers: {        
+        Authorization: accessToken
       },
-      body: JSON.stringify({ visitedCountry: newComment})
+      body: JSON.stringify({ visitedCountry: newCountry})
     }
     fetch(API_URL('countries'), options)
       .then(res=> res.json())
-      .then(data => {
-        console.log(data)
+      .then(data => {        
         if (data.success) {
           const existingCountry = storedCountries.find((item) => item === newCountry)
-          if (!existingCountry) {
+          if (!existingCountry) {            
             dispatch(user.actions.setVisitedCountry(newCountry))
             dispatch(user.actions.setErrors(null))
-            dispatch(user.actions.setVisitedCountry(newComment)) 
+            // dispatch(user.actions.setVisitedCountry(newComment)) 
             fetchCountries()            
           } else {
             dispatch(user.actions.setErrors({ message: 'Country already exist' }))      
           }
-
         } else {console.log("error")}
       })
-
   }
+
+  const onTravelTips = (event) => {    
+    event.preventDefault()
+
+    const options = {
+      method: 'PATCH',
+      headers: {        
+        Authorization: accessToken
+      },
+      body: JSON.stringify({ comments: newComment})
+    }
+    fetch(API_URL('countries'), options)
+      .then(res=> res.json())
+      .then(data => {        
+        if (data.success) {     
+            dispatch(user.actions.setTravelTips(newComment))
+            dispatch(user.actions.setErrors(null))            
+            fetchCountries()            
+          } else {
+            dispatch(user.actions.setErrors({ message: 'Failed to add travel tips' }))      
+          }
+        })
+      }
+  
 
 
   return (
     <div className="main-container">      
-      <form onSubmit={onCountry}>
+      <form >
         <p>Collections of countries from api:</p>
         <div>
           <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
@@ -111,17 +132,31 @@ const Main = () => {
                   ))}              
             </optgroup>
           </select>          
+        </div>
+        {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
+        <button onClick={onCountry}>submit</button>
+      </form>
+      <form >
+      <select value={newCountryTips} onChange={(event) => setNewCountryTips(event.target.value)}>
+            <optgroup label='Countries'>
+              {storedCountries && storedCountries.map(country => (
+                <option
+                  key={country.country}
+                  value={country.alphaCode}
+                  >{country.country}</option>
+                  ))}   
+                  {console.log(storedCountries)}           
+            </optgroup>
+          </select>
             <input
               type="text"
               value={newComment}
               onChange={(event) => setNewComment(event.target.value)}
               className= "username-input"
               placeholder="food"
-            />          
-        </div>
-        {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
-        <button onClick={onCountry}>submit</button>
-      </form>
+            />  
+        <button onClick={onTravelTips}>Add tips</button>
+        </form>
       <WorldMap />
       <button onClick={onButtonClick}>Logout</button>
     </div >

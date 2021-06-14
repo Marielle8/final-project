@@ -49,7 +49,7 @@ const authenticateUser = async (req, res, next) => {
 
   try {
     const user = await User.findOne({ accessToken })
-    if (user) {          
+    if (user) { 
       next()      
     } else {
       res.status(401).json({ message: 'Not authenticated' })
@@ -77,13 +77,13 @@ app.get('/countries', async (req, res) => {
 
 //add visit country to visitedCountry
 
-app.patch('/countries/visitedcountry/:countryid', authenticateUser)
-app.patch('/countries/visitedcountry/:countryid', async (req, res) => {
+app.patch('/countries', authenticateUser)
+app.patch('/countries', async (req, res) => {
   const { visitedCountries } = req.body 
   const { countryid } = req.params  
   try {
-  const user = await User.findById(_id)
-  const isVisited = await User.findByIdAndUpdate(countryid, {
+  // const user = await User.findById(_id)
+  const isVisited = await Country.findByIdAndUpdate(countryid, {
     $set: {
       visitedCountries: visitedCountries
     }
@@ -97,7 +97,7 @@ app.patch('/countries/visitedcountry/:countryid', async (req, res) => {
 
 app.patch('/countries/:countryid', authenticateUser)
 app.patch('/countries/:countryid', async (req, res) => {
-  const { touristSights,placesToStay, food } = req.body  
+  const { touristSights, placesToStay, food } = req.body  
   const { countryid } = req.params
   try {
     const user = await User.findById(_id)
@@ -117,7 +117,7 @@ app.patch('/countries/:countryid', async (req, res) => {
     res.status(403).json({ success: false, message: "Country is not visited" })
   }
   } catch (error) {
-    res.status(400).json({ success: false, message: "Invalid request", error })
+    res.status(400).json({ success: false, message: "Invalid request not ", error })
   }
 })
 
