@@ -32,15 +32,15 @@ const User = mongoose.model('User', {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')
   },
-  visitedCountries: [{
+  visitedCountries: {
     country: {      
-      type: Object,
-      ref: "Country"
+      type: Object,     
+      ref: "Country"      
     },
     // I guess comments will work as the three inputs we wanted, food, touristsight and places to stay and when we get comments to work we can do the same
     // for all but with correct name
     comments: String     
-  }]
+  }
 })
 
 if (process.env.RESET_DB) {
@@ -93,9 +93,7 @@ app.get('/users', async (req, res) => {
   res.json({ success: true, users })
 })
 
-//add visit country to visitedCountry
-// This gives a id to user>visitedCountries> the objects, but I dont think its the correct ID from Countries model? 
-// we also need the alphaCode to push it to data array in worldmap.js
+// add the full object of countryByAlphaCode
 app.patch('/countries', authenticateUser)
 app.patch('/countries', async (req, res) => {
   const { username, visitedCountry } = req.body

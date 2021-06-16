@@ -49,8 +49,7 @@ const Main = () => {
         if (data.success) {                    
           batch(() => {
             dispatch(user.actions.setCountries(data.countries))
-            dispatch(user.actions.setErrors(null)) 
-            console.log("a",data.countries)           
+            dispatch(user.actions.setErrors(null))                      
           })
         } else {
           dispatch(user.actions.setErrors('data'))
@@ -70,7 +69,8 @@ const fetchVisitedList = () => {
     .then(data => {
       if (data.success) {                    
         batch(() => {
-          console.log(data.users.visitedCountries)           
+          console.log(data.users.visitedCountries) 
+          setVisitedList(data.users.visitedCountries)          
         })
       } else {
         dispatch(user.actions.setErrors('data'))
@@ -176,11 +176,12 @@ const fetchVisitedList = () => {
         <button onClick={onTravelTips}>Add tips</button>
         </form>
       <WorldMap />
-      <div>     
+      <div> 
       {visitedList && visitedList.map(visitedCountry => (
-        <p key={visitedCountry.country._id}>{visitedCountry.comments}</p>        
+        <p key={visitedCountry._id}>{visitedCountry.comments}</p>        
         ))}                  
       </div>
+        {console.log(visitedList)}    
       <button onClick={onButtonClick}>Logout</button>
     </div >
   )
