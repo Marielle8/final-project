@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import lottie from 'lottie-web'
 
 import user from '../reducers/user'
 
@@ -16,11 +17,19 @@ const Login = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
+  const lottieContainer = useRef(null)
 
   useEffect(() => {
     if (accessToken) {
       history.push('/')
     }
+    // lottie.loadAnimation({
+    //   container: lottieContainer.current,
+    //   renderer: 'svg',
+    //   loop: false,
+    //   autoplay: true,
+    //   animationData: require('../animation/passport.json')
+    // })
   }, [accessToken, history])
 
   const onFormSubmit = (event) => {
@@ -74,7 +83,6 @@ const Login = () => {
       </div>
       {errorMsg ? <p>{errorMsg.message}</p> : null}
       <button
-
         type="submit"
         onClick={() => setMode('signin')}
       >

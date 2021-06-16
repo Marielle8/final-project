@@ -34,12 +34,12 @@ const User = mongoose.model('User', {
   },
   visitedCountries: [{
     country: {      
-      type: mongoose.Schema.Types.ObjectId,
+      type: Object,
       ref: "Country"
     },
     // I guess comments will work as the three inputs we wanted, food, touristsight and places to stay and when we get comments to work we can do the same
     // for all but with correct name
-    comments: String
+    comments: String     
   }]
 })
 
@@ -60,6 +60,7 @@ const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ accessToken })
     if (user) { 
+      req.user = user   
       next()      
     } else {
       res.status(401).json({ message: 'Not authenticated' })
@@ -85,17 +86,24 @@ app.get('/countries', async (req, res) => {
   res.json({ success: true, countries })
 })
 
+app.get('/users', authenticateUser)
+app.get('/users', async (req, res) => {
+  
+  const users = await User.find()
+  res.json({ success: true, users })
+})
+
 //add visit country to visitedCountry
 // This gives a id to user>visitedCountries> the objects, but I dont think its the correct ID from Countries model? 
 // we also need the alphaCode to push it to data array in worldmap.js
 app.patch('/countries', authenticateUser)
 app.patch('/countries', async (req, res) => {
   const { username, visitedCountry } = req.body
-  try {
+  try {        
     const countryByAlphaCode = await Country.find({ alphaCode: visitedCountry })
-    const updatedUser = await User.findOneAndUpdate({ username: username }, {
+    const updatedUser = await User.findOneAndUpdate({ username: username }, {      
       $push: {
-        visitedCountries: { country: countryByAlphaCode._id, comments: "No comments yet" }
+        visitedCountries: { country: countryByAlphaCode, comments: "No comments yet"}
       },      
     }, { new: true })
     res.json({ success: true, updatedUser })
