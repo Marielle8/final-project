@@ -87,9 +87,9 @@ app.get('/countries', async (req, res) => {
 })
 
 app.get('/users', authenticateUser)
-app.get('/users', async (req, res) => {
-  
-  const users = await User.find()
+app.get('/users', async (req, res) => { 
+  const {id} = req.user 
+  const users = await User.findById(id)
   res.json({ success: true, users })
 })
 

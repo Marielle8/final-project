@@ -49,12 +49,14 @@ const Main = () => {
         if (data.success) {                    
           batch(() => {
             dispatch(user.actions.setCountries(data.countries))
-            dispatch(user.actions.setErrors(null))            
+            dispatch(user.actions.setErrors(null)) 
+            console.log("a",data.countries)           
           })
         } else {
           dispatch(user.actions.setErrors('data'))
         }    
 })}
+
 // hämta lista av besökta länder
 const fetchVisitedList = () => {
   const options = {
@@ -68,13 +70,13 @@ const fetchVisitedList = () => {
     .then(data => {
       if (data.success) {                    
         batch(() => {
-          // setVisitedList(data.users[0].visitedCountries) 
+          console.log(data.users.visitedCountries)           
         })
       } else {
         dispatch(user.actions.setErrors('data'))
       }    
     })}   
-    console.log({visitedList})
+    
   const onButtonClick = () => {
     batch(() => {
       dispatch(user.actions.setUsername(null))
@@ -127,8 +129,7 @@ const fetchVisitedList = () => {
       .then(data => {        
         if (data.success) {     
             dispatch(user.actions.setTravelTips(newComment))
-            dispatch(user.actions.setErrors(null))            
-            fetchCountries()            
+            dispatch(user.actions.setErrors(null))
           } else {
             dispatch(user.actions.setErrors({ message: 'Failed to add travel tips' }))      
           }
@@ -153,7 +154,7 @@ const fetchVisitedList = () => {
         </div>
         {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
         <button onClick={onCountry}>submit</button>
-      </form>
+      </form>      
       <form >
       <select value={newCountryTips} onChange={(event) => setNewCountryTips(event.target.value)}>
             <optgroup label='Countries'>
