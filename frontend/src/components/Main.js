@@ -80,8 +80,6 @@ const Main = () => {
       }
     })
   }
-
-
   const onButtonClick = () => {
     batch(() => {
       dispatch(user.actions.setUsername(null))

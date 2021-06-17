@@ -5,21 +5,18 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 import listEndpoints from 'express-list-endpoints'
 
+import countryDB from './data/countryDB.json'
+
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/travelGuide"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
 mongoose.Promise = Promise
 
+// This is our new model, that just got country name and alphaCode(which we need to highligt countries on the map)
+
 const Country = mongoose.model('Country', {
-  touristSights: {
-    type: String
-  },
-  placesToStay: {
-    type: String
-  },
-  food: {
-    type: String
-  }
-})
+  country: String,  
+  alphaCode: String
+  })
 
 const User = mongoose.model('User', {
   username: {
@@ -44,14 +41,25 @@ const User = mongoose.model('User', {
   }]
 })
 
+if (process.env.RESET_DB) {
+  const seedDatabase = async () => {
+    await Country.deleteMany();
+
+    await countryDB.forEach((item) => {
+      const newCountry = new Country(item);
+      newCountry.save();
+    });
+  }
+  seedDatabase();
+}
+
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
-
   try {
     const user = await User.findOne({ accessToken })
-    if (user) {
-      req.user = user
-      next()
+    if (user) { 
+      req.user = user   
+      next()      
     } else {
       res.status(401).json({ message: 'Not authenticated' })
     }
@@ -100,18 +108,19 @@ app.patch('/countries', async (req, res) => {
         visitedCountries: { country: countryByAlphaCode, comments: "no comment yet"}
       },      
     }, { new: true })
-    res.json({ success: true, isVisited })
+    res.json({ success: true, updatedUser })
   } catch (error) {
     res.status(400).json({ success: false, message: "Invalid request", error })
-  }
+  }  
 })
 
+// This is what maks helped us with but not sure if it works, because im not sure if I can add the country correct to the visitedCountries array. 
+// And we also dont want to store the touristsight etc in Country but in User. 
 
 app.patch('/countries/:countryid', authenticateUser)
 app.patch('/countries/:countryid', async (req, res) => {
   const {comments } = req.body  
   const { countryid } = req.params
-
   try {
     const user = await User.findById(_id)
     const countryIsVisited = user.visitedCountries.some((country) => {
@@ -128,7 +137,7 @@ app.patch('/countries/:countryid', async (req, res) => {
     res.status(403).json({ success: false, message: "Country is not visited" })
   }
   } catch (error) {
-    res.status(400).json({ success: false, message: "Invalid request", error })
+    res.status(400).json({ success: false, message: "Invalid request not ", error })
   }
 })
 
