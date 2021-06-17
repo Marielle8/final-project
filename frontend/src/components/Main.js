@@ -51,12 +51,14 @@ const Main = () => {
           batch(() => {
             dispatch(user.actions.setCountries(data.countries))
             dispatch(user.actions.setErrors(null))
+            fetchVisitedList()
           })
         } else {
           dispatch(user.actions.setErrors('data'))
         }
       })
   }
+
   // hämta lista av besökta länder
   const fetchVisitedList = () => {
     const options = {
@@ -77,7 +79,20 @@ const Main = () => {
         }
       })
   }
-  console.log({ visitedList })
+  fetch(API_URL('users'), options)
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        batch(() => {
+          setVisitedList(data.users.visitedCountries)
+          console.log(data.users.visitedCountries)
+        })
+      } else {
+        dispatch(user.actions.setErrors('data'))
+      }
+    })
+
+
   const onButtonClick = () => {
     batch(() => {
       dispatch(user.actions.setUsername(null))
@@ -132,12 +147,12 @@ const Main = () => {
         if (data.success) {
           dispatch(user.actions.setTravelTips(newComment))
           dispatch(user.actions.setErrors(null))
-          fetchCountries()
         } else {
           dispatch(user.actions.setErrors({ message: 'Failed to add travel tips' }))
         }
       })
   }
+
   return (
 
     <div className="main-container">
@@ -184,9 +199,50 @@ const Main = () => {
         {visitedList && visitedList.map(visitedCountry => (
           <p key={visitedCountry.country._id}>{visitedCountry.comments}</p>
         ))}
+
       </div>
+
+      <form >
+        {/*List with visited countries value their _id */}
+
+        <select value={newCountryTips} onChange={(event) => setNewCountryTips(event.target.value)}>
+          <optgroup label='Countries'>
+            {visitedList && visitedList.map(country => (
+              <option
+                key={country._id}
+                value={country._id}
+              >
+                {country.country[0].country}
+              </option>
+            ))}
+          </optgroup>
+        </select>
+        <input
+          type="text"
+          value={newComment}
+          onChange={(event) => setNewComment(event.target.value)}
+          className="username-input"
+          placeholder="food"
+        />
+        <button onClick={onTravelTips}>Add tips</button>
+      </form>
+      <div>
+        {visitedList && visitedList.map(visitedCountry => (
+          <div>
+            {visitedCountry.country.map(item => (
+              <div key={item._id}>
+                <p>{item.country}</p>
+                <p>{item.alphaCode}</p>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <WorldMap visitedList={visitedList} />
+      {console.log(visitedList)}
       <button onClick={onButtonClick}>Logout</button>
     </div >
+
   )
 }
 

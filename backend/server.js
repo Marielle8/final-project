@@ -35,12 +35,12 @@ const User = mongoose.model('User', {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')
   },
-  visitedCountries: [{
-    country: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Country"
-    },
-    comments: String
+  visitedCountries:[ {
+    country: {      
+      type: Object,     
+      ref: "Country"      
+    },    
+    comments: String     
   }]
 })
 
@@ -77,24 +77,28 @@ app.get('/countries', async (req, res) => {
 })
 
 app.get('/users', authenticateUser)
-app.get('/users', async (req, res) => {
-
-  const users = await User.find()
-  res.json({ success: true, users })
+app.get('/users', async (req, res) => { 
+  const {id} = req.user 
+  const users = await User.findById(id)
+  const countrieslist = await User.aggregate(
+    [
+      {$unwind: "$country"},           
+      {$group:{ _id: "$country" } }
+    ]
+  )
+  res.json({ success: true, users, countrieslist })
 })
 
-//add visit country to visitedCountry
-// This gives a id to user>visitedCountries> the objects, but I dont think its the correct ID from Countries model? 
-// we also need the alphaCode to push it to data array in worldmap.js
+// add the full object of countryByAlphaCode
 app.patch('/countries', authenticateUser)
 app.patch('/countries', async (req, res) => {
   const { username, visitedCountry } = req.body
-  try {
-    const countryByAlphaCode = await Country.find({ alphaCode: visitedCountry })
-    const updatedUser = await User.findOneAndUpdate({ username: username }, {
-      $push: {
-        visitedCountries: { country: countryByAlphaCode, comments: "No comments yet" }
-      },
+  try {        
+    const countryByAlphaCode = await Country.find({ alphaCode: visitedCountry })      
+    const updatedUser = await User.findOneAndUpdate({ username: username }, {      
+      $push: {        
+        visitedCountries: { country: countryByAlphaCode, comments: "no comment yet"}
+      },      
     }, { new: true })
     res.json({ success: true, isVisited })
   } catch (error) {
@@ -105,26 +109,24 @@ app.patch('/countries', async (req, res) => {
 
 app.patch('/countries/:countryid', authenticateUser)
 app.patch('/countries/:countryid', async (req, res) => {
-  const { touristSights, placesToStay, food } = req.body
+  const {comments } = req.body  
   const { countryid } = req.params
 
   try {
     const user = await User.findById(_id)
     const countryIsVisited = user.visitedCountries.some((country) => {
       return country.equals(countryid)
-    })
-    if (countryIsVisited) {
-      const newTips = await Country.findByIdAndUpdate(countryid, {
-        $set: {
-          touristSights: touristSights,
-          placesToStay: placesToStay,
-          food: food
-        }
-      }, { new: true })
-      res.json({ success: true, newTips })
-    } else {
-      res.status(403).json({ success: false, message: "Country is not visited" })
-    }
+  })
+  if (countryIsVisited) {
+    const newTips = await Country.findByIdAndUpdate(countryid, {
+      $set: {
+        comments: comments
+      }
+    }, { new: true })
+    res.json({ success: true, newTips })
+  } else {
+    res.status(403).json({ success: false, message: "Country is not visited" })
+  }
   } catch (error) {
     res.status(400).json({ success: false, message: "Invalid request", error })
   }
