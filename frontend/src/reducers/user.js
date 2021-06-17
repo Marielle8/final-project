@@ -6,14 +6,14 @@ const initialState = localStorage.getItem('user')
     accessToken: JSON.parse(localStorage.getItem('user')).accessToken,
     errors: null,
     visitedCountry: [],
-    items: []
+    items: []    
   }
   : {
     username: null,
     accessToken: null,
     errors: null,
     visitedCountry: [],
-    items: []
+    items: []    
   }
 
 const user = createSlice({
@@ -40,7 +40,7 @@ const user = createSlice({
     }, 
     setTravelTips: (store, action) => {
       store.visitedCountry = [...store.visitedCountry, action.payload]
-    }
+    },  
   }
 })
 

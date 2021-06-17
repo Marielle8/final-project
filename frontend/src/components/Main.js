@@ -49,12 +49,14 @@ const Main = () => {
         if (data.success) {                    
           batch(() => {
             dispatch(user.actions.setCountries(data.countries))
-            dispatch(user.actions.setErrors(null))            
+            dispatch(user.actions.setErrors(null))  
+            fetchVisitedList()                    
           })
         } else {
           dispatch(user.actions.setErrors('data'))
         }    
 })}
+
 // hämta lista av besökta länder
 const fetchVisitedList = () => {
   const options = {
@@ -67,14 +69,15 @@ const fetchVisitedList = () => {
     .then(res => res.json())
     .then(data => {
       if (data.success) {                    
-        batch(() => {
-          // setVisitedList(data.users[0].visitedCountries) 
+        batch(() => {          
+          setVisitedList(data.users.visitedCountries) 
+          console.log(data.users.visitedCountries)                 
         })
       } else {
         dispatch(user.actions.setErrors('data'))
       }    
     })}   
-    console.log({visitedList})
+    
   const onButtonClick = () => {
     batch(() => {
       dispatch(user.actions.setUsername(null))
@@ -127,8 +130,7 @@ const fetchVisitedList = () => {
       .then(data => {        
         if (data.success) {     
             dispatch(user.actions.setTravelTips(newComment))
-            dispatch(user.actions.setErrors(null))            
-            fetchCountries()            
+            dispatch(user.actions.setErrors(null))
           } else {
             dispatch(user.actions.setErrors({ message: 'Failed to add travel tips' }))      
           }
@@ -153,18 +155,22 @@ const fetchVisitedList = () => {
         </div>
         {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
         <button onClick={onCountry}>submit</button>
-      </form>
-      <form >
+      </form>      
+      <form >      
+          {/*List with visited countries value their _id */}
+          
       <select value={newCountryTips} onChange={(event) => setNewCountryTips(event.target.value)}>
             <optgroup label='Countries'>
-              {storedCountries && storedCountries.map(country => (
+              {visitedList && visitedList.map(country => (
                 <option
-                  key={country.country}
-                  value={country.alphaCode}
-                  >{country.country}</option>
-                  ))}
+                key={country._id}
+                value={country._id}                
+                >  
+                  {country.country[0].country}                              
+                </option>
+                  ))}                  
             </optgroup>
-          </select>
+          </select>      
             <input
               type="text"
               value={newComment}
@@ -174,13 +180,21 @@ const fetchVisitedList = () => {
             />  
         <button onClick={onTravelTips}>Add tips</button>
         </form>
-      <WorldMap />
-      <div>     
+      <div> 
       {visitedList && visitedList.map(visitedCountry => (
-        <p key={visitedCountry.country._id}>{visitedCountry.comments}</p>        
+        <div>          
+        {visitedCountry.country.map(item => (
+          <div key={item._id}>
+          <p>{item.country}</p>
+          <p>{item.alphaCode}</p>
+          </div>
+        )) }
+        </div>
         ))}                  
       </div>
-      <button onClick={onButtonClick}>Logout</button>
+        <WorldMap visitedList={visitedList}/>
+        {console.log(visitedList)}    
+      <button onClick={onButtonClick}>Logout</button>      
     </div >
   )
 }
