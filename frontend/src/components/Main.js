@@ -73,7 +73,7 @@ const Main = () => {
       if (data.success) {
         batch(() => {
           setVisitedList(data.users.visitedCountries)
-          console.log(data.users.visitedCountries)
+          console.log(data)
         })
       } else {
         dispatch(user.actions.setErrors('data'))
@@ -174,7 +174,7 @@ const Main = () => {
         <button className="add-button" onClick={onTravelTips}>Add tips</button>
       </form>
       <WorldMap visitedList={visitedList} />
-      <div>
+      {/* <div>
         {visitedList && visitedList.map(visitedCountry => (
           <div>
             {visitedCountry.country.map(item => (
@@ -185,7 +185,7 @@ const Main = () => {
             ))}
           </div>
         ))}
-      </div>   
+      </div>    */}
       
       <button onClick={onButtonClick}>Logout</button>
     </div >
