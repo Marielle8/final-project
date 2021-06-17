@@ -5,18 +5,21 @@ import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 import listEndpoints from 'express-list-endpoints'
 
-import countryDB from './data/countryDB.json'
-
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/travelGuide"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
 mongoose.Promise = Promise
 
-// This is our new model, that just got country name and alphaCode(which we need to highligt countries on the map)
-
 const Country = mongoose.model('Country', {
-  country: String,  
-  alphaCode: String
-  })
+  touristSights: {
+    type: String
+  },
+  placesToStay: {
+    type: String
+  },
+  food: {
+    type: String
+  }
+})
 
 const User = mongoose.model('User', {
   username: {
@@ -33,34 +36,22 @@ const User = mongoose.model('User', {
     default: () => crypto.randomBytes(128).toString('hex')
   },
   visitedCountries: [{
-    country: {      
+    country: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Country"
     },
-    // I guess comments will work as the three inputs we wanted, food, touristsight and places to stay and when we get comments to work we can do the same
-    // for all but with correct name
     comments: String
   }]
 })
 
-if (process.env.RESET_DB) {
-  const seedDatabase = async () => {
-    await Country.deleteMany();
-
-    await countryDB.forEach((item) => {
-      const newCountry = new Country(item);
-      newCountry.save();
-    });
-  }
-  seedDatabase();
-}
-
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
+
   try {
     const user = await User.findOne({ accessToken })
-    if (user) { 
-      next()      
+    if (user) {
+      //req.user = user
+      next()
     } else {
       res.status(401).json({ message: 'Not authenticated' })
     }
@@ -86,50 +77,50 @@ app.get('/countries', async (req, res) => {
 })
 
 //add visit country to visitedCountry
-// This gives a id to user>visitedCountries> the objects, but I dont think its the correct ID from Countries model? 
-// we also need the alphaCode to push it to data array in worldmap.js
-app.patch('/countries', authenticateUser)
-app.patch('/countries', async (req, res) => {
-  const { username, visitedCountry } = req.body
+
+app.patch('/countries/:countryid/visitedcountry', authenticateUser)
+app.patch('/countries/:countryid/visitedcountry', async (req, res) => {
+  const { visitedCountries } = req.body
+  const { countryid } = req.params
+
   try {
-    const countryByAlphaCode = await Country.find({ alphaCode: visitedCountry })
-    const updatedUser = await User.findOneAndUpdate({ username: username }, {
-      $push: {
-        visitedCountries: { country: countryByAlphaCode._id, comments: "No comments yet" }
-      },      
+    const user = await User.findById(_id)
+    const isVisited = await User.findByIdAndUpdate(countryid, {
+      $set: {
+        visitedCountries: visitedCountries
+      }
     }, { new: true })
-    res.json({ success: true, updatedUser })
+    res.json({ success: true, isVisited })
   } catch (error) {
     res.status(400).json({ success: false, message: "Invalid request", error })
-  }  
+  }
 })
 
-// This is what maks helped us with but not sure if it works, because im not sure if I can add the country correct to the visitedCountries array. 
-// And we also dont want to store the touristsight etc in Country but in User. 
 
 app.patch('/countries/:countryid', authenticateUser)
 app.patch('/countries/:countryid', async (req, res) => {
-  const { touristSights, placesToStay, food } = req.body  
+  const { touristSights, placesToStay, food } = req.body
   const { countryid } = req.params
+
   try {
     const user = await User.findById(_id)
     const countryIsVisited = user.visitedCountries.some((country) => {
       return country.equals(countryid)
-  })
-  if (countryIsVisited) {
-    const newTips = await Country.findByIdAndUpdate(countryid, {
-      $set: {
-        touristSights: touristSights,
-        placesToStay: placesToStay,
-        food: food
-      }
-    }, { new: true })
-    res.json({ success: true, newTips })
-  } else {
-    res.status(403).json({ success: false, message: "Country is not visited" })
-  }
+    })
+    if (countryIsVisited) {
+      const newTips = await Country.findByIdAndUpdate(countryid, {
+        $set: {
+          touristSights: touristSights,
+          placesToStay: placesToStay,
+          food: food
+        }
+      }, { new: true })
+      res.json({ success: true, newTips })
+    } else {
+      res.status(403).json({ success: false, message: "Country is not visited" })
+    }
   } catch (error) {
-    res.status(400).json({ success: false, message: "Invalid request not ", error })
+    res.status(400).json({ success: false, message: "Invalid request", error })
   }
 })
 
