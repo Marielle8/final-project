@@ -69,9 +69,9 @@ const fetchVisitedList = () => {
     .then(res => res.json())
     .then(data => {
       if (data.success) {                    
-        batch(() => {
-          console.log(data.users.visitedCountries) 
-          setVisitedList(data.users.visitedCountries)          
+        batch(() => {          
+          setVisitedList(data.users.visitedCountries) 
+          console.log(data.users.visitedCountries)                 
         })
       } else {
         dispatch(user.actions.setErrors('data'))
@@ -156,17 +156,21 @@ const fetchVisitedList = () => {
         {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
         <button onClick={onCountry}>submit</button>
       </form>      
-      <form >
+      <form >      
+          {/*List with visited countries value their _id */}
+          
       <select value={newCountryTips} onChange={(event) => setNewCountryTips(event.target.value)}>
             <optgroup label='Countries'>
-              {storedCountries && storedCountries.map(country => (
+              {visitedList && visitedList.map(country => (
                 <option
-                  key={country.country}
-                  value={country.alphaCode}
-                  >{country.country}</option>
-                  ))}
+                key={country._id}
+                value={country._id}                
+                >  
+                  {country.country[0].country}                              
+                </option>
+                  ))}                  
             </optgroup>
-          </select>
+          </select>      
             <input
               type="text"
               value={newComment}
@@ -176,10 +180,9 @@ const fetchVisitedList = () => {
             />  
         <button onClick={onTravelTips}>Add tips</button>
         </form>
-      <WorldMap />
       <div> 
       {visitedList && visitedList.map(visitedCountry => (
-        <div>
+        <div>          
         {visitedCountry.country.map(item => (
           <div key={item._id}>
           <p>{item.country}</p>
@@ -189,11 +192,11 @@ const fetchVisitedList = () => {
         </div>
         ))}                  
       </div>
+        <WorldMap visitedList={visitedList}/>
         {console.log(visitedList)}    
-      <button onClick={onButtonClick}>Logout</button>
+      <button onClick={onButtonClick}>Logout</button>      
     </div >
   )
 }
-{/* <p key={visitedCountry._id}>{visitedCountry.country[0].alphaCode}</p>         */}
 
 export default Main

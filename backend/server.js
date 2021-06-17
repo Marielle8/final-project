@@ -32,13 +32,13 @@ const User = mongoose.model('User', {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')
   },
-  visitedCountries: {
+  visitedCountries:[ {
     country: {      
       type: Object,     
       ref: "Country"      
     },    
     comments: String     
-  }
+  }]
 })
 
 if (process.env.RESET_DB) {
@@ -88,7 +88,13 @@ app.get('/users', authenticateUser)
 app.get('/users', async (req, res) => { 
   const {id} = req.user 
   const users = await User.findById(id)
-  res.json({ success: true, users })
+  const countrieslist = await User.aggregate(
+    [
+      {$unwind: "$country"},           
+      {$group:{ _id: "$country" } }
+    ]
+  )
+  res.json({ success: true, users, countrieslist })
 })
 
 // add the full object of countryByAlphaCode
@@ -96,10 +102,10 @@ app.patch('/countries', authenticateUser)
 app.patch('/countries', async (req, res) => {
   const { username, visitedCountry } = req.body
   try {        
-    const countryByAlphaCode = await Country.find({ alphaCode: visitedCountry })
+    const countryByAlphaCode = await Country.find({ alphaCode: visitedCountry })      
     const updatedUser = await User.findOneAndUpdate({ username: username }, {      
-      $push: {
-        visitedCountries: { country: countryByAlphaCode, comments: "No comments yet"}
+      $push: {        
+        visitedCountries: { country: countryByAlphaCode, comments: "no comment yet"}
       },      
     }, { new: true })
     res.json({ success: true, updatedUser })
@@ -113,7 +119,7 @@ app.patch('/countries', async (req, res) => {
 
 app.patch('/countries/:countryid', authenticateUser)
 app.patch('/countries/:countryid', async (req, res) => {
-  const { touristSights, placesToStay, food } = req.body  
+  const {comments } = req.body  
   const { countryid } = req.params
   try {
     const user = await User.findById(_id)
@@ -123,9 +129,7 @@ app.patch('/countries/:countryid', async (req, res) => {
   if (countryIsVisited) {
     const newTips = await Country.findByIdAndUpdate(countryid, {
       $set: {
-        touristSights: touristSights,
-        placesToStay: placesToStay,
-        food: food
+        comments: comments
       }
     }, { new: true })
     res.json({ success: true, newTips })
