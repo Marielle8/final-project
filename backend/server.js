@@ -36,9 +36,7 @@ const User = mongoose.model('User', {
     country: {      
       type: Object,     
       ref: "Country"      
-    },
-    // I guess comments will work as the three inputs we wanted, food, touristsight and places to stay and when we get comments to work we can do the same
-    // for all but with correct name
+    },    
     comments: String     
   }
 })

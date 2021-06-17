@@ -49,7 +49,8 @@ const Main = () => {
         if (data.success) {                    
           batch(() => {
             dispatch(user.actions.setCountries(data.countries))
-            dispatch(user.actions.setErrors(null))                      
+            dispatch(user.actions.setErrors(null))  
+            fetchVisitedList()                    
           })
         } else {
           dispatch(user.actions.setErrors('data'))
@@ -178,7 +179,14 @@ const fetchVisitedList = () => {
       <WorldMap />
       <div> 
       {visitedList && visitedList.map(visitedCountry => (
-        <p key={visitedCountry._id}>{visitedCountry.comments}</p>        
+        <div>
+        {visitedCountry.country.map(item => (
+          <div key={item._id}>
+          <p>{item.country}</p>
+          <p>{item.alphaCode}</p>
+          </div>
+        )) }
+        </div>
         ))}                  
       </div>
         {console.log(visitedList)}    
@@ -186,5 +194,6 @@ const fetchVisitedList = () => {
     </div >
   )
 }
+{/* <p key={visitedCountry._id}>{visitedCountry.country[0].alphaCode}</p>         */}
 
 export default Main
