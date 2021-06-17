@@ -5,6 +5,7 @@
     "postinstall": "npm install --prefix backend"
   },
   "dependencies": {
+    "lottie-web": "^5.7.11",
     "react-svg-worldmap": "^1.1.0"
   }
 }

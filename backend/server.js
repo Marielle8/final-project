@@ -50,7 +50,7 @@ const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({ accessToken })
     if (user) {
-      //req.user = user
+      req.user = user
       next()
     } else {
       res.status(401).json({ message: 'Not authenticated' })
@@ -76,19 +76,25 @@ app.get('/countries', async (req, res) => {
   res.json({ success: true, countries })
 })
 
+app.get('/users', authenticateUser)
+app.get('/users', async (req, res) => {
+
+  const users = await User.find()
+  res.json({ success: true, users })
+})
+
 //add visit country to visitedCountry
-
-app.patch('/countries/:countryid/visitedcountry', authenticateUser)
-app.patch('/countries/:countryid/visitedcountry', async (req, res) => {
-  const { visitedCountries } = req.body
-  const { countryid } = req.params
-
+// This gives a id to user>visitedCountries> the objects, but I dont think its the correct ID from Countries model? 
+// we also need the alphaCode to push it to data array in worldmap.js
+app.patch('/countries', authenticateUser)
+app.patch('/countries', async (req, res) => {
+  const { username, visitedCountry } = req.body
   try {
-    const user = await User.findById(_id)
-    const isVisited = await User.findByIdAndUpdate(countryid, {
-      $set: {
-        visitedCountries: visitedCountries
-      }
+    const countryByAlphaCode = await Country.find({ alphaCode: visitedCountry })
+    const updatedUser = await User.findOneAndUpdate({ username: username }, {
+      $push: {
+        visitedCountries: { country: countryByAlphaCode, comments: "No comments yet" }
+      },
     }, { new: true })
     res.json({ success: true, isVisited })
   } catch (error) {
