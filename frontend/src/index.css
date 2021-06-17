@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #f5f5f5;
+  /* background: #f5f5f5; */
   display: flex;
   justify-content: center;  
 }
@@ -15,22 +15,33 @@ code {
   monospace;
 }
 
-.form {
-  width: 430px;
-  height: 700px;
-  padding: 60px 35px 35px 35px;
+/***LOGIN***/
+.login-form {
+  margin: 30px;
+  width: 240px;
+  height: 650px;
+  padding: 30px 35px 35px 35px;
   border-radius: 40px;
   background: #ecf0f3;
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;  
 }
 
-.input-container {
-  width: 100%;
-  padding: 75px 5px 5px 5px;
-  margin-bottom: 100px;  
+.login-input-container {
+  width: 95%;
+  padding: 0px 5px 5px 5px;
+  margin: 0 auto;
 }
 
-.input-container input {
+.login-input-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 60px;
+  margin-top: 30px;
+  /* border-radius: 25px; */
+}
+
+.login-input-container input {
   border: none;
   outline: none;
   background: none;
@@ -39,16 +50,68 @@ code {
   padding: 20px 10px 20px 5px;
 }
 
-
-input {
-  margin-bottom: 30px;
+.login-form input {
+  margin-bottom: 20px;
   border-radius: 25px;
   box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
   width: 95%;
+  height:10px ;
   text-align: center;
 }
 
-button {
+.login-form button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  height: 50px;
+  border-radius: 30px; 
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Lato', sans-serif;
+  color: #fff;
+  text-align: center;
+  background: #44656E;
+  box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
+  transition: .5s;
+  margin-bottom: 24px;
+}
+
+.login-form button:hover {
+  background: #2e454b;  
+}
+
+.login-form button:active {
+  background: #44656E;
+}
+
+/***MAIN***/
+.header {
+  width: 100vw;
+  height: 30vh;
+  background-color:#44656E;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+h1 {
+  color:#F8EEE8;
+}
+
+.main-container {
+  width: 50vw;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  /* margin: 40px; */
+}
+
+.main-container div {
+  margin-bottom: 20px;
+}
+
+.add-button {
+  /* -webkit-text-stroke: .5px #3d3c3c; */
   outline: none;
   border: none;
   cursor: pointer;
@@ -58,30 +121,98 @@ button {
   font-size: 20px;
   font-weight: 700;
   font-family: 'Lato', sans-serif;
-  color: #fff;
+  color: #44656E;
   text-align: center;
-  background: #24cfaa;
+  background: #dfbeac;
   box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
   transition: .5s;
   margin-bottom: 24px;
 }
 
-button:hover {
-  background: #2fdbb6;  
+.worldmap-container {
+  margin: 30px;
+  width: 75vw;
+  height: auto;
+  padding: 30px 35px 35px 35px;
+  border-radius: 40px;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;  
 }
 
-button:active {
-  background: #1da88a;
-}
-
-.main-container {
-  width: 50vw;
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 40px;
+/***TABLET***/
+ @media (min-width: 768px) {
+  .login-form {
+    margin: 50px;
+    width: 400px;
+    height: 840px;
+    padding: 60px 35px 35px 35px;
   }
-
-.main-container div {
-  margin-bottom: 20px;
+  
+  .login-input-container {
+    width: 80%;
+    padding: 0px 5px 5px 5px;
+    margin: 0 auto;
+   }
+  
+  .login-form input {
+    margin-bottom: 30px;
+    height:20px ;
+  }
+  
+  .login-form button {
+    width: 80%;
+    height: 60px;
+    margin:0 45px 24px;
+  }
+  
+  .login-form button:hover {
+    background: #2e454b;  
+  }
+  
+  .login-form button:active {
+    background: #44656E;
+  }
 }
+
+/***DESKTOP***/
+@media (min-width:992px) {
+  .login-form {
+    margin: 20px;
+    width: 800px;
+    height: 800px;
+    padding: 60px 35px 35px 35px;
+  }
+  
+  .login-input-container {
+    width: 50%;
+    padding: 0px 5px 5px 5px;
+    margin: 0 auto;
+   }
+
+   .login-input-container img {
+    width: 80%;
+    height: auto;
+    border-radius: 50%;
+    margin: 0 auto 60px 40px;
+  }
+  
+  .login-form input {
+    margin-bottom: 30px;
+    height:20px ;
+  }
+  
+  .login-form button {
+    width: 50%;
+    height: 60px;
+    margin:0 200px 24px;
+  }
+  
+  .login-form button:hover {
+    background: #2e454b;  
+  }
+  
+  .login-form button:active {
+    background: #44656E;
+  }
+  
+}  

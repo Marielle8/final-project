@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 const Worldmap = () => {
 
   const selectedCountry = useSelector(store => store.user.visitedCountry)
-
+  console.log({ selectedCountry })
   const data = [
     { country: 'se', value: "visited" },
     { country: "cn", value: 1 },  // china
@@ -22,14 +22,14 @@ const Worldmap = () => {
   ]
 
   return (
-    <div>
+    <div className="worldmap-container">
       <WorldMap
-        color="blue"
+        color="#44656E"
         backgroundColor="transparent"
         tooltipBgColor="#000"
         title="Visited Countries"
         value-prefix="visited"
-        size="lg"
+        size="responsive"
         data={data} />
     </div>
   )
