@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 import user from '../reducers/user'
 
 import { API_URL } from '../reusable/urls'
+import assets from '../assets/traveljournal2-icon.png'
 
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -56,19 +57,20 @@ const Login = () => {
 
   return (
     <form
-      className="form"
+      className="login-form"
       onSubmit={onFormSubmit} >
-      <div className="input-container">
+      <div className="login-input-container">
+        <img src={assets} alt="Traveljournal-icon" />
         <input
           type="text"
           value={username}
-          onChange={(event) => setUsername(event.target.value)}          
+          onChange={(event) => setUsername(event.target.value)}
           placeholder="Username"
         />
         <input
           type="password"
           value={password}
-          onChange={(event) => setPassword(event.target.value)}          
+          onChange={(event) => setPassword(event.target.value)}
           placeholder="Password"
         />
       </div>
