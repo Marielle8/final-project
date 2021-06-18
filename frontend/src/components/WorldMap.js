@@ -9,23 +9,29 @@ import { useState, useEffect } from 'react'
 
 
 const Worldmap = (props) => { 
+
   const [data,setData] = useState([])
+  
+  const newItem = "" 
+
+  // VisitedList got all countries we checked as visited, the map is loaded at the begining so it wont rerender from that list. 
+  // Guess we need a usestate and useeffect to rerender the map, but dont know how...
+  const addItem = () => {
+    props.visitedList.forEach(item => {
+      newItem = {country: item.country.alphaCode , value: 1}
+      setData([...data,newItem])    
+    })
+  }
 
   useEffect(() => { 
     addItem()
   },[data])
-  addItem()
-  let newItem
 
-  const addItem = () => {
-  props.visitedList.forEach(item => {
-    newItem = {country: item.country.alphaCode , value: 1}
-    setData([...data,newItem])    
-  })
-}
-  // { country: "cn", value: 1 },  // china
-  // { country: "in", value: 1 },  // india
+  console.log(props.visitedList)  
   console.log(data)
+// this is how the objects in data needs to look. 
+  // { country: "cn", value: 1 },  // china
+  
  
   return (
     
