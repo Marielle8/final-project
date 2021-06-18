@@ -1,25 +1,34 @@
 import React from 'react'
 import { WorldMap } from 'react-svg-worldmap'
 import { useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 
-const [data,setData] = useState([])
-// this.setState({ data: [...this.state.data,{country: item.country.alphaCode , value: 1}] }) 
-setData(newData)
+// const [data,setData] = useState([])
+// setData(sata)
 
 
 const Worldmap = (props) => { 
+  const [data,setData] = useState([])
 
-  const data = []
+  useEffect(() => { 
+    addItem()
+  },[data])
+  addItem()
+  let newItem
+
+  const addItem = () => {
   props.visitedList.forEach(item => {
-    data.push({country: item.country.alphaCode , value: 1})    
+    newItem = {country: item.country.alphaCode , value: 1}
+    setData([...data,newItem])    
   })
+}
   // { country: "cn", value: 1 },  // china
   // { country: "in", value: 1 },  // india
-
-
+  console.log(data)
+ 
   return (
+    
     <div className="worldmap-container">
       <WorldMap
         color="#44656E"
