@@ -2,7 +2,7 @@ import React from 'react'
 import { WorldMap } from 'react-svg-worldmap'
 import { useSelector } from 'react-redux'
 
-
+import assets from '../assets/visited-countries.png'
 
 const Worldmap = (props) => {
   console.log(props.visitedList)
@@ -16,11 +16,12 @@ const Worldmap = (props) => {
 
   return (
     <div className="worldmap-container">
+      {/* <img src={assets} alt="" /> */}
       <WorldMap
         color="#44656E"
         backgroundColor="transparent"
         tooltipBgColor="#000"
-        title="Visited Countries"
+        // title="Visited Countries"
         value-prefix="visited"
         size="responsive"
         data={data} />

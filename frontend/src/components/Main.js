@@ -66,19 +66,19 @@ const Main = () => {
       headers: {
         Authorization: accessToken
       }
-    }  
-  fetch(API_URL('users'), options)
-  .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        batch(() => {
-          setVisitedList(data.users.visitedCountries)
-          console.log(data.users.visitedCountries)
-        })
-      } else {
-        dispatch(user.actions.setErrors('data'))
-      }
-    })
+    }
+    fetch(API_URL('users'), options)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          batch(() => {
+            setVisitedList(data.users.visitedCountries)
+            console.log(data.users.visitedCountries)
+          })
+        } else {
+          dispatch(user.actions.setErrors('data'))
+        }
+      })
   }
   const onButtonClick = () => {
     batch(() => {
@@ -104,9 +104,9 @@ const Main = () => {
       .then(data => {
         if (data.success) {
           fetchVisitedList()
-            dispatch(user.actions.setVisitedCountry(newCountry))
-            dispatch(user.actions.setErrors(null))            
-          }else { console.error(data) }
+          dispatch(user.actions.setVisitedCountry(newCountry))
+          dispatch(user.actions.setErrors(null))
+        } else { console.error(data) }
       })
   }
 
@@ -136,7 +136,8 @@ const Main = () => {
 
     <div className="main-container">
       <Header />
-      <form >
+      <WorldMap visitedList={visitedList} />
+      <form className="countries-form">
         <p>Collections of countries from api:</p>
         <div>
           <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
@@ -153,7 +154,7 @@ const Main = () => {
         {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
         <button onClick={onCountry}>submit</button>
       </form>
-      <form >
+      <form className="add-tips-form">
         <select value={newCountryTips} onChange={(event) => setNewCountryTips(event.target.value)}>
           <optgroup label='Countries'>
             {storedCountries && storedCountries.map(country => (
@@ -164,6 +165,7 @@ const Main = () => {
             ))}
           </optgroup>
         </select>
+
         <input
           type="text"
           value={newComment}
@@ -171,22 +173,23 @@ const Main = () => {
           className="username-input"
           placeholder="food"
         />
+
         <button className="add-button" onClick={onTravelTips}>Add tips</button>
       </form>
-      <WorldMap visitedList={visitedList} />
+
       <div>
         {visitedList && visitedList.map(visitedCountry => (
           <div>
             {visitedCountry.country.map(item => (
               <div key={item._id}>
                 <p>{item.country}</p>
-                <p>{item.alphaCode}</p>
+                {/* <p>{item.alphaCode}</p> */}
               </div>
             ))}
           </div>
         ))}
-      </div>   
-      
+      </div>
+
       <button onClick={onButtonClick}>Logout</button>
     </div >
 
