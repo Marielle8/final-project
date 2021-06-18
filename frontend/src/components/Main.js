@@ -177,18 +177,18 @@ const Main = () => {
         <button className="add-button" onClick={onTravelTips}>Add tips</button>
       </form>
 
-      <div>
+      {/* <div>
         {visitedList && visitedList.map(visitedCountry => (
           <div>
             {visitedCountry.country.map(item => (
               <div key={item._id}>
                 <p>{item.country}</p>
-                {/* <p>{item.alphaCode}</p> */}
+                <p>{item.alphaCode}</p>
               </div>
             ))}
           </div>
         ))}
-      </div>
+      </div> */}
 
       <button onClick={onButtonClick}>Logout</button>
     </div >
