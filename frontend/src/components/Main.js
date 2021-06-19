@@ -159,12 +159,12 @@ const Main = () => {
       <form className="add-tips-form">
         <p>Choose one of your visited countries and add some tips:</p>
         <select value={newCountryTips} onChange={(event) => setNewCountryTips(event.target.value)}>
-          <optgroup label='Countries'>
-            {storedCountries && storedCountries.map(country => (
+          <optgroup label='Countries'>            
+            {visitedList && visitedList.map(country => (
               <option
-                key={country.country}
-                value={country.alphaCode}
-              >{country.country}</option>
+                key={country.country._id}
+                value={country.country._id}
+              >{country.country.country}</option>
               ))}              
           </optgroup>
         </select>
