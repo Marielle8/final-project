@@ -6,7 +6,7 @@ const Worldmap = (props) => {
     
   const addItem = () => {
     const visitedCountreisList = props.visitedList.map(item => {      
-    return {country: item.country.alphaCode, value:1} 
+    return {country: item.country.alphaCode, value:"Visited"} 
   })
   setData(visitedCountreisList)
 }
