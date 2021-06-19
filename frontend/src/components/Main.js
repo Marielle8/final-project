@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import WorldMap from './WorldMap'
+import Worldmap from './WorldMap'
 import Header from './Header'
 
 import { API_URL } from '../reusable/urls'
@@ -90,7 +90,7 @@ const Main = () => {
   }
 
   const onCountry = (event) => {
-    event.preventDefault()
+    // event.preventDefault()
     const options = {
       method: 'PATCH',
       headers: {
@@ -173,7 +173,7 @@ const Main = () => {
         />
         <button className="add-button" onClick={onTravelTips}>Add tips</button>
       </form>
-      <WorldMap visitedList={visitedList} />
+      <Worldmap visitedList={visitedList} />
       {/* <div>
         {visitedList && visitedList.map(visitedCountry => (
           <div>
