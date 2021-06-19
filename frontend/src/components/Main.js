@@ -20,8 +20,7 @@ const Main = () => {
   const storedCountries = useSelector(store => store.user.visitedCountry)
   const errorMsgMain = useSelector(store => store.user.errors)
   const username = useSelector(store => store.user.username)
-
-  console.log(storedCountries)
+  const countryId = useSelector(store => store.user.visitedCountryId)  
   
   const dispatch = useDispatch()
   const history = useHistory()
@@ -91,25 +90,29 @@ const Main = () => {
   // }
 
   const onCountry = (event) => {
-    // event.preventDefault()
+    event.preventDefault()
     const options = {
       method: 'PATCH',
       headers: {
         'Authorization': accessToken,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ visitedCountry: newCountry, username })
+      body: JSON.stringify({ visitedCountry: newCountry, username})
     }
     fetch(API_URL('countries'), options)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
+          batch(() =>{
           fetchVisitedList()
           dispatch(user.actions.setVisitedCountry(newCountry))
           dispatch(user.actions.setErrors(null))
+          })
         } else { console.error(data) }
       })
   }
+
+// 
 
   const onTravelTips = (event) => {
     event.preventDefault()
@@ -117,16 +120,21 @@ const Main = () => {
     const options = {
       method: 'PATCH',
       headers: {
-        Authorization: accessToken
+        Authorization: accessToken,
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({ comments: newComment })
     }
-    fetch(API_URL('countries'), options)
+    fetch(API_URL(`countries/${countryId}`), options)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          dispatch(user.actions.setTravelTips(newComment))
-          dispatch(user.actions.setErrors(null))
+          console.log(data)
+          // sätter id till stat
+          dispatch(user.actions.setTravelTips(newCountryTips))
+          // ska ta det som skrivs i input
+          dispatch(user.actions.setNewComment(newComment))
+          // dispatch(user.actions.setErrors(null))
         } else {
           dispatch(user.actions.setErrors({ message: 'Failed to add travel tips' }))
         }
@@ -159,13 +167,13 @@ const Main = () => {
       <form className="add-tips-form">
         <p>Choose one of your visited countries and add some tips:</p>
         <select value={newCountryTips} onChange={(event) => setNewCountryTips(event.target.value)}>
-          <optgroup label='Countries'>            
+          <optgroup label='Countries'> 
             {visitedList && visitedList.map(country => (
               <option
                 key={country.country._id}
                 value={country.country._id}
               >{country.country.country}</option>
-              ))}              
+              ))}
           </optgroup>
         </select>
 

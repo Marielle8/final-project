@@ -103,12 +103,28 @@ app.patch('/countries', async (req, res) => {
   const { username, visitedCountry } = req.body
   try {        
     const countryByAlphaCode = await Country.findOne({ alphaCode: visitedCountry }).lean()      
-    const updatedUser = await User.findOneAndUpdate({ username: username }, {      
+    const updatedUser = await User.findOneAndUpdate({ username: username, }, {      
       $push: {        
-        visitedCountries: { country: countryByAlphaCode, comments: "no comment yet"}
+        visitedCountries: { country: countryByAlphaCode, comments: "no comments yet"}
       },      
     }, { new: true })
     res.json({ success: true, updatedUser })
+  } catch (error) {
+    res.status(400).json({ success: false, message: "Invalid request", error })
+  }  
+})
+// traveltips
+app.patch('/countries/:countryid', authenticateUser)
+app.patch('/countries/:countryid', async (req, res) => {
+  const { countryid } = req.params
+  const { comments, newCountryTips } = req.body
+  try {                
+    const updatedTravelTips = await User.findOneAndUpdate({ countryid }, {      
+      $push: {        
+        visitedCountries: { comments: newCountryTips}
+      },      
+    }, { new: true })
+    res.json({ success: true, updatedTravelTips })
   } catch (error) {
     res.status(400).json({ success: false, message: "Invalid request", error })
   }  
