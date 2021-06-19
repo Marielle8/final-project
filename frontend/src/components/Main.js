@@ -21,6 +21,8 @@ const Main = () => {
   const errorMsgMain = useSelector(store => store.user.errors)
   const username = useSelector(store => store.user.username)
 
+  console.log(storedCountries)
+  
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -141,6 +143,7 @@ const Main = () => {
         <div>
           <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
             <optgroup label='Countries'>
+            <option value="" disabled selected>Select country</option>
               {countriesItems && countriesItems.map(country => (
                 <option
                   key={country.country}
@@ -162,7 +165,7 @@ const Main = () => {
                 key={country.country}
                 value={country.alphaCode}
               >{country.country}</option>
-            ))}
+              ))}              
           </optgroup>
         </select>
 
@@ -175,8 +178,7 @@ const Main = () => {
         />
 
         <button className="add-button" onClick={onTravelTips}>Add travel tips</button>
-      </form>
-      <Worldmap visitedList={visitedList} />
+      </form>      
       {/* <div>
         {visitedList && visitedList.map(visitedCountry => (
           <div>
