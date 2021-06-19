@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import WorldMap from './WorldMap'
+import Worldmap from './WorldMap'
 import Header from './Header'
 
 import { API_URL } from '../reusable/urls'
@@ -136,9 +136,9 @@ const Main = () => {
 
     <div className="main-container">
       <Header />
-      <WorldMap visitedList={visitedList} />
+      <Worldmap visitedList={visitedList} />
       <form className="countries-form">
-        <p>Collections of countries from api:</p>
+        <p>Add a new country you have visited</p>
         <div>
           <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
             <optgroup label='Countries'>
@@ -152,9 +152,10 @@ const Main = () => {
           </select>
         </div>
         {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
-        <button onClick={onCountry}>submit</button>
+        <button onClick={onCountry}>Add country</button>
       </form>
       <form className="add-tips-form">
+        <p>Choose one of your visited countries and add some tips:</p>
         <select value={newCountryTips} onChange={(event) => setNewCountryTips(event.target.value)}>
           <optgroup label='Countries'>
             {storedCountries && storedCountries.map(country => (
@@ -174,7 +175,7 @@ const Main = () => {
           placeholder="food"
         />
 
-        <button className="add-button" onClick={onTravelTips}>Add tips</button>
+        <button className="add-button" onClick={onTravelTips}>Add travel tips</button>
       </form>
 
       {/* <div>
@@ -188,10 +189,14 @@ const Main = () => {
             ))}
           </div>
         ))}
-      </div> */}
-
-      <button onClick={onButtonClick}>Logout</button>
+      </div>
+      {console.log(visitedList)} */}
+      {/* <button onClick={onButtonClick}>Logout</button> */}
+      <div className="travel-tips-container">
+        <p>Your travel tips:</p>
+      </div>
     </div >
+
 
   )
 }
