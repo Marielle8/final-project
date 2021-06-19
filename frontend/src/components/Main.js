@@ -20,8 +20,8 @@ const Main = () => {
   const storedCountries = useSelector(store => store.user.visitedCountry)
   const errorMsgMain = useSelector(store => store.user.errors)
   const username = useSelector(store => store.user.username)
-  const countryId = useSelector(store => store.user.visitedCountryId)  
-  
+  const countryId = useSelector(store => store.user.visitedCountryId)
+
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -90,29 +90,29 @@ const Main = () => {
   // }
 
   const onCountry = (event) => {
-    event.preventDefault()
+    // event.preventDefault()
     const options = {
       method: 'PATCH',
       headers: {
         'Authorization': accessToken,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ visitedCountry: newCountry, username})
+      body: JSON.stringify({ visitedCountry: newCountry, username })
     }
     fetch(API_URL('countries'), options)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          batch(() =>{
-          fetchVisitedList()
-          dispatch(user.actions.setVisitedCountry(newCountry))
-          dispatch(user.actions.setErrors(null))
+          batch(() => {
+            fetchVisitedList()
+            dispatch(user.actions.setVisitedCountry(newCountry))
+            dispatch(user.actions.setErrors(null))
           })
         } else { console.error(data) }
       })
   }
 
-// 
+  // 
 
   const onTravelTips = (event) => {
     event.preventDefault()
@@ -143,15 +143,17 @@ const Main = () => {
 
   return (
 
+
     <div className="main-container">
       <Header />
+
       <Worldmap visitedList={visitedList} />
       <form className="countries-form">
         <p>Add a new country you have visited</p>
         <div>
           <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
             <optgroup label='Countries'>
-            <option value="" disabled selected>Select country</option>
+              <option value="" disabled selected>Select country</option>
               {countriesItems && countriesItems.map(country => (
                 <option
                   key={country.country}
@@ -167,13 +169,13 @@ const Main = () => {
       <form className="add-tips-form">
         <p>Choose one of your visited countries and add some tips:</p>
         <select value={newCountryTips} onChange={(event) => setNewCountryTips(event.target.value)}>
-          <optgroup label='Countries'> 
+          <optgroup label='Countries'>
             {visitedList && visitedList.map(country => (
               <option
                 key={country.country._id}
                 value={country.country._id}
               >{country.country.country}</option>
-              ))}
+            ))}
           </optgroup>
         </select>
 
@@ -186,7 +188,7 @@ const Main = () => {
         />
 
         <button className="add-button" onClick={onTravelTips}>Add travel tips</button>
-      </form>      
+      </form>
       {/* <div>
         {visitedList && visitedList.map(visitedCountry => (
           <div>
