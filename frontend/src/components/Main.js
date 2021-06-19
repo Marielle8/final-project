@@ -73,24 +73,23 @@ const Main = () => {
         if (data.success) {
           batch(() => {
             setVisitedList(data.users.visitedCountries)
-            console.log(data.users.visitedCountries)
           })
         } else {
           dispatch(user.actions.setErrors('data'))
         }
       })
   }
-  const onButtonClick = () => {
-    batch(() => {
-      dispatch(user.actions.setUsername(null))
-      dispatch(user.actions.setAccessToken(null))
+  // const onButtonClick = () => {
+  //   batch(() => {
+  //     dispatch(user.actions.setUsername(null))
+  //     dispatch(user.actions.setAccessToken(null))
 
-      localStorage.removeItem('user')
-    })
-  }
+  //     localStorage.removeItem('user')
+  //   })
+  // }
 
   const onCountry = (event) => {
-    event.preventDefault()
+    // event.preventDefault()
     const options = {
       method: 'PATCH',
       headers: {
@@ -177,7 +176,7 @@ const Main = () => {
 
         <button className="add-button" onClick={onTravelTips}>Add travel tips</button>
       </form>
-
+      <Worldmap visitedList={visitedList} />
       {/* <div>
         {visitedList && visitedList.map(visitedCountry => (
           <div>

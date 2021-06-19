@@ -102,7 +102,7 @@ app.patch('/countries', authenticateUser)
 app.patch('/countries', async (req, res) => {
   const { username, visitedCountry } = req.body
   try {        
-    const countryByAlphaCode = await Country.find({ alphaCode: visitedCountry })      
+    const countryByAlphaCode = await Country.findOne({ alphaCode: visitedCountry }).lean()      
     const updatedUser = await User.findOneAndUpdate({ username: username }, {      
       $push: {        
         visitedCountries: { country: countryByAlphaCode, comments: "no comment yet"}
