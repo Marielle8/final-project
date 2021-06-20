@@ -22,7 +22,7 @@ const Main = () => {
   const username = useSelector(store => store.user.username)
 
   console.log(storedCountries)
-  
+
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -137,14 +137,31 @@ const Main = () => {
 
     <div className="main-container">
       <Header />
-      <Worldmap visitedList={visitedList} />
-      <form className="countries-form">
-        <p>Add a new country you have visited</p>
-        <div>
-          <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
+      <div className="main-content">
+        <Worldmap visitedList={visitedList} />
+        <form className="add-countries-form">
+          <p className="add-countries-text">Add a new country you have visited</p>
+          <div>
+            <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
+              <optgroup label='Countries'>
+                <option value="" disabled selected>Select country</option>
+                {countriesItems && countriesItems.map(country => (
+                  <option
+                    key={country.country}
+                    value={country.alphaCode}
+                  >{country.country}</option>
+                ))}
+              </optgroup>
+            </select>
+          </div>
+          {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
+          <button onClick={onCountry}>Add country</button>
+        </form>
+        <form className="add-tips-form">
+          <p>Choose one of your visited countries and add some tips:</p>
+          <select value={newCountryTips} onChange={(event) => setNewCountryTips(event.target.value)}>
             <optgroup label='Countries'>
-            <option value="" disabled selected>Select country</option>
-              {countriesItems && countriesItems.map(country => (
+              {storedCountries && storedCountries.map(country => (
                 <option
                   key={country.country}
                   value={country.alphaCode}
@@ -152,34 +169,18 @@ const Main = () => {
               ))}
             </optgroup>
           </select>
-        </div>
-        {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
-        <button onClick={onCountry}>Add country</button>
-      </form>
-      <form className="add-tips-form">
-        <p>Choose one of your visited countries and add some tips:</p>
-        <select value={newCountryTips} onChange={(event) => setNewCountryTips(event.target.value)}>
-          <optgroup label='Countries'>
-            {storedCountries && storedCountries.map(country => (
-              <option
-                key={country.country}
-                value={country.alphaCode}
-              >{country.country}</option>
-              ))}              
-          </optgroup>
-        </select>
 
-        <input
-          type="text"
-          value={newComment}
-          onChange={(event) => setNewComment(event.target.value)}
-          className="username-input"
-          placeholder="food"
-        />
+          <input
+            type="text"
+            value={newComment}
+            onChange={(event) => setNewComment(event.target.value)}
+            className="username-input"
+            placeholder="food"
+          />
 
-        <button className="add-button" onClick={onTravelTips}>Add travel tips</button>
-      </form>      
-      {/* <div>
+          <button className="add-tips-button" onClick={onTravelTips}>Add travel tips</button>
+        </form>
+        {/* <div>
         {visitedList && visitedList.map(visitedCountry => (
           <div>
             {visitedCountry.country.map(item => (
@@ -192,12 +193,12 @@ const Main = () => {
         ))}
       </div>
       {console.log(visitedList)} */}
-      {/* <button onClick={onButtonClick}>Logout</button> */}
-      <div className="travel-tips-container">
-        <p>Your travel tips:</p>
-      </div>
-    </div >
-
+        {/* <button onClick={onButtonClick}>Logout</button> */}
+        <div className="travel-tips-container">
+          <p>Your travel tips:</p>
+        </div>
+      </div >
+    </div>
 
   )
 }

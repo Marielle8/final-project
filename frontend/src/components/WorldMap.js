@@ -21,7 +21,7 @@ const Worldmap = (props) => {
         color="#44656E"
         backgroundColor="transparent"
         tooltipBgColor="#000"
-        title="Visited Countries"
+        title="Your visited Countries"
         value-prefix="visited"
         size="responsive"
         data={data} />}
