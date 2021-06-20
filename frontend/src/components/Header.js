@@ -5,7 +5,8 @@ import { useHistory } from 'react-router-dom'
 
 import user from '../reducers/user'
 
-import assets from '../assets/header-desktop.png'
+import desktopicon from '../assets/header-desktop.png'
+import icon from '../assets/traveljournal2-icon.png'
 
 const Header = () => {
 
@@ -40,7 +41,8 @@ const Header = () => {
 
   return (
     <section className="header">
-      <img className="header-icon" src={assets} alt="Traveljournal-icon" />
+      <img className="header-icon-desktop" src={desktopicon} alt="Traveljournal-icon" />
+      <img className="header-icon" src={icon} alt="Traveljournal-icon" />
       <div className="lottie-container" ref={lottieContainer} />
       <div className="header-text">
         <h1 className="header-h1">Welcome</h1>

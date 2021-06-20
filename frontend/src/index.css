@@ -87,42 +87,40 @@ code {
   background: #44656E;
 }
 
-/***MAIN***/
-
-/*Header*/
+/***HEADER MAIN***/
 .header {
   width: 100vw;
-  height: 50vh;
+  height: 40vh;
   background-color:#44656E;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   display:flex;
   justify-content: space-evenly;
   flex-direction: row;
   align-items:center;
-  /* margin: 30px 0; */
 }
 
-/* .header-container {
-  display: flex;
-  flex-direction: column;
-} */
-
-/*ICON I MOBILVERISION*/
-/* .header-icon {
+.header-icon {
   width: 115px;
   height:115px;
   border-radius: 50%;
   border: 2px solid #F8EEE8;
   box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #F8EEE8;
-} */
+}
+
+.header-icon-desktop {
+  display:none;
+}
+
+.lottie-container {
+  display:none;
+}
 
 .header-text {
   display:flex;
   flex-direction: column;
   align-items: center;
-  margin: 30px 30px 0 40px;
-  
+  /* margin: 30px 30px 0 40px; */
 }
 
 .header-h1 {
@@ -167,21 +165,16 @@ code {
   background: #44656E;
 }
 
+/***MAIN BODY***/
 .main-container {
   width: 100vw;
   display:flex;
   flex-direction: column;
   align-items: center;
-  /* margin: 40px; */
-}
-
-.main-content {
-  display: flex;  
-  flex-direction: column;
 }
 
 .worldmap-container {
-  margin-top: -70px;
+  margin-top: -40px;
    width: fit-content;
    height: auto;
    padding: 30px 5px 35px 5px;
@@ -194,14 +187,6 @@ code {
    justify-content: center;
    align-items: center;
  }
-
-h2 {
-  color: #44656E;
-  font-size: 25px;
-  font-weight: 700;
-  font-family: 'Playball', cursive;
-  margin: 0 50px;
-}
 
  .add-countries-form {
   display:flex;
@@ -216,6 +201,7 @@ h2 {
   background: #ecf0f3;
   box-shadow: 13px 13px 20px #cbced1; 
  }
+
 p,
 .add-countries-text {
   color: #44656E;
@@ -283,7 +269,7 @@ p,
 .add-tips-form select{
   margin-bottom: 20px;
   border-radius: 25px;
-  box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
+  box-shadow: inset 8px 8px 8px #cbced1, inset -2px -8px 8px #ffffff;
   width: 100%;
   height:50px ;
   text-align: center;
@@ -311,7 +297,6 @@ p,
 }
 
 .add-tips-button {
-  /* -webkit-text-stroke: .5px #3d3c3c; */
   outline: none;
   border: none;
   cursor: pointer;
@@ -351,7 +336,6 @@ p,
   box-shadow: 13px 13px 20px #cbced1; 
 }
 
-
 /***TABLET***/
   @media (min-width: 768px) {
   .login-input-container {
@@ -378,33 +362,27 @@ p,
   .login-form button:active {
     background: #44656E;
   }
+
   .login-form {
     margin: 50px;
     width: 400px;
     height: 840px;
     padding: 60px 35px 35px 35px;
   }
-  .header-container {
-  
-    margin: 40px;
-  }
+
   .header-icon {
     width: 200px;
     height:200px;
-    }
+  }
 
-    .header-text {
-      margin: 30px 30px 0 200px;
-    }
+  .header-h1 {
+    font-size: 50px;
+  }
 
-    h1 {
-      font-size: 50px;
-    }
-
-    .logout-button  {
-      width:120px ;
-      height:40px;
-    }
+  .logout-button  {
+    width:120px ;
+    height:40px;
+  }
   
   .login-form button {
     width: 80%;
@@ -422,22 +400,8 @@ p,
   .countries-form {
     margin-left:50px;
      width: 300px;
-   }
-   .main-content {
-     margin-left: 50px;
-     width: 100vw;
-     /* display: grid;
-     grid-template-columns: 1fr 1fr; */
-     display: flex;
-     flex-direction: row;
-     /* justify-items: center; */
-     /* align-items: center; */
-     flex-wrap: wrap;
- 
-   }
+  }
 }
-
-
 
 /***DESKTOP***/
 @media (min-width:992px) {
@@ -479,45 +443,31 @@ p,
   .login-form button:active {
     background: #44656E;
   }
-  .header-icon {
-    width: 300px;
-    height:300px;
-    /* border-radius: 50%; */
-    /* border: 2px solid #F8EEE8;
-    box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #F8EEE8; */
+
+  .header-icon-desktop {
+    display:flex;
+    width: 250px;
+    height:250px;
+  }
+
+ .header-icon {
+  display:none;
   }
 
   .lottie-container {
+    display:flex;
     width: 300px;
     height:300px;
   }
-  .header-text {
-    margin: 70px 30px 0 40px;
+ 
+ .logout-button  {
+    margin: 60px 0 0 0px;
   }
 
-  .logout-button  {
-    
-    margin: 60px 0 0 0px;
-    
-  }
   .worldmap-container,
   .add-tips-form,
   .add-countries-form,
   .travel-tips-container {
-   /* margin-left:50px; */
-    width: 45vw;
+    width: 40vw;
   }
-  .main-content {
-    /* margin-left: 50px; */
-    width: 100vw;
-    /* display: grid;
-    grid-template-columns: 1fr 1fr; */
-    display: flex;
-    flex-direction: row;
-    /* justify-items: center; */
-    /* align-items: center; */
-    flex-wrap: wrap;
-
-  }
-
 }  
