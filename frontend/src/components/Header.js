@@ -7,7 +7,7 @@ import user from '../reducers/user'
 
 import assets from '../assets/header-desktop.png'
 
-const Header = () => {  
+const Header = () => {
 
   const dispatch = useDispatch()
   const history = useHistory()

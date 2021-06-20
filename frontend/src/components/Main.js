@@ -151,7 +151,7 @@ const Main = () => {
         <div>
           <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
             <optgroup label='Countries'>
-              <option value="" disabled selected>Select country</option>
+              <option value="" disabled defaultValue>Select country</option>
               {countriesItems && countriesItems.map(country => (
                 <option
                   key={country.country}

@@ -25,7 +25,7 @@ const Worldmap = (props) => {
         tooltipBgColor="#000"
         title="Your visited Countries"
         value-prefix="visited"
-        size="responsive"
+        size="lg"
         data={data} />
       : <img src={passport}/>
 }
