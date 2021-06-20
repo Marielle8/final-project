@@ -146,7 +146,7 @@ const Main = () => {
       <Header />
 
       <Worldmap visitedList={visitedList} />
-      <form className="countries-form">
+      <form className="add-countries-form">
         <p>Add a new country you have visited</p>
         <div>
           <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
@@ -185,7 +185,7 @@ const Main = () => {
           placeholder="food"
         />
 
-        <button className="add-button" onClick={onTravelTips}>Add travel tips</button>
+        <button className="add-tips-button" onClick={onTravelTips}>Add travel tips</button>
       </form>
       {/* <div>
         {visitedList && visitedList.map(visitedCountry => (
