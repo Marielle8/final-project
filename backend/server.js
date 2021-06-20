@@ -23,7 +23,7 @@ const User = mongoose.model('User', {
     type: String,
     required: true,
     unique: true,
-    maxlength: 12
+    
   },
   password: {
     type: String,
@@ -35,9 +35,8 @@ const User = mongoose.model('User', {
   },
   visitedCountries:[ {
     country: {      
-      type: Object,     
-      ref: "Country",
-      unique: true      
+      type: Object,   
+      ref: "Country"          
     },    
     comments: String     
   }]
@@ -89,41 +88,40 @@ app.get('/countries', async (req, res) => {
 app.get('/users', authenticateUser)
 app.get('/users', async (req, res) => { 
   const {id} = req.user 
-  const users = await User.findById(id)
-  const countrieslist = await User.aggregate(
-    [
-      {$unwind: "$country"},           
-      {$group:{ _id: "$country" } }
-    ]
-  )
-  res.json({ success: true, users, countrieslist })
+  const users = await User.findById(id) 
+  res.json({ success: true, users })
 })
 
-// add the full object of countryByAlphaCode
+
+// add the full object of countryByAlphaCode original
 app.patch('/countries', authenticateUser)
 app.patch('/countries', async (req, res) => {
   const { username, visitedCountry  } = req.body
   try {        
-    const countryByAlphaCode = await Country.findOne({ alphaCode: visitedCountry }).lean()      
-    const updatedUser = await User.findOneAndUpdate({ username: username, }, {          
-      $push: {        
-        visitedCountries: { country: countryByAlphaCode, comments: "no comments yet"}
-      },      
-    }, { new: true })   
-    res.json({ success: true, updatedUser })  
+    const countryByAlphaCode = await Country.findOne({ alphaCode: visitedCountry }).lean()  
+        const updatedUser = await User.findOneAndUpdate({ username: username, },{  
+          $push: {        
+            visitedCountries: { country: countryByAlphaCode, comments: "no comments yet"}
+            },      
+        }, { new: true })
+    res.json({ success: true, updatedUser })
+      
   } catch (error) {
     res.status(400).json({ success: false, message: "Invalid request", error })
   }  
 })
+
+
 // traveltips
 app.patch('/countries/:countryid', authenticateUser)
 app.patch('/countries/:countryid', async (req, res) => {
   const { countryid } = req.params
-  const { comments, newCountryTips } = req.body
+  const { comments, newComment } = req.body
+  const {id} = req.user   
   try {                
-    const updatedTravelTips = await User.findOneAndUpdate({ countryid }, {      
+    const updatedTravelTips = await User.findOneAndUpdate({ id }, {      
       $push: {        
-        visitedCountries: { comments: newCountryTips}
+        visitedCountries: { comments: newComment}
       },      
     }, { new: true })
     res.json({ success: true, updatedTravelTips })
