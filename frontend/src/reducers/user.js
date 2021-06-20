@@ -40,9 +40,8 @@ const user = createSlice({
         store.visitedCountry = [...store.visitedCountry, action.payload]        
       }     
     }, 
-    setTravelTips: (store, action) => {
-      store.visitedCountryId = action.payload
-      
+    setCountryId: (store, action) => {
+      store.visitedCountryId = action.payload      
     },  
   }
 })

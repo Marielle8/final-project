@@ -12,7 +12,7 @@ import user from '../reducers/user'
 const Main = () => {
   const [newCountry, setNewCountry] = useState("")
   const [visitedList, setVisitedList] = useState([])
-  const [newCountryTips, setNewCountryTips] = useState("")
+  const [newCountryId, setNewCountryId] = useState("")
   const [newComment, setNewComment] = useState("")
 
   const accessToken = useSelector(store => store.user.accessToken)
@@ -73,46 +73,48 @@ const Main = () => {
       .then(data => {
         if (data.success) {
           batch(() => {
-            setVisitedList(data.users.visitedCountries)
+            setVisitedList(data.users.visitedCountries)            
           })
         } else {
           dispatch(user.actions.setErrors('data'))
         }
       })
   }
-  // const onButtonClick = () => {
-  //   batch(() => {
-  //     dispatch(user.actions.setUsername(null))
-  //     dispatch(user.actions.setAccessToken(null))
+  
+  console.log(visitedList)
+  const onCountry = (event) => {    
+    
+    event.preventDefault()    
+    const existingCountry = visitedList.some((item) => item.country.alphaCode === newCountry)
+    if (!existingCountry) {
 
-  //     localStorage.removeItem('user')
-  //   })
-  // }
-
-  const onCountry = (event) => {
-    event.preventDefault()
-    const options = {
-      method: 'PATCH',
-      headers: {
-        'Authorization': accessToken,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ visitedCountry: newCountry, username})
-    }
-    fetch(API_URL('countries'), options)
+      const options = {
+        method: 'PATCH',
+        headers: {
+          'Authorization': accessToken,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ visitedCountry: newCountry, username})
+      }
+      fetch(API_URL('countries'), options)
       .then(res => res.json())
-      .then(data => {
-        if (data.success) {
+      .then(data => {      
+        if (data.success) {        
           batch(() =>{
-          fetchVisitedList()
-          dispatch(user.actions.setVisitedCountry(newCountry))
-          dispatch(user.actions.setErrors(null))
+            dispatch(user.actions.setVisitedCountry(newCountry))
+            dispatch(user.actions.setErrors(null))
+            fetchVisitedList()                  
           })
-        } else { console.error(data) }
+        } else {
+          dispatch(user.actions.setErrors("Country already exist"))
+          dispatch(user.actions.setErrors(data))
+          console.log(data)
+        }
       })
-  }
-
-// 
+    } else {
+      dispatch(user.actions.setErrors("Country already exist"))      
+    }
+    }
 
   const onTravelTips = (event) => {
     event.preventDefault()
@@ -128,13 +130,9 @@ const Main = () => {
     fetch(API_URL(`countries/${countryId}`), options)
       .then(res => res.json())
       .then(data => {
-        if (data.success) {
-          console.log(data)
-          // sätter id till stat
-          dispatch(user.actions.setTravelTips(newCountryTips))
-          // ska ta det som skrivs i input
-          dispatch(user.actions.setNewComment(newComment))
-          // dispatch(user.actions.setErrors(null))
+        if (data.success) { 
+        console.log(data)
+          dispatch(user.actions.setErrors(null))
         } else {
           dispatch(user.actions.setErrors({ message: 'Failed to add travel tips' }))
         }
@@ -160,13 +158,13 @@ const Main = () => {
               ))}
             </optgroup>
           </select>
-        </div>
-        {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
+          {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
+        </div>        
         <button onClick={onCountry}>Add country</button>
       </form>
       <form className="add-tips-form">
         <p>Choose one of your visited countries and add some tips:</p>
-        <select value={newCountryTips} onChange={(event) => setNewCountryTips(event.target.value)}>
+        <select value={newCountryId} onChange={(event) =>dispatch(user.actions.setCountryId(event.target.value))}>
           <optgroup label='Countries'> 
             {visitedList && visitedList.map(country => (
               <option
