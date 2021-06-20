@@ -22,7 +22,8 @@ const User = mongoose.model('User', {
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    maxlength: 12
   },
   password: {
     type: String,
@@ -35,7 +36,8 @@ const User = mongoose.model('User', {
   visitedCountries:[ {
     country: {      
       type: Object,     
-      ref: "Country"      
+      ref: "Country",
+      unique: true      
     },    
     comments: String     
   }]
@@ -100,15 +102,15 @@ app.get('/users', async (req, res) => {
 // add the full object of countryByAlphaCode
 app.patch('/countries', authenticateUser)
 app.patch('/countries', async (req, res) => {
-  const { username, visitedCountry } = req.body
+  const { username, visitedCountry  } = req.body
   try {        
     const countryByAlphaCode = await Country.findOne({ alphaCode: visitedCountry }).lean()      
-    const updatedUser = await User.findOneAndUpdate({ username: username, }, {      
+    const updatedUser = await User.findOneAndUpdate({ username: username, }, {          
       $push: {        
         visitedCountries: { country: countryByAlphaCode, comments: "no comments yet"}
       },      
-    }, { new: true })
-    res.json({ success: true, updatedUser })
+    }, { new: true })   
+    res.json({ success: true, updatedUser })  
   } catch (error) {
     res.status(400).json({ success: false, message: "Invalid request", error })
   }  
