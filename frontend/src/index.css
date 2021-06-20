@@ -118,6 +118,7 @@ code {
   display:flex;
   flex-direction: column;
   margin: 30px 30px 0 40px;
+  
 }
 
 h1 {
@@ -161,7 +162,7 @@ h1 {
 
 
 .worldmap-container {
- margin-top: -70px;
+ margin-top: -50px;
   /* margin: 0 30px ; */
   width: fit-content;
   height: auto;
@@ -227,7 +228,7 @@ p {
   border-radius: 25px;
   box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
   width: 95%;
-  height: 30px;
+  height: 35px;
   text-align: center;
   border: none;
   outline: none;
@@ -332,40 +333,12 @@ p {
 
 
 /***TABLET***/
- @media (min-width: 768px) {
-  .login-form {
-    margin: 50px;
-    width: 400px;
-    height: 840px;
-    padding: 60px 35px 35px 35px;
-  }
-  .header-container {
-   
-    margin: 40px;
-  }
-  .header-icon {
-    width: 200px;
-    height:200px;
-    }
-
-    .header-text {
-      margin: 40px 30px 0 200px;
-    }
-
-    h1 {
-      font-size: 60px;
-    }
-
-    .logout-button  {
-      width:120px ;
-      height:40px;
-    }
-  
+  @media (min-width: 768px) {
   .login-input-container {
     width: 80%;
     padding: 0px 5px 5px 5px;
     margin: 0 auto;
-   }
+  }
   
   .login-form input {
     margin-bottom: 30px;
@@ -385,6 +358,47 @@ p {
   .login-form button:active {
     background: #44656E;
   }
+  .login-form {
+    margin: 50px;
+    width: 400px;
+    height: 840px;
+    padding: 60px 35px 35px 35px;
+  }
+  .header-container {
+  
+    margin: 40px;
+  }
+  .header-icon {
+    width: 200px;
+    height:200px;
+    }
+
+    .header-text {
+      margin: 30px 30px 0 200px;
+    }
+
+    h1 {
+      font-size: 50px;
+    }
+
+    .logout-button  {
+      width:120px ;
+      height:40px;
+    }
+  
+.main-content {
+  
+}
+.worldmap-container {
+  margin-top: -50px;
+   /* margin: 0 30px ; */
+   width:fit-content ;
+   height: auto;
+   /* padding: 30px 35px 35px 35px; */
+   border-radius: 40px;
+   background: #ecf0f3;
+   box-shadow: 13px 13px 20px #cbced1;  
+ }
 }
 
 /***DESKTOP***/

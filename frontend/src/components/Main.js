@@ -20,8 +20,8 @@ const Main = () => {
   const storedCountries = useSelector(store => store.user.visitedCountry)
   const errorMsgMain = useSelector(store => store.user.errors)
   const username = useSelector(store => store.user.username)
-  const countryId = useSelector(store => store.user.visitedCountryId)  
-  
+  const countryId = useSelector(store => store.user.visitedCountryId)
+
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -84,7 +84,7 @@ const Main = () => {
   console.log(visitedList)
   const onCountry = (event) => {    
     
-    event.preventDefault()    
+    // event.preventDefault()    
     const existingCountry = visitedList.some((item) => item.country.alphaCode === newCountry)
     if (!existingCountry) {
 
@@ -141,15 +141,17 @@ const Main = () => {
 
   return (
 
+
     <div className="main-container">
       <Header />
+
       <Worldmap visitedList={visitedList} />
       <form className="countries-form">
         <p>Add a new country you have visited</p>
         <div>
           <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
             <optgroup label='Countries'>
-            <option value="" disabled selected>Select country</option>
+              <option value="" disabled selected>Select country</option>
               {countriesItems && countriesItems.map(country => (
                 <option
                   key={country.country}
@@ -171,7 +173,7 @@ const Main = () => {
                 key={country.country._id}
                 value={country.country._id}
               >{country.country.country}</option>
-              ))}
+            ))}
           </optgroup>
         </select>
 
@@ -184,7 +186,7 @@ const Main = () => {
         />
 
         <button className="add-button" onClick={onTravelTips}>Add travel tips</button>
-      </form>      
+      </form>
       {/* <div>
         {visitedList && visitedList.map(visitedCountry => (
           <div>
