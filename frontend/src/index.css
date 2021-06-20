@@ -41,7 +41,6 @@ code {
   border-radius: 50%;
   margin-bottom: 60px;
   margin-top: 30px;
-  /* border-radius: 25px; */
 }
 
 .login-input-container input {
@@ -93,40 +92,53 @@ code {
 /*Header*/
 .header {
   width: 100vw;
-  height: 40vh;
+  height: 50vh;
   background-color:#44656E;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   display:flex;
+  justify-content: space-evenly;
   flex-direction: row;
+  align-items:center;
+  /* margin: 30px 0; */
 }
 
-.header-container {
+/* .header-container {
   display: flex;
   flex-direction: column;
-  margin: 30px;
-}
-.header-icon {
+} */
+
+/*ICON I MOBILVERISION*/
+/* .header-icon {
   width: 115px;
   height:115px;
   border-radius: 50%;
   border: 2px solid #F8EEE8;
   box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #F8EEE8;
-}
+} */
 
 .header-text {
   display:flex;
   flex-direction: column;
+  align-items: center;
   margin: 30px 30px 0 40px;
   
 }
 
-h1 {
+.header-h1 {
   color: #dfbeac;
   margin: 0;
   font-family: 'Playball', cursive;
   font-weight: 700;
   font-size: 40px;
+}
+
+.header-h2 {
+  color: #dfbeac;
+  margin: 0;
+  font-family: 'Playball', cursive;
+  font-weight: 700;
+  font-size: 30px;
 }
 
 .logout-button  {
@@ -139,105 +151,96 @@ h1 {
   font-size: 16px;
   font-weight: 700;
   font-family: 'Lato', sans-serif;
-  /* color: #44656E; */
   text-align: center;
-  /* background: #dfbeac; */
   box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
   transition: .5s;
-  margin: 70px 0 0 50px;
+  margin: 70px 0 0 0px;
   color:#dfbeac;
-  background-color:#44656E ;
+  background-color:#2e454b;
 }
+
+.logout-button:hover {
+  transform:scale(1.1);  
+}
+
+.logout-button button:active {
+  background: #44656E;
+}
+
 .main-container {
-  width: 50vw;
+  width: 100vw;
   display:flex;
   flex-direction: column;
   align-items: center;
   /* margin: 40px; */
 }
 
-.main-container div {
-  margin-bottom: 20px;
+.main-content {
+  display: flex;  
+  flex-direction: column;
 }
-
 
 .worldmap-container {
- margin-top: -50px;
-  /* margin: 0 30px ; */
-  width: fit-content;
-  height: auto;
-  padding: 30px 35px 35px 35px;
-  border-radius: 40px;
-  background: #ecf0f3;
-  box-shadow: 13px 13px 20px #cbced1;  
-}
+  margin-top: -70px;
+   width: fit-content;
+   height: auto;
+   padding: 30px 5px 35px 5px;
+   border-radius: 40px;
+   background: #ecf0f3;
+   box-shadow: 13px 13px 20px #cbced1;  
+   min-width: 336px;
+   min-height: 301px;
+   display:flex;
+   justify-content: center;
+   align-items: center;
+ }
 
 h2 {
   color: #44656E;
   font-size: 25px;
   font-weight: 700;
   font-family: 'Playball', cursive;
-  margin: 0; 
+  margin: 0 50px;
 }
-.worldmap-container img {
-  width: 100px;
-  height: 100px;  
-}
-/* .worldmap-header {
-  width: 100%;
-  height: 30px;
-  font-family: 'Playball', cursive;
-  font-weight: 700;
-  font-size: large;
-  text-align: center;
-  background-color:  #ddc4b5;
-  border-radius: 30px;
-  padding-top:10px;
-  color: #44656E;
-} */
-.countries-form {
+
+ .add-countries-form {
+  display:flex;
+  flex-direction:column;
   font-family: 'Lato', sans-serif;
-  /* margin: 0 30px ; */
-  margin-top: 20px;
+  margin: 0 30px ;
+  margin-top: 40px;
   width: 75vw;
   height: auto;
   padding: 30px 35px 35px 35px;
   border-radius: 40px;
   background: #ecf0f3;
-  box-shadow: 13px 13px 20px  #cbced1;  
-}
-/* .countries-form div {
-  border: none;
-  outline: none;
-  background: none;
-  font-size: 18px;
-  color: #555;
-  padding: 20px 10px 20px 5px;
-} */
-
-p {
+  box-shadow: 13px 13px 20px #cbced1; 
+ }
+p,
+.add-countries-text {
   color: #44656E;
   font-size: 20px;
   font-weight: 700;
   font-family: 'Playball', cursive;
-  margin-top: 0;
+  text-align: center;
 }
 
-.countries-form select {
+.add-countries-form select {
   margin-bottom: 20px;
   border-radius: 25px;
-  box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
-  width: 95%;
-  height: 35px;
-  text-align: center;
+  box-shadow: inset 8px 8px 8px #cbced1, inset -2px -8px 8px #ffffff;
+  width: 100%;
+  height: 50px;
+  text-align:center;
   border: none;
   outline: none;
   background: none;
-  font-size: 18px;
+  font-size: 14px;
   color: #555;
-  padding: 20px 10px 20px 5px;
+  padding: 15px 10px 15px 5px;
 }
-.countries-form button {
+
+.add-countries-form button {
   outline: none;
   border: none;
   cursor: pointer;
@@ -255,11 +258,19 @@ p {
   margin-bottom: 24px;
 }
 
+.add-countries-form button:hover {
+  background:  #c2a08e ;  
+}
+
+.add-countries-form button:active {
+  background:  #dfbeac;
+}
+
 .add-tips-form {
   display:flex;
   flex-direction:column;
   font-family: 'Lato', sans-serif;
-  /* margin: 0 30px ; */
+  margin: 0 30px ;
   margin-top: 40px;
   width: 75vw;
   height: auto;
@@ -273,16 +284,17 @@ p {
   margin-bottom: 20px;
   border-radius: 25px;
   box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
-  width: 95%;
-  height:30px ;
+  width: 100%;
+  height:50px ;
   text-align: center;
   border: none;
   outline: none;
   background: none;
-  font-size: 18px;
+  font-size: 14px;
   color: #555;
-  padding: 20px 10px 20px 5px;
+  padding: 15px 10px 15px 5px;
 }
+
 .add-tips-form input {
   margin-bottom: 20px;
   border-radius: 25px;
@@ -298,7 +310,7 @@ p {
   padding: 20px 10px 20px 5px;
 }
 
-.add-button {
+.add-tips-button {
   /* -webkit-text-stroke: .5px #3d3c3c; */
   outline: none;
   border: none;
@@ -317,11 +329,19 @@ p {
   margin-bottom: 24px;
 }
 
+.add-tips-button:hover {
+  background: #2e454b;  
+}
+
+.add-tips-button button:active {
+  background: #44656E;
+}
+
 .travel-tips-container {
   display:flex;
   flex-direction:column;
   font-family: 'Lato', sans-serif;
-  /* margin: 0 30px ; */
+  margin: 0 30px ;
   margin-top: 40px;
   width: 75vw;
   height: auto;
@@ -386,20 +406,38 @@ p {
       height:40px;
     }
   
-.main-content {
+  .login-form button {
+    width: 80%;
+    height: 60px;
+    margin:0 45px 24px;
+  }
   
+  .login-form button:hover {
+    background: #2e454b;  
+  }
+  
+  .login-form button:active {
+    background: #44656E;
+  }
+  .countries-form {
+    margin-left:50px;
+     width: 300px;
+   }
+   .main-content {
+     margin-left: 50px;
+     width: 100vw;
+     /* display: grid;
+     grid-template-columns: 1fr 1fr; */
+     display: flex;
+     flex-direction: row;
+     /* justify-items: center; */
+     /* align-items: center; */
+     flex-wrap: wrap;
+ 
+   }
 }
-.worldmap-container {
-  margin-top: -50px;
-   /* margin: 0 30px ; */
-   width:fit-content ;
-   height: auto;
-   /* padding: 30px 35px 35px 35px; */
-   border-radius: 40px;
-   background: #ecf0f3;
-   box-shadow: 13px 13px 20px #cbced1;  
- }
-}
+
+
 
 /***DESKTOP***/
 @media (min-width:992px) {
@@ -441,5 +479,45 @@ p {
   .login-form button:active {
     background: #44656E;
   }
-  
+  .header-icon {
+    width: 300px;
+    height:300px;
+    /* border-radius: 50%; */
+    /* border: 2px solid #F8EEE8;
+    box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #F8EEE8; */
+  }
+
+  .lottie-container {
+    width: 300px;
+    height:300px;
+  }
+  .header-text {
+    margin: 70px 30px 0 40px;
+  }
+
+  .logout-button  {
+    
+    margin: 60px 0 0 0px;
+    
+  }
+  .worldmap-container,
+  .add-tips-form,
+  .add-countries-form,
+  .travel-tips-container {
+   /* margin-left:50px; */
+    width: 45vw;
+  }
+  .main-content {
+    /* margin-left: 50px; */
+    width: 100vw;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr; */
+    display: flex;
+    flex-direction: row;
+    /* justify-items: center; */
+    /* align-items: center; */
+    flex-wrap: wrap;
+
+  }
+
 }  

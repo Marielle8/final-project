@@ -73,17 +73,17 @@ const Main = () => {
       .then(data => {
         if (data.success) {
           batch(() => {
-            setVisitedList(data.users.visitedCountries)            
+            setVisitedList(data.users.visitedCountries)
           })
         } else {
           dispatch(user.actions.setErrors('data'))
         }
       })
   }
-  
+
   console.log(visitedList)
-  const onCountry = (event) => {    
-    
+  const onCountry = (event) => {
+
     // event.preventDefault()    
     const existingCountry = visitedList.some((item) => item.country.alphaCode === newCountry)
     if (!existingCountry) {
@@ -94,27 +94,27 @@ const Main = () => {
           'Authorization': accessToken,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ visitedCountry: newCountry, username})
+        body: JSON.stringify({ visitedCountry: newCountry, username })
       }
       fetch(API_URL('countries'), options)
-      .then(res => res.json())
-      .then(data => {      
-        if (data.success) {        
-          batch(() =>{
-            dispatch(user.actions.setVisitedCountry(newCountry))
-            dispatch(user.actions.setErrors(null))
-            fetchVisitedList()                  
-          })
-        } else {
-          dispatch(user.actions.setErrors("Country already exist"))
-          dispatch(user.actions.setErrors(data))
-          console.log(data)
-        }
-      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            batch(() => {
+              dispatch(user.actions.setVisitedCountry(newCountry))
+              dispatch(user.actions.setErrors(null))
+              fetchVisitedList()
+            })
+          } else {
+            dispatch(user.actions.setErrors("Country already exist"))
+            dispatch(user.actions.setErrors(data))
+            console.log(data)
+          }
+        })
     } else {
-      dispatch(user.actions.setErrors("Country already exist"))      
+      dispatch(user.actions.setErrors("Country already exist"))
     }
-    }
+  }
 
   const onTravelTips = (event) => {
     event.preventDefault()
@@ -130,8 +130,8 @@ const Main = () => {
     fetch(API_URL(`countries/${countryId}`), options)
       .then(res => res.json())
       .then(data => {
-        if (data.success) { 
-        console.log(data)
+        if (data.success) {
+          console.log(data)
           dispatch(user.actions.setErrors(null))
         } else {
           dispatch(user.actions.setErrors({ message: 'Failed to add travel tips' }))
@@ -161,13 +161,13 @@ const Main = () => {
             </optgroup>
           </select>
           {errorMsgMain ? <p>{errorMsgMain.message}</p> : null}
-        </div>        
+        </div>
         <button onClick={onCountry}>Add country</button>
       </form>
       <form className="add-tips-form">
         <p>Choose one of your visited countries and add some tips:</p>
-        <select value={newCountryId} onChange={(event) =>dispatch(user.actions.setCountryId(event.target.value))}>
-          <optgroup label='Countries'> 
+        <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
+          <optgroup label='Countries'>
             {visitedList && visitedList.map(country => (
               <option
                 key={country.country._id}
