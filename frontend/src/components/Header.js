@@ -7,11 +7,7 @@ import user from '../reducers/user'
 
 import assets from '../assets/header-desktop.png'
 
-const Header = () => {
-
-  const accessToken = useSelector(store => store.user.accessToken)
-  const username = useSelector(store => store.user.username)
-
+const Header = () => {  
 
   const dispatch = useDispatch()
   const history = useHistory()
