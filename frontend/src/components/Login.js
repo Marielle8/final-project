@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
@@ -14,10 +14,9 @@ const Login = () => {
 
   const accessToken = useSelector(store => store.user.accessToken)
   const errorMsg = useSelector(store => store.user.errors)
-  const dispatch = useDispatch()
-  const history = useHistory()
 
-  const lottieContainer = useRef(null)
+  const dispatch = useDispatch()
+  const history = useHistory()  
 
   useEffect(() => {
     if (accessToken) {

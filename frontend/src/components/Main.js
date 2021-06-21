@@ -18,8 +18,8 @@ const Main = () => {
 
   const accessToken = useSelector(store => store.user.accessToken)
   const countriesItems = useSelector(store => store.user.items)
-  const storedCountries = useSelector(store => store.user.visitedCountry)
-  const errorMsgMain = useSelector(store => store.user.errors)
+  const errorMsgCountry = useSelector(store => store.user.errorsCountry)  
+  const errorMsgTips = useSelector(store => store.user.errorsTips)
   const username = useSelector(store => store.user.username)
   const countryId = useSelector(store => store.user.visitedCountryId)
 
@@ -52,11 +52,11 @@ const Main = () => {
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setCountries(data.countries))
-            dispatch(user.actions.setErrors(null))
+            dispatch(user.actions.setErrorsCountry(null))
             fetchVisitedList()
           })
         } else {
-          dispatch(user.actions.setErrors('data'))
+          dispatch(user.actions.setErrorsCountry('data'))
         }
       })
   }
@@ -77,12 +77,11 @@ const Main = () => {
             setVisitedList(data.users.visitedCountries)
           })
         } else {
-          dispatch(user.actions.setErrors('data'))
+          dispatch(user.actions.setErrorsCountry('data'))
         }
       })
   }
-
-  console.log(visitedList)
+  
   const onCountry = (event) => {
 
     const existingCountry = visitedList.some((item) => item.country.alphaCode === newCountry)
@@ -102,17 +101,13 @@ const Main = () => {
           if (data.success) {
             batch(() => {
               dispatch(user.actions.setVisitedCountry(newCountry))
-              dispatch(user.actions.setErrors(null))
+              dispatch(user.actions.setErrorsCountry(null))
               fetchVisitedList()
             })
-          } else {
-            dispatch(user.actions.setErrors("Country already exist"))
-            dispatch(user.actions.setErrors(data))
-            console.log(data)
-          }
+          } 
         })
       } else {
-        dispatch(user.actions.setErrors("Country already exist"))
+        dispatch(user.actions.setErrorsCountry("Country already exist"))
         event.preventDefault()    
     }
   }
@@ -126,16 +121,18 @@ const Main = () => {
         Authorization: accessToken,
         'Content-Type': 'application/json'
       },
+      // neWcomment comes from a text input in a form
       body: JSON.stringify({ comments: newComment })
     }
+    //countryId comes from selected country from a dropdown and stored in state
     fetch(API_URL(`countries/${countryId}`), options)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
           console.log(data)
-          dispatch(user.actions.setErrors(null))
+          dispatch(user.actions.setErrorsTips(null))
         } else {
-          dispatch(user.actions.setErrors({ message: 'Failed to add travel tips' }))
+          dispatch(user.actions.setErrorsTips('Failed to add travel tips' ))
         }
       })
   }
@@ -162,7 +159,7 @@ const Main = () => {
             </optgroup>
           </select>
         </div>
-          {errorMsgMain ? <p>{errorMsgMain}</p> : null}
+          {errorMsgCountry ? <p>{errorMsgCountry}</p> : null}
         <button onClick={onCountry}>Add country</button>
       </form>
       <form className="add-tips-form">
@@ -176,8 +173,7 @@ const Main = () => {
               // country._id gets the new one, country.country._id gets the countryid 
               value={country._id}
               >{country.country.country} {console.log(country._id)}</option>
-              ))}
-              
+              ))}              
           </optgroup>
         </select>
 
@@ -188,8 +184,8 @@ const Main = () => {
           className="username-input"
           placeholder="food"
         />
-
         <button className="add-tips-button" onClick={onTravelTips}>Add travel tips</button>
+        {errorMsgTips ? <p>{errorMsgTips}</p> : null}
       </form>
       {/* <div>
         {visitedList && visitedList.map(visitedCountry => (

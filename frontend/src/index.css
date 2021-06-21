@@ -482,16 +482,17 @@ p,
   .main-container {
     display: flex;
     flex-flow: row wrap;
+    width: 100%
   }
 
   .worldmap-container,
   .add-tips-form,
   .add-countries-form,
   .travel-tips-container {    
-    width: 40vw;
+    width: 40%;
     height: 480px; 
-    margin: 30px;
-    padding: 35px;
+    margin: 25px;
+    padding: 25px;
     margin-top: -20px; 
     margin-bottom: 50px;  
   }
