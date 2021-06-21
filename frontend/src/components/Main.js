@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 
 import Worldmap from './WorldMap'
 import Header from './Header'
+import Footer from './Footer'
 
 import { API_URL } from '../reusable/urls'
 
@@ -204,6 +205,7 @@ const Main = () => {
       <div className="travel-tips-container">
         <p>Your travel tips:</p>
       </div>
+      <Footer />
     </div >
 
 
