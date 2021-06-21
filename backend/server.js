@@ -123,7 +123,7 @@ app.patch('/countries/:countryid', async (req, res) => {
     console.log(comments)   // working, gets whatever we write in text input. *should it be so?       
     console.log(id)         // working, gets user id 
     console.log("comment",newComment)  // not working, return undefined      
-    const updatedTravelTips = await User.findOneAndUpdate( {id, countryid, comments }, {      
+    const updatedTravelTips = await User.findOneAndUpdate( {id, countryid }, {      
       $push: {        
         visitedCountries: { comments: comments}        
       },      
