@@ -97,10 +97,11 @@ code {
   display:flex;
   justify-content:space-evenly;
   flex-direction: row;
-  align-items:center;
+  align-items: flex-start;
 }
 
 .header-icon {
+  margin-top: 30px;
   width: 115px;
   height:115px;
   border-radius: 50%;
@@ -120,7 +121,7 @@ code {
   display:flex;
   flex-direction: column;
   align-items: center;
-  /* margin: 30px 30px 0 40px; */
+  margin-top: 30px;  
 }
 
 .header-h1 {
@@ -175,20 +176,20 @@ code {
 
 .worldmap-container {
   margin-top: -40px;
-   width: fit-content;
-   height: auto;
-   padding: 30px 5px 35px 5px;
-   border-radius: 40px;
-   background: #ecf0f3;
-   box-shadow: 13px 13px 20px #cbced1;  
-   min-width: 336px;
-   min-height: 301px;
-   display:flex;
-   justify-content: center;
-   align-items: center;
- }
+  width: fit-content;
+  height: auto;
+  padding: 30px 5px 35px 5px;
+  border-radius: 40px;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1;  
+  min-width: 336px;
+  min-height: 301px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
 
- .add-countries-form {
+.add-countries-form {
   display:flex;
   flex-direction:column;
   font-family: 'Lato', sans-serif;
@@ -200,7 +201,7 @@ code {
   border-radius: 40px;
   background: #ecf0f3;
   box-shadow: 13px 13px 20px #cbced1; 
- }
+}
 
 p,
 .add-countries-text {
@@ -419,7 +420,7 @@ p,
 }
 
 /***DESKTOP***/
-@media (min-width:992px) {
+@media (min-width:1000px) {
   .login-form {
     margin: 20px;
     width: 800px;
@@ -469,30 +470,36 @@ p,
   display:none;
   }
 
+  .header-text {
+    margin-top: 60px;
+  }
+
   .lottie-container {
     display:flex;
-    width: 300px;
-    height:300px;
+    width: 250px;
+    height: 250px;
   }
  
  .logout-button  {
     margin: 60px 0 0 0px;
+   
   }
 
   .main-container {
     display: flex;
     flex-flow: row wrap;
-    width: 100%
+    width: 100vw;    
   }
 
   .worldmap-container,
   .add-tips-form,
   .add-countries-form,
   .travel-tips-container {    
-    width: 40%;
+    width: 45%;
     height: 480px; 
-    margin: 25px;
-    padding: 25px;
+    margin-left: 30px;
+    margin-right: 0;
+    padding: 15px;
     margin-top: -20px; 
     margin-bottom: 50px;  
   }
