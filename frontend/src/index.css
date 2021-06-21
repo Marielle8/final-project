@@ -69,7 +69,7 @@ code {
   border-radius: 30px; 
   font-size: 20px;
   font-weight: 700;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Arial', sans-serif;
   color: #fff;
   text-align: center;
   background: #44656E;
@@ -139,32 +139,6 @@ code {
   font-size: 30px;
 }
 
-.logout-button  {
-  outline: none;
-  border: none;
-  cursor: pointer;
-  width:80px ;
-  height:20px;
-  border-radius: 30px; 
-  font-size: 16px;
-  font-weight: 700;
-  font-family: 'Lato', sans-serif;
-  text-align: center;
-  box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
-  transition: .5s;
-  margin: 70px 0 0 0px;
-  color:#dfbeac;
-  background-color:#2e454b;
-}
-
-.logout-button:hover {
-  transform:scale(1.1);  
-}
-
-.logout-button button:active {
-  background: #44656E;
-}
-
 /***MAIN BODY***/
 .main-container {
   width: 100vw;
@@ -173,27 +147,11 @@ code {
   align-items: center;
 }
 
-.worldmap-container {
-  margin-top: -40px;
-  width: fit-content;
-  height: auto;
-  padding: 30px 5px 35px 5px;
-  border-radius: 40px;
-  background: #ecf0f3;
-  box-shadow: 13px 13px 20px #cbced1;  
-  min-width: 336px;
-  min-height: 301px;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .add-countries-form {
+  margin-top: -40px;
   display:flex;
   flex-direction:column;
   font-family: 'Lato', sans-serif;
-  margin: 0 30px ;
-  margin-top: 40px;
   width: 75vw;
   height: auto;
   padding: 30px 35px 35px 35px;
@@ -202,10 +160,49 @@ code {
   box-shadow: 13px 13px 20px #cbced1; 
 }
 
-p,
-.add-countries-text {
+.logout-and-presentation-container {
+  display:flex;
+  justify-content:space-between;
+  flex-direction: row;
+  align-items: center;
+}
+
+.presentation-text {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: 'Arial', sans-serif;
+  color:#44656E;
+}
+
+.logout-button  {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  width:70px ;
+  height:30px;
+  border-radius: 30px; 
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
+  transition: .5s;
+  margin: 0;
+  color:  #44656E;
+  background-color: #8E9E9E;
+}
+
+.logout-button:hover {
+  transform:scale(1.1);  
+}
+
+.logout-button:active {
+  background:  #8E9E9E;
+}
+
+.card-header {
   color: #44656E;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 700;
   font-family: 'Playball', cursive;
   text-align: center;
@@ -226,7 +223,7 @@ p,
   padding: 15px 10px 15px 5px;
 }
 
-.add-countries-form button {
+.add-countries-button {
   outline: none;
   border: none;
   cursor: pointer;
@@ -235,7 +232,7 @@ p,
   border-radius: 30px; 
   font-size: 20px;
   font-weight: 700;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Arial', sans-serif;
   color: #44656E;
   text-align: center;
   background: #dfbeac;
@@ -244,18 +241,35 @@ p,
   margin-bottom: 24px;
 }
 
-.add-countries-form button:hover {
+.add-countries-button:hover {
   background:  #c2a08e ;  
 }
 
-.add-countries-form button:active {
+.add-countries-button:active {
   background:  #dfbeac;
+}
+
+.worldmap-container {
+  margin: 0 30px ;
+  margin-top: 40px;
+  width: fit-content;
+  height: auto;
+  padding: 30px 5px 35px 5px;
+  border-radius: 40px;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1;  
+  min-width: 336px;
+  min-height: 301px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .add-tips-form {
   display:flex;
   flex-direction:column;
-  font-family: 'Lato', sans-serif;
+  font-family:'Arial', sans-serif ;
   margin: 0 30px ;
   margin-top: 40px;
   width: 75vw;
@@ -285,7 +299,7 @@ p,
   margin-bottom: 20px;
   border-radius: 25px;
   box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
-  width: 98%;
+  width: 95%;
   height:10px ;
   text-align: center;
   border: none;
@@ -305,7 +319,7 @@ p,
   border-radius: 30px; 
   font-size: 20px;
   font-weight: 700;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Arial', sans-serif;
   color: #dfbeac;
   text-align: center;
   background:  #44656E;
@@ -325,7 +339,7 @@ p,
 .travel-tips-container {
   display:flex;
   flex-direction:column;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Arial', sans-serif;
   margin: 0 30px ;
   margin-top: 40px;
   width: 75vw;
@@ -350,17 +364,21 @@ p,
   margin-top: 30px;
 }
 
-.footer p {
+.footer-text {
   margin: 0;
   color: #dfbeac;
+  font-family: 'Playball', cursive;
+  font-size: 18px;
 }
 
 .footer a:link {
   color: #dfbeac;
 }
+
 .footer a:visited {
   color:#dfbeac;
 }
+
 .footer a:hover {
   color: #c2a08e;
 }
@@ -411,12 +429,27 @@ p,
     width:120px ;
     height:40px;
   }
+
+  .main-container {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100vw;    
+  }
   
-  .countries-form {
-    margin-left:50px;
-    width: 300px;
+  .worldmap-container,
+  .add-tips-form,
+  .add-countries-form,
+  .travel-tips-container {    
+    width: 45%;
+    height: 480px; 
+    margin-left: 30px;
+    margin-right: 0;
+    padding: 15px;
+    margin-top: -20px;  
+    margin-bottom: 50px;  
   }
 }
+
 
 /***DESKTOP***/
 @media (min-width:1000px) {
@@ -465,8 +498,8 @@ p,
     height:250px;
   }
 
-.header-icon {
-  display:none;
+  .header-icon {
+    display:none;
   }
 
   .header-text {
@@ -477,10 +510,6 @@ p,
     display:flex;
     width: 250px;
     height: 250px;
-  }
-
-.logout-button  {
-    margin: 60px 0 0 0px;   
   }
 
   .main-container {

@@ -18,7 +18,7 @@ const Main = () => {
 
   const accessToken = useSelector(store => store.user.accessToken)
   const countriesItems = useSelector(store => store.user.items)
-  const errorMsgCountry = useSelector(store => store.user.errorsCountry)  
+  const errorMsgCountry = useSelector(store => store.user.errorsCountry)
   const errorMsgTips = useSelector(store => store.user.errorsTips)
   const username = useSelector(store => store.user.username)
   const countryId = useSelector(store => store.user.visitedCountryId)
@@ -81,12 +81,12 @@ const Main = () => {
         }
       })
   }
-  
+
   const onCountry = (event) => {
 
     const existingCountry = visitedList.some((item) => item.country.alphaCode === newCountry)
     if (!existingCountry) {
-      
+
       const options = {
         method: 'PATCH',
         headers: {
@@ -104,11 +104,11 @@ const Main = () => {
               dispatch(user.actions.setErrorsCountry(null))
               fetchVisitedList()
             })
-          } 
+          }
         })
-      } else {
-        dispatch(user.actions.setErrorsCountry("Country already exist"))
-        event.preventDefault()    
+    } else {
+      dispatch(user.actions.setErrorsCountry("Country already exist"))
+      event.preventDefault()
     }
   }
 
@@ -132,62 +132,82 @@ const Main = () => {
           console.log(data)
           dispatch(user.actions.setErrorsTips(null))
         } else {
-          dispatch(user.actions.setErrorsTips('Failed to add travel tips' ))
+          dispatch(user.actions.setErrorsTips('Failed to add travel tips'))
         }
       })
-  }
 
+
+  }
+  const onButtonClick = () => {
+    batch(() => {
+      dispatch(user.actions.setUsername(null))
+      dispatch(user.actions.setAccessToken(null))
+
+      localStorage.removeItem('user')
+    })
+  }
   return (
 
     <>
-    <Header />
+      <Header />
 
-    <div className="main-container">
-      <Worldmap visitedList={visitedList} />
-      <form className="add-countries-form">
-        <p>Add a new country you have visited</p>
-        <div>
-          <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
+      <div className="main-container">
+
+        <form className="add-countries-form">
+          <div className="logout-and-presentation-container">
+
+            <h3 className="card-header">Hi {username}!</h3>
+            <button className="logout-button" onClick={onButtonClick}>Log out</button>
+          </div>
+          <div className="presentation-text-container">
+            <p className="presentation-text">Welcome to your travel journal. Here you can easily get an overview of all the countries you have visited by adding them to an interactive worldmap.</p>
+            <p className="presentation-text">To remember all the wonderful places you have visited during your travels you can add tips to specifik countries and have it displayed further down on this page</p>
+          </div>
+          <h3 className="card-header">Add a new country you have visited:</h3>
+
+          <div>
+            <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
+              <optgroup label='Countries'>
+                <option value="" disabled defaultValue>Select country</option>
+                {countriesItems && countriesItems.map(country => (
+                  <option
+                    key={country.country}
+                    value={country.alphaCode}
+                  >{country.country}</option>
+                ))}
+              </optgroup>
+            </select>
+          </div>
+          {errorMsgCountry ? <p>{errorMsgCountry}</p> : null}
+          <button className="add-countries-button" onClick={onCountry}>Add country</button>
+        </form>
+        <Worldmap visitedList={visitedList} />
+        <form className="add-tips-form">
+          <h3 className="card-header">Choose one of your visited countries and add some tips:</h3>
+          <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
             <optgroup label='Countries'>
               <option value="" disabled defaultValue>Select country</option>
-              {countriesItems && countriesItems.map(country => (
+              {visitedList && visitedList.map(country => (
                 <option
-                  key={country.country}
-                  value={country.alphaCode}
-                >{country.country}</option>
+                  key={country.country._id}
+                  // country._id gets the new one, country.country._id gets the countryid 
+                  value={country._id}
+                >{country.country.country} {console.log(country._id)}</option>
               ))}
             </optgroup>
           </select>
-        </div>
-          {errorMsgCountry ? <p>{errorMsgCountry}</p> : null}
-        <button onClick={onCountry}>Add country</button>
-      </form>
-      <form className="add-tips-form">
-        <p>Choose one of your visited countries and add some tips:</p>
-        <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
-          <optgroup label='Countries'>
-          <option value="" disabled defaultValue>Select country</option>
-            {visitedList && visitedList.map(country => (
-              <option
-              key={country.country._id}
-              // country._id gets the new one, country.country._id gets the countryid 
-              value={country._id}
-              >{country.country.country} {console.log(country._id)}</option>
-              ))}              
-          </optgroup>
-        </select>
 
-        <input
-          type="text"
-          value={newComment}
-          onChange={(event) => setNewComment(event.target.value)}
-          className="username-input"
-          placeholder="food"
-        />
-        <button className="add-tips-button" onClick={onTravelTips}>Add travel tips</button>
-        {errorMsgTips ? <p>{errorMsgTips}</p> : null}
-      </form>
-      {/* <div>
+          <input
+            type="text"
+            value={newComment}
+            onChange={(event) => setNewComment(event.target.value)}
+            className="username-input"
+            placeholder="food"
+          />
+          <button className="add-tips-button" onClick={onTravelTips}>Add travel tips:</button>
+          {errorMsgTips ? <p>{errorMsgTips}</p> : null}
+        </form>
+        {/* <div>
         {visitedList && visitedList.map(visitedCountry => (
           <div>
             {visitedCountry.country.map(item => (
@@ -200,12 +220,12 @@ const Main = () => {
         ))}
       </div>
       {console.log(visitedList)} */}
-      {/* <button onClick={onButtonClick}>Logout</button> */}
-      <div className="travel-tips-container">
-        <p>Your travel tips:</p>
-      </div>
-      <Footer />
-    </div >
+        {/* <button onClick={onButtonClick}>Logout</button> */}
+        <div className="travel-tips-container">
+          <h3 className="card-header">Your travel tips:</h3>
+        </div>
+        <Footer />
+      </div >
     </>
 
 

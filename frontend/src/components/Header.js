@@ -47,7 +47,7 @@ const Header = () => {
       <div className="header-text">
         <h1 className="header-h1">Welcome</h1>
         <h2 className="header-h2">{username}</h2>
-        <button className="logout-button" onClick={onButtonClick}>Log out</button>
+        {/* <button className="logout-button" onClick={onButtonClick}>Log out</button> */}
       </div>
     </section>
   )

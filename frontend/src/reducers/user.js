@@ -4,20 +4,22 @@ const initialState = localStorage.getItem('user')
   ? {
     username: JSON.parse(localStorage.getItem('user')).username,
     accessToken: JSON.parse(localStorage.getItem('user')).accessToken,
+    errors: null,
     errorsCountry: null,
     errorsTips: null,
     visitedCountry: [],
     visitedCountryId: null,
-    items: []    
+    items: []
   }
   : {
     username: null,
     accessToken: null,
+    errors: null,
     errorsCountry: null,
     errorsTips: null,
     visitedCountry: [],
     visitedCountryId: null,
-    items: []    
+    items: []
   }
 
 const user = createSlice({
@@ -29,6 +31,9 @@ const user = createSlice({
     },
     setAccessToken: (store, action) => {
       store.accessToken = action.payload
+    },
+    setErrors: (store, action) => {
+      store.errors = action.payload
     },
     setErrorsCountry: (store, action) => {
       store.errorsCountry = action.payload
@@ -42,12 +47,12 @@ const user = createSlice({
     setVisitedCountry: (store, action) => {
       const existingCountry = store.visitedCountry.find((item) => item === action.payload)
       if (!existingCountry) {
-        store.visitedCountry = [...store.visitedCountry, action.payload]        
-      }     
-    }, 
+        store.visitedCountry = [...store.visitedCountry, action.payload]
+      }
+    },
     setCountryId: (store, action) => {
-      store.visitedCountryId = action.payload      
-    },  
+      store.visitedCountryId = action.payload
+    },
   }
 })
 

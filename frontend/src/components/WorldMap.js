@@ -11,7 +11,7 @@ const Worldmap = (props) => {
     })
     setData(visitedCountreisList)
   }
-  
+
   useEffect(() => {
     addItem()
   }, [props.visitedList])
@@ -19,18 +19,18 @@ const Worldmap = (props) => {
   return (
 
     <div className="worldmap-container">
+      <p className="card-header">Your visited Countries:</p>
       {data.length ? <WorldMap
         color="#44656E"
         backgroundColor="transparent"
         tooltipBgColor="#000"
-        title="Your visited Countries"
         value-prefix="visited"
         size="lg"
         data={data} />
-      : <img src={passport}/>
-}
-      </div>
-      )
+        : <img src={passport} />
+      }
+    </div>
+  )
 }
 
 export default Worldmap
