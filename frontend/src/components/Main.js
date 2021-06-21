@@ -142,10 +142,10 @@ const Main = () => {
 
   return (
 
+    <>
+    <Header />
 
     <div className="main-container">
-      <Header />
-
       <Worldmap visitedList={visitedList} />
       <form className="add-countries-form">
         <p>Add a new country you have visited</p>
@@ -210,6 +210,7 @@ const Main = () => {
       </div>
       <Footer />
     </div >
+    </>
 
 
   )

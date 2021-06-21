@@ -479,10 +479,20 @@ p,
     margin: 60px 0 0 0px;
   }
 
+  .main-container {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
   .worldmap-container,
   .add-tips-form,
   .add-countries-form,
-  .travel-tips-container {
+  .travel-tips-container {    
     width: 40vw;
+    height: 480px; 
+    margin: 30px;
+    padding: 35px;
+    margin-top: -20px; 
+    margin-bottom: 50px;  
   }
 }  
