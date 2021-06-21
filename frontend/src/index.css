@@ -95,7 +95,7 @@ code {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   display:flex;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
   flex-direction: row;
   align-items:center;
 }
@@ -336,43 +336,8 @@ p,
   box-shadow: 13px 13px 20px #cbced1; 
 }
 
-.footer {
-    width: 100vw;
-    height: 20vh;
-    display: flex;
-    background-color:#44656E;
-    border-top: 5px solid  #dfbeac;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    left: 0;
-    bottom: 0;
-   margin-top: 30px;
-}
-
-.footer p {
-  margin: 0;
-  color: #dfbeac;
-}
-
-.footer a:link {
-  color: #dfbeac;
-}
-.footer a:visited {
-  color:#dfbeac;
-}
-.footer a:hover {
-  color: #c2a08e;
-}
-
 /***TABLET***/
   @media (min-width: 768px) {
-  .login-form {
-      margin: 50px;
-      width: 400px;
-      height: 840px;
-      padding: 60px 35px 35px 35px;
-  }
   .login-input-container {
     width: 80%;
     padding: 0px 5px 5px 5px;
@@ -383,7 +348,7 @@ p,
     margin-bottom: 30px;
     height:20px ;
   }
-
+  
   .login-form button {
     width: 80%;
     height: 60px;
@@ -396,6 +361,13 @@ p,
   
   .login-form button:active {
     background: #44656E;
+  }
+
+  .login-form {
+    margin: 50px;
+    width: 400px;
+    height: 840px;
+    padding: 60px 35px 35px 35px;
   }
 
   .header-icon {
@@ -412,6 +384,19 @@ p,
     height:40px;
   }
   
+  .login-form button {
+    width: 80%;
+    height: 60px;
+    margin:0 45px 24px;
+  }
+  
+  .login-form button:hover {
+    background: #2e454b;  
+  }
+  
+  .login-form button:active {
+    background: #44656E;
+  }
   .countries-form {
     margin-left:50px;
      width: 300px;
@@ -479,20 +464,10 @@ p,
     margin: 60px 0 0 0px;
   }
 
-  .main-container {
-    display: flex;
-    flex-flow: row wrap;
-  }
-
   .worldmap-container,
   .add-tips-form,
   .add-countries-form,
-  .travel-tips-container {    
+  .travel-tips-container {
     width: 40vw;
-    height: 480px; 
-    margin: 30px;
-    padding: 35px;
-    margin-top: -20px; 
-    margin-bottom: 50px;  
   }
 }  
