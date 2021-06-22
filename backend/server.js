@@ -34,11 +34,13 @@ const User = mongoose.model('User', {
     default: () => crypto.randomBytes(128).toString('hex')
   },
   visitedCountries:[ {
-    country: {      
-      type: Object,   
-      ref: "Country",          
-    },    
-    comments: String    
+    country: { 
+      type: Object,
+      ref: "Country", 
+      comments: [
+        {type: String}
+      ]
+    }, 
   }]
 })
 
@@ -101,7 +103,7 @@ app.patch('/countries', async (req, res) => {
     const countryByAlphaCode = await Country.findOne({ alphaCode: visitedCountry }).lean()  
         const updatedUser = await User.findOneAndUpdate({ username: username, },{  
           $push: {        
-            visitedCountries: { country: countryByAlphaCode, comments: "no comments yet" }
+            visitedCountries: {country: countryByAlphaCode, comments: "no comments yet"}
             },      
         }, { new: true })
     res.json({ success: true, updatedUser })
@@ -122,10 +124,10 @@ app.patch('/countries/:countryid', async (req, res) => {
     console.log(countryid)  // working, gets the country id or the nested object id depening on what we pass in FE
     console.log(comments)   // working, gets whatever we write in text input. *should it be so?       
     console.log(id)         // working, gets user id 
-    console.log("comment",newComment)  // not working, return undefined      
+    console.log("comment",newComment)  // not working, return undefined, not needed?       
     const updatedTravelTips = await User.findOneAndUpdate( {id, countryid }, {      
-      $push: {        
-        visitedCountries: { comments: comments}        
+      $push: {  
+        visitedCountries: {country: {comments: comments}}
       },      
     }, { new: true })
     res.json({ success: true, updatedTravelTips })
@@ -138,29 +140,29 @@ app.patch('/countries/:countryid', async (req, res) => {
 // This is what maks helped us with but not sure if it works, because im not sure if I can add the country correct to the visitedCountries array. 
 // And we also dont want to store the touristsight etc in Country but in User. 
 
-app.patch('/countries/:countryid', authenticateUser)
-app.patch('/countries/:countryid', async (req, res) => {
-  const {comments } = req.body  
-  const { countryid } = req.params
-  try {
-    const user = await User.findById(_id)
-    const countryIsVisited = user.visitedCountries.some((country) => {
-      return country.equals(countryid)
-  })
-  if (countryIsVisited) {
-    const newTips = await Country.findByIdAndUpdate(countryid, {
-      $set: {
-        comments: comments
-      }
-    }, { new: true })
-    res.json({ success: true, newTips })
-  } else {
-    res.status(403).json({ success: false, message: "Country is not visited" })
-  }
-  } catch (error) {
-    res.status(400).json({ success: false, message: "Invalid request not ", error })
-  }
-})
+// app.patch('/countries/:countryid', authenticateUser)
+// app.patch('/countries/:countryid', async (req, res) => {
+//   const {comments } = req.body  
+//   const { countryid } = req.params
+//   try {
+//     const user = await User.findById(_id)
+//     const countryIsVisited = user.visitedCountries.some((country) => {
+//       return country.equals(countryid)
+//   })
+//   if (countryIsVisited) {
+//     const newTips = await Country.findByIdAndUpdate(countryid, {
+//       $set: {
+//         comments: comments
+//       }
+//     }, { new: true })
+//     res.json({ success: true, newTips })
+//   } else {
+//     res.status(403).json({ success: false, message: "Country is not visited" })
+//   }
+//   } catch (error) {
+//     res.status(400).json({ success: false, message: "Invalid request not ", error })
+//   }
+// })
 
 
 app.post('/signup', async (req, res) => {

@@ -166,13 +166,13 @@ const Main = () => {
         <p>Choose one of your visited countries and add some tips:</p>
         <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
           <optgroup label='Countries'>
-          <option value="" disabled defaultValue>Select country</option>
+          <option value="" defaultValue>Select country</option>
             {visitedList && visitedList.map(country => (
               <option
               key={country.country._id}
               // country._id gets the new one, country.country._id gets the countryid 
               value={country._id}
-              >{country.country.country} {console.log(country._id)}</option>
+              >{country.country.country}</option>
               ))}              
           </optgroup>
         </select>
