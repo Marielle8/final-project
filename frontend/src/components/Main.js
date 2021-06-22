@@ -13,7 +13,7 @@ import user from '../reducers/user'
 const Main = () => {
   const [newCountry, setNewCountry] = useState("")
   const [visitedList, setVisitedList] = useState([])
-  const [newCountryId, setNewCountryId] = useState("")
+  const [newCountryId, setCountryId] = useState("")
   const [newComment, setNewComment] = useState("")
 
   const accessToken = useSelector(store => store.user.accessToken)
@@ -131,6 +131,7 @@ const Main = () => {
       .then(data => {
         if (data.success) {          
           dispatch(user.actions.setErrorsTips(null))
+          fetchVisitedList()
         } else {
           dispatch(user.actions.setErrorsTips( 'Failed to add travel tips' ))
         }
@@ -184,7 +185,7 @@ const Main = () => {
         <Worldmap visitedList={visitedList} />        
 
       <form className="add-tips-form" onSubmit={onTravelTips}>
-      <h3 className="card-header">Choose one of your visited countries and add some tips:</h3>
+      <h3 className="card-header">Choose one of your visited countries and add some tips:</h3>        
         <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
           <optgroup label='Countries'>
           <option value="" defaultValue>Select country</option>
@@ -211,10 +212,11 @@ const Main = () => {
         <h3 className="card-header">Your travel tips:</h3>
   {visitedList && visitedList.map(item => (
   <div>
-    <p key={item.country._id} className="presentation-text">Country: {item.country.country}</p> 
+    <p key={item.country._id} className="presentation-text">Country: {item.country.country}</p>
+    <p>Notes:</p> 
   {item.comments.map(comment =>(
       <div key={item.index}>
-      <p className="presentation-text">Travel tips: {comment}</p>
+      <p className="presentation-text">{comment}</p>
     </div>
         ))}
     </div>
