@@ -37,10 +37,8 @@ const User = mongoose.model('User', {
     country: { 
       type: Object,
       ref: "Country", 
-      comments: [
-        {type: String}
-      ]
     }, 
+      comments: Array      
   }]
 })
 
@@ -123,11 +121,10 @@ app.patch('/countries/:countryid', async (req, res) => {
   try {         
     console.log(countryid)  // working, gets the country id or the nested object id depening on what we pass in FE
     console.log(comments)   // working, gets whatever we write in text input. *should it be so?       
-    console.log(id)         // working, gets user id 
-    console.log("comment",newComment)  // not working, return undefined, not needed?       
-    const updatedTravelTips = await User.findOneAndUpdate( {id, countryid }, {      
+    console.log(id)         // working, gets user id         
+    const updatedTravelTips = await User.findOneAndUpdate( {_id: id, "visitedCountries._id": countryid }, {      
       $push: {  
-        visitedCountries: {country: {comments: comments}}
+        "visitedCountries.$.comments": comments
       },      
     }, { new: true })
     res.json({ success: true, updatedTravelTips })

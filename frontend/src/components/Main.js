@@ -82,7 +82,7 @@ const Main = () => {
       })
   }
   
-  const onCountry = (event) => {
+  const onCountry = (event) => {      
 
     const existingCountry = visitedList.some((item) => item.country.alphaCode === newCountry)
     if (!existingCountry) {
@@ -125,6 +125,7 @@ const Main = () => {
       body: JSON.stringify({ comments: newComment })
     }
     //countryId comes from selected country from a dropdown and stored in state
+    // do i need that params?
     fetch(API_URL(`countries/${countryId}`), options)
       .then(res => res.json())
       .then(data => {
@@ -144,7 +145,7 @@ const Main = () => {
 
     <div className="main-container">
       <Worldmap visitedList={visitedList} />
-      <form className="add-countries-form">
+      <form className="add-countries-form" onSubmit={onCountry}>
         <p>Add a new country you have visited</p>
         <div>
           <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
@@ -160,9 +161,9 @@ const Main = () => {
           </select>
         </div>
           {errorMsgCountry ? <p>{errorMsgCountry}</p> : null}
-        <button onClick={onCountry}>Add country</button>
+        <button type="submit">Add country</button>
       </form>
-      <form className="add-tips-form">
+      <form className="add-tips-form" onSubmit={onTravelTips}>
         <p>Choose one of your visited countries and add some tips:</p>
         <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
           <optgroup label='Countries'>
@@ -184,7 +185,7 @@ const Main = () => {
           className="username-input"
           placeholder="food"
         />
-        <button className="add-tips-button" onClick={onTravelTips}>Add travel tips</button>
+        <button type="submit" className="add-tips-button">Add travel tips</button>
         {errorMsgTips ? <p>{errorMsgTips}</p> : null}
       </form>
       {/* <div>
