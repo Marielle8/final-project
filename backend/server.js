@@ -134,33 +134,6 @@ app.patch('/countries/:countryid', async (req, res) => {
   }  
 })
 
-// This is what maks helped us with but not sure if it works, because im not sure if I can add the country correct to the visitedCountries array. 
-// And we also dont want to store the touristsight etc in Country but in User. 
-
-// app.patch('/countries/:countryid', authenticateUser)
-// app.patch('/countries/:countryid', async (req, res) => {
-//   const {comments } = req.body  
-//   const { countryid } = req.params
-//   try {
-//     const user = await User.findById(_id)
-//     const countryIsVisited = user.visitedCountries.some((country) => {
-//       return country.equals(countryid)
-//   })
-//   if (countryIsVisited) {
-//     const newTips = await Country.findByIdAndUpdate(countryid, {
-//       $set: {
-//         comments: comments
-//       }
-//     }, { new: true })
-//     res.json({ success: true, newTips })
-//   } else {
-//     res.status(403).json({ success: false, message: "Country is not visited" })
-//   }
-//   } catch (error) {
-//     res.status(400).json({ success: false, message: "Invalid request not ", error })
-//   }
-// })
-
 
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body
