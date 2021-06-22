@@ -188,6 +188,11 @@ code {
   align-items: center;
 }
 
+.worldmap-container img {
+  width: 300px;
+  height: 250px;
+}
+
 .add-countries-form {
   display:flex;
   flex-direction:column;
@@ -415,6 +420,11 @@ p,
   .countries-form {
     margin-left:50px;
     width: 300px;
+  }
+
+  .worldmap-container img {
+    width: 400px;
+    height: 400px;
   }
 }
 
