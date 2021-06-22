@@ -266,7 +266,7 @@ code {
 }
 
 .add-countries-button:active {
-  background:  #dfbeac;
+  background:  #dfbeac;  
 }
 
 .worldmap-container {
@@ -319,13 +319,13 @@ code {
   margin-bottom: 20px;
   border-radius: 25px;
   box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
-  width: 95%;
+  width: 97%;
   height:10px ;
   text-align: center;
   border: none;
   outline: none;
   background: none;
-  font-size: 18px;
+  font-size: 14px;
   color: #555;
   padding: 20px 10px 20px 5px;
 }

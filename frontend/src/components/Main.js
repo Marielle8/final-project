@@ -200,7 +200,7 @@ const Main = () => {
           type="text"
           value={newComment}
           onChange={(event) => setNewComment(event.target.value)}
-          className="username-input"
+          // className="username-input"
           placeholder="Write a travel tips..."          
         />
         <button type="submit" className="add-tips-button" disabled={!newComment}>Add travel tips</button>
@@ -211,10 +211,10 @@ const Main = () => {
         <h3 className="card-header">Your travel tips:</h3>
   {visitedList && visitedList.map(item => (
   <div>
-    <p key={item.country._id}>Country: {item.country.country}</p> 
+    <p key={item.country._id} className="presentation-text">Country: {item.country.country}</p> 
   {item.comments.map(comment =>(
       <div key={item.index}>
-      <p>Travel tips: {comment}</p>
+      <p className="presentation-text">Travel tips: {comment}</p>
     </div>
         ))}
     </div>
