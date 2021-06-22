@@ -37,8 +37,10 @@ const User = mongoose.model('User', {
     country: {      
       type: Object,   
       ref: "Country",          
+      comments: [{
+        type: String
+      }]  
     },    
-    comments: String    
   }]
 })
 

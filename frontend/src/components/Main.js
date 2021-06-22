@@ -17,9 +17,9 @@ const Main = () => {
   const [newComment, setNewComment] = useState("")
 
   const accessToken = useSelector(store => store.user.accessToken)
-  const countriesItems = useSelector(store => store.user.items)
+  const countriesItems = useSelector(store => store.user.items)  
   const errorMsgCountry = useSelector(store => store.user.errorsCountry)  
-  const errorMsgTips = useSelector(store => store.user.errorsTips)
+  const errorMsgTips = useSelector(store => store.user.errorsTips)  
   const username = useSelector(store => store.user.username)
   const countryId = useSelector(store => store.user.visitedCountryId)
 
@@ -81,6 +81,7 @@ const Main = () => {
         }
       })
   }
+
   
   const onCountry = (event) => {
 
@@ -104,7 +105,10 @@ const Main = () => {
               dispatch(user.actions.setErrorsCountry(null))
               fetchVisitedList()
             })
-          } 
+          } else {
+            dispatch(user.actions.setErrorsCountry("Country already exist"))           
+            
+          }
         })
       } else {
         dispatch(user.actions.setErrorsCountry("Country already exist"))
@@ -121,10 +125,8 @@ const Main = () => {
         Authorization: accessToken,
         'Content-Type': 'application/json'
       },
-      // neWcomment comes from a text input in a form
       body: JSON.stringify({ comments: newComment })
     }
-    //countryId comes from selected country from a dropdown and stored in state
     fetch(API_URL(`countries/${countryId}`), options)
       .then(res => res.json())
       .then(data => {
@@ -132,11 +134,11 @@ const Main = () => {
           console.log(data)
           dispatch(user.actions.setErrorsTips(null))
         } else {
-          dispatch(user.actions.setErrorsTips('Failed to add travel tips' ))
+          dispatch(user.actions.setErrorsTips( 'Failed to add travel tips' ))
         }
       })
   }
-
+  
   return (
 
     <>
@@ -160,7 +162,7 @@ const Main = () => {
           </select>
         </div>
           {errorMsgCountry ? <p>{errorMsgCountry}</p> : null}
-        <button onClick={onCountry}>Add country</button>
+        <button onClick={onCountry} disabled={!newCountry}>Add country</button>
       </form>
       <form className="add-tips-form">
         <p>Choose one of your visited countries and add some tips:</p>
@@ -172,8 +174,9 @@ const Main = () => {
               key={country.country._id}
               // country._id gets the new one, country.country._id gets the countryid 
               value={country._id}
-              >{country.country.country} {console.log(country._id)}</option>
-              ))}              
+              >{country.country.country}</option>
+              ))}
+              
           </optgroup>
         </select>
 
@@ -183,26 +186,12 @@ const Main = () => {
           onChange={(event) => setNewComment(event.target.value)}
           className="username-input"
           placeholder="food"
-        />
+        />  
         <button className="add-tips-button" onClick={onTravelTips}>Add travel tips</button>
         {errorMsgTips ? <p>{errorMsgTips}</p> : null}
-      </form>
-      {/* <div>
-        {visitedList && visitedList.map(visitedCountry => (
-          <div>
-            {visitedCountry.country.map(item => (
-              <div key={item._id}>
-                <p>{item.country}</p>
-                <p>{item.alphaCode}</p>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-      {console.log(visitedList)} */}
-      {/* <button onClick={onButtonClick}>Logout</button> */}
+      </form>      
       <div className="travel-tips-container">
-        <p>Your travel tips:</p>
+        <p>Your travel tips:</p>        
       </div>
       <Footer />
     </div >

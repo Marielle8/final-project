@@ -4,6 +4,7 @@ const initialState = localStorage.getItem('user')
   ? {
     username: JSON.parse(localStorage.getItem('user')).username,
     accessToken: JSON.parse(localStorage.getItem('user')).accessToken,
+    errors: null,
     errorsCountry: null,
     errorsTips: null,
     visitedCountry: [],
@@ -13,6 +14,7 @@ const initialState = localStorage.getItem('user')
   : {
     username: null,
     accessToken: null,
+    errors: null,
     errorsCountry: null,
     errorsTips: null,
     visitedCountry: [],
@@ -29,6 +31,9 @@ const user = createSlice({
     },
     setAccessToken: (store, action) => {
       store.accessToken = action.payload
+    },
+    setErrors: (store, action) => {
+      store.errors = action.payload
     },
     setErrorsCountry: (store, action) => {
       store.errorsCountry = action.payload
