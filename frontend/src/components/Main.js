@@ -220,12 +220,12 @@ const Main = () => {
 
       <div className="travel-tips-container">
         <p>Your travel tips:</p>  
-        {friendsList.users && friendsList.users.map(friend => (
+        {/* {friendsList.users && friendsList.users.map(friend => (
           friend.visitedCountries.map(item => (
             <p key={item._id}>{item.country}</p>
           ))
-        ))}
-  {console.log(friendsList.users)}
+        ))} */}
+  {console.log(friendsList)}
 
       </div>
       <Footer />
