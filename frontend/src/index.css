@@ -432,7 +432,7 @@ code {
 
   .main-container {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     width: 100vw;    
   }
   
@@ -440,7 +440,7 @@ code {
   .add-tips-form,
   .add-countries-form,
   .travel-tips-container {    
-    width: 45%;
+    width: 80%;
     height: 480px; 
     margin-left: 30px;
     margin-right: 0;
@@ -524,7 +524,7 @@ code {
   .travel-tips-container {    
     width: 45%;
     height: 480px; 
-    margin-left: 30px;
+    margin-left: 15px;
     margin-right: 0;
     padding: 15px;
     margin-top: -20px; 
