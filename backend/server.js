@@ -94,6 +94,12 @@ app.get('/users', async (req, res) => {
   res.json({ success: true, users })
 })
 
+app.get('/friends', authenticateUser)
+app.get('/friends', async (req, res) => {    
+  const users = await User.find() 
+  res.json({ success: true, users })
+})
+
 
 // add the full object of countryByAlphaCode original
 app.patch('/countries', authenticateUser)

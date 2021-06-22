@@ -15,6 +15,8 @@ const Main = () => {
   const [visitedList, setVisitedList] = useState([])
   const [newCountryId, setNewCountryId] = useState("")
   const [newComment, setNewComment] = useState("")
+  const [friendsList, setFriendsList] = useState([])
+
 
   const accessToken = useSelector(store => store.user.accessToken)
   const countriesItems = useSelector(store => store.user.items)  
@@ -54,6 +56,7 @@ const Main = () => {
             dispatch(user.actions.setCountries(data.countries))
             dispatch(user.actions.setErrorsCountry(null))
             fetchVisitedList()
+            fetchFriendsList()
           })
         } else {
           dispatch(user.actions.setErrorsCountry('data'))
@@ -82,6 +85,30 @@ const Main = () => {
       })
   }
 
+  //friendslist 
+  const fetchFriendsList = () => {
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: accessToken
+      }
+    }
+    fetch(API_URL('friends'), options)
+    .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          batch(() => {
+            console.log(data)
+            setFriendsList(data)
+          })
+        } else {
+          dispatch(user.actions.setErrorsCountry('data'))
+        }
+      })
+  }
+  console.log(friendsList)
+
+  
   
   const onCountry = (event) => {
 
@@ -166,7 +193,7 @@ const Main = () => {
       </form>
       <form className="add-tips-form">
         <p>Choose one of your visited countries and add some tips:</p>
-        <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
+        <select value={newCountryId} onChange={(event) => dispatch(user.actions.setNewCountryId(event.target.value))}>
           <optgroup label='Countries'>
           <option value="" disabled defaultValue>Select country</option>
             {visitedList && visitedList.map(country => (
@@ -189,9 +216,17 @@ const Main = () => {
         />  
         <button className="add-tips-button" onClick={onTravelTips}>Add travel tips</button>
         {errorMsgTips ? <p>{errorMsgTips}</p> : null}
-      </form>      
+      </form>  
+
       <div className="travel-tips-container">
-        <p>Your travel tips:</p>        
+        <p>Your travel tips:</p>  
+        {friendsList.users && friendsList.users.map(friend => (
+          friend.visitedCountries.map(item => (
+            <p key={item._id}>{item.country}</p>
+          ))
+        ))}
+  {console.log(friendsList.users)}
+
       </div>
       <Footer />
     </div >
