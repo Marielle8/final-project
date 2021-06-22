@@ -17,9 +17,9 @@ const Main = () => {
   const [newComment, setNewComment] = useState("")
 
   const accessToken = useSelector(store => store.user.accessToken)
-  const countriesItems = useSelector(store => store.user.items)  
-  const errorMsgCountry = useSelector(store => store.user.errorsCountry)  
-  const errorMsgTips = useSelector(store => store.user.errorsTips)  
+  const countriesItems = useSelector(store => store.user.items)
+  const errorMsgCountry = useSelector(store => store.user.errorsCountry)
+  const errorMsgTips = useSelector(store => store.user.errorsTips)
   const username = useSelector(store => store.user.username)
   const countryId = useSelector(store => store.user.visitedCountryId)
 
@@ -72,15 +72,15 @@ const Main = () => {
     fetch(API_URL('users'), options)
       .then(res => res.json())
       .then(data => {
-        if (data.success) {          
-            setVisitedList(data.users.visitedCountries) 
-          } else {
-            dispatch(user.actions.setErrorsCountry('data'))
-          }
-        })
-      }              
-  
-  const onCountry = (event) => {      
+        if (data.success) {
+          setVisitedList(data.users.visitedCountries)
+        } else {
+          dispatch(user.actions.setErrorsCountry('data'))
+        }
+      })
+  }
+
+  const onCountry = (event) => {
 
     const existingCountry = visitedList.some((item) => item.country.alphaCode === newCountry)
     if (!existingCountry) {
@@ -103,8 +103,8 @@ const Main = () => {
               fetchVisitedList()
             })
           } else {
-            dispatch(user.actions.setErrorsCountry("Country already exist"))           
-            
+            dispatch(user.actions.setErrorsCountry("Country already exist"))
+
           }
         })
     } else {
@@ -124,15 +124,15 @@ const Main = () => {
       },
       body: JSON.stringify({ comments: newComment })
     }
-    
+
     //countryId comes from selected country from a dropdown and stored in state    
     fetch(API_URL(`countries/${countryId}`), options)
       .then(res => res.json())
       .then(data => {
-        if (data.success) {          
+        if (data.success) {
           dispatch(user.actions.setErrorsTips(null))
         } else {
-          dispatch(user.actions.setErrorsTips( 'Failed to add travel tips' ))
+          dispatch(user.actions.setErrorsTips('Failed to add travel tips'))
         }
       })
 
@@ -161,7 +161,7 @@ const Main = () => {
           </div>
           <div className="presentation-text-container">
             <p className="presentation-text">Welcome to your travel journal. Here you can easily get an overview of all the countries you have visited by adding them to an interactive worldmap.</p>
-            <p className="presentation-text">To remember all the wonderful places you have visited during your travels you can add tips to specifik countries and have it displayed further down on this page</p>
+            <p className="presentation-text">To remember all the wonderful places you have seen during your travels you can add notes to a specifik country and have them displayed further down on this page.</p>
           </div>
           <h3 className="card-header">Add a new country you have visited:</h3>
 
@@ -181,47 +181,49 @@ const Main = () => {
           {errorMsgCountry ? <p>{errorMsgCountry}</p> : null}
           <button className="add-countries-button" type="submit" disabled={!newCountry}>Add country</button>
         </form>
-        <Worldmap visitedList={visitedList} />        
+        <Worldmap visitedList={visitedList} />
 
-      <form className="add-tips-form" onSubmit={onTravelTips}>
-      <h3 className="card-header">Choose one of your visited countries and add some tips:</h3>
-        <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
-          <optgroup label='Countries'>
-          <option value="" defaultValue>Select country</option>
-            {visitedList && visitedList.map(country => (
-              <option
-              key={country.country._id}              
-              value={country._id}
-              >{country.country.country}</option>
-              ))}              
-          </optgroup>
-        </select>
-        <input
-          type="text"
-          value={newComment}
-          onChange={(event) => setNewComment(event.target.value)}
-          // className="username-input"
-          placeholder="Write a travel tips..."          
-        />
-        <button type="submit" className="add-tips-button" disabled={!newComment}>Add travel tips</button>
-        {errorMsgTips ? <p>{errorMsgTips}</p> : null}
-      </form> 
+        <form className="add-tips-form" onSubmit={onTravelTips}>
+          <h3 className="card-header">Choose one of your visited countries and add some notes:</h3>
+          <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
+            <optgroup label='Countries'>
+              <option value="" defaultValue>Select country</option>
+              {visitedList && visitedList.map(country => (
+                <option
+                  key={country.country._id}
+                  value={country._id}
+                >{country.country.country}</option>
+              ))}
+            </optgroup>
+          </select>
+          <input
+            type="text"
+            value={newComment}
+            onChange={(event) => setNewComment(event.target.value)}
+            // className="username-input"
+            placeholder="Write a note"
+          />
+          <button type="submit" className="add-tips-button" disabled={!newComment}>Add notes</button>
+          {errorMsgTips ? <p>{errorMsgTips}</p> : null}
+        </form>
 
-      <div className="travel-tips-container">
-        <h3 className="card-header">Your travel tips:</h3>
-  {visitedList && visitedList.map(item => (
-  <div>
-    <p key={item.country._id} className="presentation-text">Country: {item.country.country}</p> 
-  {item.comments.map(comment =>(
-      <div key={item.index}>
-      <p className="presentation-text">Travel tips: {comment}</p>
-    </div>
-        ))}
-    </div>
-))}
-      </div> 
-      <Footer />
-    </div >
+        <div className="travel-tips-container">
+          <h3 className="card-header">Your travel notes:</h3>
+          <div className="notes-container">
+            {visitedList && visitedList.map(item => (
+              <div>
+                <p key={item.country._id} className="presentation-text"><span className="country-text">Country:</span> {item.country.country}</p>
+                {item.comments.map(comment => (
+                  <div key={item.index}>
+                    <p className="presentation-text"><span className="notes-text">Notes:</span> {comment}</p>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+        <Footer />
+      </div >
     </>
 
 
