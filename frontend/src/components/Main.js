@@ -153,7 +153,7 @@ const Main = () => {
 
       <div className="main-container">
 
-        <form className="add-countries-form">
+        <form className="add-countries-form" onSubmit={onCountry}>
           <div className="logout-and-presentation-container">
 
             <h3 className="card-header">Hi {username}!</h3>
@@ -179,28 +179,12 @@ const Main = () => {
             </select>
           </div>
           {errorMsgCountry ? <p>{errorMsgCountry}</p> : null}
-          <button className="add-countries-button" onClick={onCountry}>Add country</button>
+          <button className="add-countries-button" type="submit" disabled={!newCountry}>Add country</button>
         </form>
-        <Worldmap visitedList={visitedList} />
-        <form className="add-tips-form">
-          <h3 className="card-header">Choose one of your visited countries and add some tips:</h3>
-          <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
-            <optgroup label='Countries'>
-              <option value="" disabled defaultValue>Select country</option>
-              {visitedList && visitedList.map(country => (
-                <option
-                  key={country.country._id}
-                  // country._id gets the new one, country.country._id gets the countryid 
-                  value={country._id}
-                >{country.country.country} {console.log(country._id)}</option>
-              ))}
-            </optgroup>
-          </select>        
-          {errorMsgCountry ? <p>{errorMsgCountry}</p> : null}
-        <button type="submit">Add country</button>
-      </form>
+        <Worldmap visitedList={visitedList} />        
+
       <form className="add-tips-form" onSubmit={onTravelTips}>
-        <p>Choose one of your visited countries and add some tips:</p>
+      <h3 className="card-header">Choose one of your visited countries and add some tips:</h3>
         <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
           <optgroup label='Countries'>
           <option value="" defaultValue>Select country</option>
@@ -212,19 +196,19 @@ const Main = () => {
               ))}              
           </optgroup>
         </select>
-
         <input
           type="text"
           value={newComment}
           onChange={(event) => setNewComment(event.target.value)}
           className="username-input"
-          placeholder="food"
+          placeholder="Write a travel tips..."          
         />
-        <button type="submit" className="add-tips-button">Add travel tips</button>
+        <button type="submit" className="add-tips-button" disabled={!newComment}>Add travel tips</button>
         {errorMsgTips ? <p>{errorMsgTips}</p> : null}
-      </form>      
+      </form> 
+
       <div className="travel-tips-container">
-        <p>Your travel tips:</p>
+        <h3 className="card-header">Your travel tips:</h3>
   {visitedList && visitedList.map(item => (
   <div>
     <p key={item.country._id}>Country: {item.country.country}</p> 
