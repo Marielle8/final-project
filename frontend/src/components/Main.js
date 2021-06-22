@@ -72,15 +72,14 @@ const Main = () => {
     fetch(API_URL('users'), options)
       .then(res => res.json())
       .then(data => {
-        if (data.success) {
-          batch(() => {
-            setVisitedList(data.users.visitedCountries)
-          })
-        } else {
-          dispatch(user.actions.setErrorsCountry('data'))
-        }
-      })
-  }
+        if (data.success) {          
+            setVisitedList(data.users.visitedCountries) 
+          } else {
+            dispatch(user.actions.setErrorsCountry('data'))
+          }
+        })
+      }
+      console.log(visitedList)         
   
   const onCountry = (event) => {      
 
@@ -129,8 +128,7 @@ const Main = () => {
     fetch(API_URL(`countries/${countryId}`), options)
       .then(res => res.json())
       .then(data => {
-        if (data.success) {
-          console.log(data)
+        if (data.success) {          
           dispatch(user.actions.setErrorsTips(null))
         } else {
           dispatch(user.actions.setErrorsTips('Failed to add travel tips' ))
@@ -170,8 +168,7 @@ const Main = () => {
           <option value="" defaultValue>Select country</option>
             {visitedList && visitedList.map(country => (
               <option
-              key={country.country._id}
-              // country._id gets the new one, country.country._id gets the countryid 
+              key={country.country._id}              
               value={country._id}
               >{country.country.country}</option>
               ))}              
@@ -204,7 +201,17 @@ const Main = () => {
       {/* <button onClick={onButtonClick}>Logout</button> */}
       <div className="travel-tips-container">
         <p>Your travel tips:</p>
-      </div>
+  {visitedList && visitedList.map(item => (
+  <div>
+    <p key={item.country._id}>Country: {item.country.country}</p> 
+  {item.comments.map(comment =>(
+      <div key={item.index}>
+      <p>Travel tips: {comment}</p>
+    </div>
+        ))}
+    </div>
+))}
+      </div> 
       <Footer />
     </div >
     </>
