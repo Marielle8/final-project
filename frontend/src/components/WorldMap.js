@@ -26,7 +26,7 @@ const Worldmap = (props) => {
   return (
 
     <div className="worldmap-container">
-      <p className="card-header">Your visited Countries:</p>
+      <p className="card-header">Your visited countries:</p>
       {data.length ? <p className="presentation-text">You have visited {Math.ceil(percentageOfWorld())}% of the world.</p> :null}
       {data.length ? <WorldMap
         color="#44656E"
