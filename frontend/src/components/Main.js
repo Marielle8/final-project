@@ -217,7 +217,7 @@ const Main = () => {
         <div className="travel-tips-container">     {/* tom 225  traveltips container*/}
           <h3 className="card-header">Your travel notes:</h3>
           <div className="notes-container">
-            {visitedList && visitedList.map(item => (
+            {visitedList.sort() && visitedList.map(item => (
               <div>
                 <p key={item.country._id} className="presentation-text"><span className="country-text">Country:</span> {item.country.country}</p>
                 {item.comments.map(comment => (
