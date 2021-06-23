@@ -2,28 +2,28 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import Worldmap from './WorldMap'
-import Header from './Header'
-import Footer from './Footer'
+import Worldmap from './WorldMap'  // main
+import Header from './Header'      // main
+import Footer from './Footer'     //main
 
-import { API_URL } from '../reusable/urls'
+import { API_URL } from '../reusable/urls' // add countries, add tips, notes , main? 
 
 import user from '../reducers/user'
 
 const Main = () => {
-  const [newCountry, setNewCountry] = useState("")
-  const [visitedList, setVisitedList] = useState([])
-  const [newCountryId, setNewCountryId] = useState("")
-  const [newComment, setNewComment] = useState("")
+  const [newCountry, setNewCountry] = useState("")  // add countries
+  const [visitedList, setVisitedList] = useState([])  // main? 
+  const [newCountryId, setNewCountryId] = useState("") // add traveltips 
+  const [newComment, setNewComment] = useState("")    // add traveltips
 
-  const accessToken = useSelector(store => store.user.accessToken)
-  const countriesItems = useSelector(store => store.user.items)
-  const errorMsgCountry = useSelector(store => store.user.errorsCountry)
-  const errorMsgTips = useSelector(store => store.user.errorsTips)
-  const username = useSelector(store => store.user.username)
-  const countryId = useSelector(store => store.user.visitedCountryId)
+  const accessToken = useSelector(store => store.user.accessToken)    // main, 
+  const countriesItems = useSelector(store => store.user.items)       // add country
+  const errorMsgCountry = useSelector(store => store.user.errorsCountry) // add country
+  const errorMsgTips = useSelector(store => store.user.errorsTips)    // add traveltips
+  const username = useSelector(store => store.user.username)          // 
+  const countryId = useSelector(store => store.user.visitedCountryId)   // add traveltips
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch()      
   const history = useHistory()
 
   useEffect(() => {
@@ -137,7 +137,7 @@ const Main = () => {
         }
       })
 
-
+// add country
   }
   const onButtonClick = () => {
     batch(() => {
@@ -154,7 +154,7 @@ const Main = () => {
 
       <div className="main-container">
 
-        <form className="add-countries-form" onSubmit={onCountry}>
+        <form className="add-countries-form" onSubmit={onCountry}>    {/* tom 184 add country*/}
           <div className="logout-and-presentation-container">
 
             <h3 className="card-header">Hi {username}!</h3>
@@ -184,7 +184,7 @@ const Main = () => {
         </form>
         <Worldmap visitedList={visitedList} />
 
-        <form className="add-tips-form" onSubmit={onTravelTips}>
+        <form className="add-tips-form" onSubmit={onTravelTips}>    {/* tom 209 add tips */}
           <h3 className="card-header">Choose one of your visited countries and add some notes:</h3>
           <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
             <optgroup label='Countries'>
@@ -208,7 +208,7 @@ const Main = () => {
           {errorMsgTips ? <p>{errorMsgTips}</p> : null}
         </form>
 
-        <div className="travel-tips-container">
+        <div className="travel-tips-container">     {/* tom 225  traveltips container*/}
           <h3 className="card-header">Your travel notes:</h3>
           <div className="notes-container">
             {visitedList && visitedList.map(item => (
