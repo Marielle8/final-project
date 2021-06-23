@@ -147,6 +147,12 @@ const Main = () => {
       localStorage.removeItem('user')
     })
   }
+  // add tips
+  const onSelectedCountryTips = (event) => {   
+      dispatch(user.actions.setCountryId(event.target.value))
+      setNewCountryId(event.target.value)
+    
+  }
   return (
 
     <>
@@ -186,7 +192,7 @@ const Main = () => {
 
         <form className="add-tips-form" onSubmit={onTravelTips}>    {/* tom 209 add tips */}
           <h3 className="card-header">Choose one of your visited countries and add some notes:</h3>
-          <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
+          <select value={newCountryId} onChange={onSelectedCountryTips}>
             <optgroup label='Countries'>
               <option value="" defaultValue>Select country</option>
               {visitedList && visitedList.map(country => (
