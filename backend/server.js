@@ -11,8 +11,6 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/travelGuide"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
 mongoose.Promise = Promise
 
-// This is our new model, that just got country name and alphaCode(which we need to highligt countries on the map)
-
 const Country = mongoose.model('Country', {
   country: String,  
   alphaCode: String,
@@ -92,8 +90,6 @@ app.get('/users', async (req, res) => {
   res.json({ success: true, users })
 })
 
-
-// add the full object of countryByAlphaCode original
 app.patch('/countries', authenticateUser)
 app.patch('/countries', async (req, res) => {
   const { username, visitedCountry  } = req.body
@@ -111,8 +107,6 @@ app.patch('/countries', async (req, res) => {
   }  
 })
 
-
-// traveltips
 app.patch('/countries/:countryid', authenticateUser)
 app.patch('/countries/:countryid', async (req, res) => {
   const { countryid } = req.params
@@ -129,7 +123,6 @@ app.patch('/countries/:countryid', async (req, res) => {
     res.status(400).json({ success: false, message: "Invalid request", error })
   }  
 })
-
 
 app.post('/signup', async (req, res) => {
   const { username, password } = req.body

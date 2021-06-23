@@ -7,11 +7,9 @@ import Main from './components/Main'
 import Login from './components/Login'
 
 import user from './reducers/user'
-import countries from './reducers/countries'
 
 const reducer = combineReducers({
-  user: user.reducer,
-  countries: countries.reducer
+  user: user.reducer  
 })
 const store = configureStore({ reducer })
 

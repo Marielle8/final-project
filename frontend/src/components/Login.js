@@ -61,6 +61,7 @@ const Login = () => {
       onSubmit={onFormSubmit} >
       <div className="login-input-container">
         <img src={assets} alt="Traveljournal-icon" />
+        <h3 className="site-description">Keep track of your visited countries</h3>
         <input
           type="text"
           value={username}

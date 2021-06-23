@@ -10,7 +10,7 @@ import { API_URL } from '../reusable/urls'
 
 import user from '../reducers/user'
 
-const Main = () => {
+const Main = () => {  
   const [newCountry, setNewCountry] = useState("")
   const [visitedList, setVisitedList] = useState([])
   const [newCountryId, setNewCountryId] = useState("")
@@ -37,7 +37,6 @@ const Main = () => {
     // eslint-disable-next-line 
   }, [accessToken])
 
-
   const fetchCountries = () => {
     const options = {
       method: 'GET',
@@ -60,8 +59,8 @@ const Main = () => {
         }
       })
   }
+  
 
-  // hämta lista av besökta länder
   const fetchVisitedList = () => {
     const options = {
       method: 'GET',
@@ -81,10 +80,8 @@ const Main = () => {
   }
 
   const onCountry = (event) => {
-
     const existingCountry = visitedList.some((item) => item.country.alphaCode === newCountry)
     if (!existingCountry) {
-
       const options = {
         method: 'PATCH',
         headers: {
@@ -104,7 +101,6 @@ const Main = () => {
             })
           } else {
             dispatch(user.actions.setErrorsCountry("Country already exist"))
-
           }
         })
     } else {
@@ -123,40 +119,39 @@ const Main = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ comments: newComment })
-    }
-
-    //countryId comes from selected country from a dropdown and stored in state    
+    }    
     fetch(API_URL(`countries/${countryId}`), options)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
           dispatch(user.actions.setErrorsTips(null))
           fetchVisitedList()
+          setNewComment("")         
         } else {
           dispatch(user.actions.setErrorsTips('Failed to add travel tips'))
         }
       })
-
-
   }
+
   const onButtonClick = () => {
     batch(() => {
       dispatch(user.actions.setUsername(null))
       dispatch(user.actions.setAccessToken(null))
-
       localStorage.removeItem('user')
     })
   }
-  return (
 
+  const onSelectedCountryTips = (event) => {   
+    dispatch(user.actions.setCountryId(event.target.value))
+    setNewCountryId(event.target.value)  
+  }
+
+  return (
     <>
       <Header />
-
       <div className="main-container">
-
         <form className="add-countries-form" onSubmit={onCountry}>
           <div className="logout-and-presentation-container">
-
             <h3 className="card-header">Hi {username}!</h3>
             <button className="logout-button" onClick={onButtonClick}>Log out</button>
           </div>
@@ -165,7 +160,6 @@ const Main = () => {
             <p className="presentation-text">To remember all the wonderful places you have seen during your travels you can add notes to a specifik country and have them displayed further down on this page.</p>
           </div>
           <h3 className="card-header">Add a new country you have visited:</h3>
-
           <div>
             <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
               <optgroup label='Countries'>
@@ -174,7 +168,9 @@ const Main = () => {
                   <option
                     key={country.country}
                     value={country.alphaCode}
-                  >{country.country}</option>
+                  >
+                    {country.country}
+                  </option>
                 ))}
               </optgroup>
             </select>
@@ -183,10 +179,9 @@ const Main = () => {
           <button className="add-countries-button" type="submit" disabled={!newCountry}>Add country</button>
         </form>
         <Worldmap visitedList={visitedList} />
-
         <form className="add-tips-form" onSubmit={onTravelTips}>
           <h3 className="card-header">Choose one of your visited countries and add some notes:</h3>
-          <select value={newCountryId} onChange={(event) => dispatch(user.actions.setCountryId(event.target.value))}>
+          <select value={newCountryId} onChange={onSelectedCountryTips}>
             <optgroup label='Countries'>
               <option value="" defaultValue>Select country</option>
               {visitedList && visitedList.map(country => (
@@ -200,20 +195,18 @@ const Main = () => {
           <input
             type="text"
             value={newComment}
-            onChange={(event) => setNewComment(event.target.value)}
-            // className="username-input"
+            onChange={(event) => setNewComment(event.target.value)}            
             placeholder="Write a note"
           />
           <button type="submit" className="add-tips-button" disabled={!newComment}>Add notes</button>
           {errorMsgTips ? <p>{errorMsgTips}</p> : null}
         </form>
-
         <div className="travel-tips-container">
           <h3 className="card-header">Your travel notes:</h3>
           <div className="notes-container">
             {visitedList && visitedList.map(item => (
-              <div>
-                <p key={item.country._id} className="presentation-text"><span className="country-text">Country:</span> {item.country.country}</p>
+              <div key={item.country._id}>
+                <p  className="presentation-text"><span className="country-text">Country:</span> {item.country.country}</p>
                 {item.comments.map(comment => (
                   <div key={item.index}>
                     <p className="presentation-text"><span className="notes-text">Notes:</span> {comment}</p>
@@ -226,8 +219,6 @@ const Main = () => {
         <Footer />
       </div >
     </>
-
-
   )
 }
 

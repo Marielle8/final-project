@@ -5,18 +5,20 @@ import passport from '../assets/passport.png'
 const Worldmap = (props) => {
   const [data, setData] = useState([])
 
-  let numberOfCountriesVisited = props.visitedList.length  
-  const x = 0.4
-  let sum = x*numberOfCountriesVisited
+  const percentageOfWorld = () => {
+    let numberOfCountriesVisited = props.visitedList.length  
+    const x = 0.4
+    let sum = x*numberOfCountriesVisited
+    return(sum)
+  }
 
+  useEffect(() => {
   const addItem = () => {
     const visitedCountreisList = props.visitedList.map(item => {
       return { country: item.country.alphaCode, value: "Visited" }
     })
     setData(visitedCountreisList)
   }
-
-  useEffect(() => {
     addItem()
   }, [props.visitedList])
 
@@ -25,7 +27,7 @@ const Worldmap = (props) => {
 
     <div className="worldmap-container">
       <p className="card-header">Your visited Countries:</p>
-      {data.length ? <p className="presentation-text">You have visited {Math.round(sum)}% of the world.</p> :null}
+      {data.length ? <p className="presentation-text">You have visited {Math.ceil(percentageOfWorld())}% of the world.</p> :null}
       {data.length ? <WorldMap
         color="#44656E"
         backgroundColor="transparent"
@@ -33,7 +35,7 @@ const Worldmap = (props) => {
         value-prefix="visited"
         size="lg"
         data={data} />
-        : <img src={passport} />
+        : <img src={passport} alt="passport showing while visited list is empty"/>
       }
     </div>
   )
