@@ -131,6 +131,7 @@ const Main = () => {
       .then(data => {
         if (data.success) {
           dispatch(user.actions.setErrorsTips(null))
+          fetchVisitedList()
         } else {
           dispatch(user.actions.setErrorsTips('Failed to add travel tips'))
         }
