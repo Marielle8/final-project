@@ -21,13 +21,13 @@ const Header = () => {
   }, [])
 
   return (
-    <section className="header">
+    <section className="header">      
       <img className="header-icon-desktop" src={desktopicon} alt="Traveljournal-icon" />
       <img className="header-icon" src={icon} alt="Traveljournal-icon" />
       <div className="lottie-container" ref={lottieContainer} />
       <div className="header-text">
         <h1 className="header-h1">Welcome</h1>
-        <h2 className="header-h2">{username}</h2>       
+        <h2 className="header-h2">{username}</h2> 
       </div>
     </section>
   )
