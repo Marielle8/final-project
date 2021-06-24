@@ -14,8 +14,7 @@ const Main = () => {
   const [newCountry, setNewCountry] = useState("")
   const [visitedList, setVisitedList] = useState([])
   const [newCountryId, setNewCountryId] = useState("")
-  const [newComment, setNewComment] = useState("")
-  const [friendsList, setFriendsList] = useState([])
+  const [newComment, setNewComment] = useState("") 
 
 
   const accessToken = useSelector(store => store.user.accessToken)
@@ -24,6 +23,8 @@ const Main = () => {
   const errorMsgTips = useSelector(store => store.user.errorsTips)  
   const username = useSelector(store => store.user.username)
   const countryId = useSelector(store => store.user.visitedCountryId)
+  const friends = useSelector(store => store.user.friends)
+  // const friendsList = useSelector(store => store.user.friendsList)
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -96,18 +97,16 @@ const Main = () => {
     fetch(API_URL('friends'), options)
     .then(res => res.json())
       .then(data => {
-        if (data.success) {
-          batch(() => {
-            console.log(data)
-            setFriendsList(data)
-          })
+        if (data.success) {  
+          console.log(data.users.visitedCountries.country.country)
+            dispatch(user.actions.setFriends(data.users))
+            // dispatch(user.actions.setFriendsList(data.users.visitedCountries))            
         } else {
           dispatch(user.actions.setErrorsCountry('data'))
         }
       })
   }
-  console.log(friendsList)
-
+  
   
   
   const onCountry = (event) => {
@@ -164,8 +163,8 @@ const Main = () => {
           dispatch(user.actions.setErrorsTips( 'Failed to add travel tips' ))
         }
       })
-  }
-  
+  }  
+
   return (
 
     <>
@@ -220,13 +219,8 @@ const Main = () => {
 
       <div className="travel-tips-container">
         <p>Your travel tips:</p>  
-        {/* {friendsList.users && friendsList.users.map(friend => (
-          friend.visitedCountries.map(item => (
-            <p key={item._id}>{item.country}</p>
-          ))
-        ))} */}
-  {console.log(friendsList)}
-
+      
+      
       </div>
       <Footer />
     </div >

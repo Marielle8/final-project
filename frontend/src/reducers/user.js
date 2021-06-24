@@ -9,7 +9,11 @@ const initialState = localStorage.getItem('user')
     errorsTips: null,
     visitedCountry: [],
     visitedCountryId: null,
-    items: []    
+    items: [],
+    friends: [],
+    friendsList: []  
+
+
   }
   : {
     username: null,
@@ -19,7 +23,9 @@ const initialState = localStorage.getItem('user')
     errorsTips: null,
     visitedCountry: [],
     visitedCountryId: null,
-    items: []    
+    items: [],
+    friends: [],  
+    friendsList: []  
   }
 
 const user = createSlice({
@@ -43,6 +49,12 @@ const user = createSlice({
     },
     setCountries: (store, action) => {
       store.items = action.payload
+    },
+    setFriends: (store, action) => {
+      store.friends = action.payload      
+    },
+    setFriendsList: (store, action) => {
+      store.friendsList = action.payload      
     },
     setVisitedCountry: (store, action) => {
       const existingCountry = store.visitedCountry.find((item) => item === action.payload)

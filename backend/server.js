@@ -96,7 +96,7 @@ app.get('/users', async (req, res) => {
 
 app.get('/friends', authenticateUser)
 app.get('/friends', async (req, res) => {    
-  const users = await User.find() 
+  const users = await User.find().lean()   
   res.json({ success: true, users })
 })
 
