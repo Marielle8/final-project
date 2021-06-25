@@ -98,7 +98,9 @@ const Main = () => {
     .then(res => res.json())
       .then(data => {
         if (data.success) {  
-          console.log(data.users.visitedCountries.country.country)
+          console.log(data.users[0].visitedCountries[0].country.country)
+          // lägg till params för userid....friends/:userid/visitedCountries eller om jag bara kan skifta mellan anvädaren i starten...
+
             dispatch(user.actions.setFriends(data.users))
             // dispatch(user.actions.setFriendsList(data.users.visitedCountries))            
         } else {
@@ -219,8 +221,17 @@ const Main = () => {
 
       <div className="travel-tips-container">
         <p>Your travel tips:</p>  
-      
-      
+            <select value={newCountry} onChange={(event) => setNewCountry(event.target.value)}>
+            <optgroup label='Friends'>              
+              {friends.map(friend=> (              
+                <option
+                  key={friend.username}                                  
+                  value={friend._id}
+                >{friend._id} </option>
+              ))}
+            </optgroup>
+          </select>
+
       </div>
       <Footer />
     </div >
