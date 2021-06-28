@@ -4,6 +4,9 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt-nodejs'
 import listEndpoints from 'express-list-endpoints'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 import countryDB from './data/countryDB.json'
 
